@@ -1,0 +1,52 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+.privacy {
+  min-height: calc(100vh - 200px);
+  padding: 4rem 2rem;
+  background: var(--color-primary-bg);
+  color: var(--color-text);
+  @include page-transition;
+
+  .breadcrumbs {
+    font-size: 0.9rem;
+    color: var(--color-gray);
+    margin-bottom: 2rem;
+
+    a {
+      color: var(--color-gray);
+      text-decoration: none;
+
+      &:hover {
+        color: var(--color-accent);
+      }
+    }
+  }
+
+  .title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    line-height: 1.2;
+    position: relative;
+
+    &::after {
+      content: '|';
+      position: absolute;
+      right: -10px;
+      animation: blink 1s infinite;
+    }
+  }
+
+  .content {
+    max-width: 800px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--color-gray);
+  }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}

@@ -1,0 +1,14 @@
+$primary-bg: #0f0c29;
+$secondary-bg: #1a173d;
+$text-color: #ffffff;
+$accent-orange: #ff8c00;
+$gray-text: #b0b0b0;
+$font-main: 'Inter', sans-serif;
+
+:root {
+  --color-primary-bg: #{$primary-bg};
+  --color-secondary-bg: #{$secondary-bg};
+  --color-text: #{$text-color};
+  --color-accent: #{$accent-orange};
+  --color-gray: #{$gray-text};
+}
