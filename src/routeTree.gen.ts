@@ -7,8 +7,9 @@ import { Route as EventsImport } from './routes/events'
 import { Route as NewsImport } from './routes/news'
 import { Route as AboutImport } from './routes/about'
 import { Route as LoginImport } from './routes/login'
-import { Route as RegisterImport } from './routes/register'
 import { Route as SearchImport } from './routes/search'
+// 1. Імпортуємо новий маршрут
+import { Route as DashboardImport } from './routes/dashboard' 
 
 const IndexRoute = IndexImport.update({
   path: '/',
@@ -40,13 +41,14 @@ const LoginRoute = LoginImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const RegisterRoute = RegisterImport.update({
-  path: '/register',
+const SearchRoute = SearchImport.update({
+  path: '/search',
   getParentRoute: () => rootRoute,
 } as any)
 
-const SearchRoute = SearchImport.update({
-  path: '/search',
+// 2. Створюємо об'єкт маршруту для Dashboard
+const DashboardRoute = DashboardImport.update({
+  path: '/dashboard',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -94,18 +96,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
     }
-    '/register': {
-      id: '/register'
-      path: '/register'
-      fullPath: '/register'
-      preLoaderRoute: typeof RegisterImport
-      parentRoute: typeof rootRoute
-    }
     '/search': {
       id: '/search'
       path: '/search'
       fullPath: '/search'
       preLoaderRoute: typeof SearchImport
+      parentRoute: typeof rootRoute
+    }
+    // 3. Додаємо тип для Dashboard
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardImport
       parentRoute: typeof rootRoute
     }
   }
@@ -118,6 +121,6 @@ export const routeTree = rootRoute.addChildren([
   NewsRoute,
   AboutRoute,
   LoginRoute,
-  RegisterRoute,
   SearchRoute,
+  DashboardRoute, // 4. Додаємо в масив дітей
 ])

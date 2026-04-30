@@ -8,9 +8,9 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { to: '/about', label: 'Про нас' },
-  { to: '/news', label: 'Новини' },
-  { to: '/events', label: 'Заходи' }
+  { to: '/', label: 'Головна' },
+  { to: '/news', label: 'Мої роботи' }, 
+  { to: '/events', label: 'Мій блог' }
 ];
 
 export function Header() {
@@ -23,21 +23,27 @@ export function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.container}>
-        <Link to="/" className={styles.logo} onClick={closeMobileMenu}>
-        <span className={styles.logo__text}>Роднічок</span>
-        {/* <span className={styles.logo__tech}>tech®</span> */}
+        <Link to="/" className={styles.logo} onClick={closeMobileMenu} aria-label="На головну">
+          <svg 
+            width="40" 
+            height="40" 
+            viewBox="0 0 100 100" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg"
+            className={styles.logoIcon}
+          >
+            <path 
+              d="M35 20 L75 50 L35 80 L45 80 L75 50 L45 20 Z" 
+              fill="#0055FF"
+              strokeLinejoin="round"
+            />
+            <path 
+              d="M50 35 L70 50 L50 65 L55 65 L70 50 L55 35 Z" 
+              fill="#0055FF" 
+              opacity="0.6"
+            />
+          </svg>
         </Link>
-
-        <button
-          className={styles.burgerBtn}
-          aria-label="Меню"
-          aria-expanded={isMobileMenuOpen}
-          onClick={toggleMobileMenu}
-        >
-          <span className={`${styles.burgerLine} ${isMobileMenuOpen ? styles.burgerLineOpen : ''}`}></span>
-          <span className={`${styles.burgerLine} ${isMobileMenuOpen ? styles.burgerLineOpen : ''}`}></span>
-          <span className={`${styles.burgerLine} ${isMobileMenuOpen ? styles.burgerLineOpen : ''}`}></span>
-        </button>
 
         <nav className={`${styles.nav} ${isMobileMenuOpen ? styles.navOpen : ''}`}>
           <ul className={styles.navList}>
@@ -55,31 +61,44 @@ export function Header() {
                 </li>
               );
             })}
+            
+            <div className={styles.mobileControls}>
+               <Link to="/login" className={styles.loginBtnMobile} onClick={closeMobileMenu}>
+                 Увійти
+               </Link>
+            </div>
           </ul>
         </nav>
 
         <div className={styles.controls}>
-          <Link to="/search" className={styles.searchBtn} aria-label="Пошук">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <button className={styles.iconBtn} aria-label="Пошук">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <circle cx="11" cy="11" r="8"></circle>
               <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
             </svg>
-          </Link>
+          </button>
 
-          <select className={styles.select}>
-            <option value="uk">UK</option>
-            <option value="en">EN</option>
-          </select>
+          <div className={styles.langSwitcher}>
+             <span className={styles.langActive}>UK</span>
+             <span className={styles.langDivider}>/</span>
+             <button className={styles.langBtn}>EN</button>
+          </div>
 
-          <select className={styles.select}>
-            <option value="ua">UK</option>
-            <option value="en">EN</option>
-          </select>
-
-          <Link to="/login" className={styles.loginBtn} onClick={closeMobileMenu}>
+          <Link to="/login" className={`${styles.btn} ${styles.btnPrimary}`}>
             Увійти
           </Link>
         </div>
+
+        <button
+          className={`${styles.burgerBtn} ${isMobileMenuOpen ? styles.burgerBtnActive : ''}`}
+          aria-label="Меню"
+          aria-expanded={isMobileMenuOpen}
+          onClick={toggleMobileMenu}
+        >
+          <span className={styles.burgerLine}></span>
+          <span className={styles.burgerLine}></span>
+          <span className={styles.burgerLine}></span>
+        </button>
       </div>
     </header>
   );

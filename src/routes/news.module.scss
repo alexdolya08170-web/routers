@@ -1,0 +1,338 @@
+@use '../styles/mixins' as *;
+
+.portfolio {
+  position: relative;
+  background-color: #fafafa;
+  min-height: 100vh;
+  padding-top: 8rem;
+  overflow: hidden;
+}
+
+.bgDecor {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 800px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+.decor__rectLeft {
+  position: absolute;
+  top: -5%;
+  left: -5%;
+  width: 500px;
+  height: 600px;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  transform: rotate(-6deg);
+  border-radius: 20px;
+}
+
+.decor__rectRight {
+  position: absolute;
+  top: 15%;
+  right: -5%;
+  width: 400px;
+  height: 500px;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+  transform: rotate(6deg);
+  border-radius: 20px;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 2rem 6rem;
+}
+
+.header {
+  margin-bottom: 6rem;
+  max-width: 800px;
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.title {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 800;
+  color: #111827;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.intro {
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  color: #6b7280;
+  line-height: 1.6;
+  max-width: 600px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 8rem;
+}
+
+.projectItem {
+  display: flex;
+  align-items: center;
+  gap: 5rem;
+  
+  opacity: 0;
+  transform: translateY(40px);
+  animation: fadeInUpItem 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  
+  &:nth-child(even) {
+    flex-direction: row-reverse;
+    
+    .projectInfo {
+      text-align: right;
+      align-items: flex-end;
+    }
+  }
+}
+
+// Затримка анімації для кожної картки
+@for $i from 1 through 10 {
+  .projectItem:nth-child(#{$i}) {
+    animation-delay: #{$i * 0.1}s;
+  }
+}
+
+@keyframes fadeInUpItem {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.projectInfo {
+  flex: 1;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+  
+  .projectItem:nth-child(even) & {
+    align-items: flex-end;
+  }
+}
+
+.projectTitle {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.projectDesc {
+  font-size: 1.125rem;
+  color: #6b7280;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+
+  .linkHighlight {
+    color: #059669; // Зелений акцент
+    text-decoration: none;
+    font-weight: 600;
+    position: relative;
+    transition: color 0.2s ease;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      transform: scaleX(0);
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background-color: #059669;
+      transform-origin: bottom right;
+      transition: transform 0.25s ease-out;
+    }
+
+    &:hover {
+      color: #047857; // Темніший зелений при ховері
+      
+      &::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+      }
+    }
+  }
+}
+
+.projectVisual {
+  flex: 1.5;
+  position: relative;
+  transition: transform 0.4s ease;
+  
+  .projectItem:hover & {
+    transform: translateY(-5px);
+  }
+}
+
+.imageWrapper {
+  width: 100%;
+  background: white;
+  padding: 12px;
+  box-shadow: 
+    0 20px 40px -10px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(0, 0, 0, 0.03);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+
+  .projectItem:hover & {
+    box-shadow: 
+      0 25px 50px -12px rgba(0, 0, 0, 0.15),
+      0 0 0 1px rgba(0, 0, 0, 0.05);
+  }
+
+  img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 6rem;
+  
+  opacity: 0;
+  animation: fadeIn 1s ease-out 0.8s forwards;
+}
+
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
+
+.paginationArrow {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  color: #2563eb; // Синій акцент
+  background: transparent;
+  border: 1px solid rgba(37, 99, 235, 0.2);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &:hover:not(:disabled) {
+    background: #2563eb;
+    color: white;
+    border-color: #2563eb;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.95);
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+}
+
+.pageNumber {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #6b7280;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    color: #111827;
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  &.active {
+    background: #2563eb;
+    color: white;
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+  }
+}
+
+@media (max-width: 992px) {
+  .portfolio {
+    padding-top: 5rem;
+  }
+
+  .container {
+    padding: 0 1.5rem 4rem;
+  }
+
+  .projectItem, 
+  .projectItem:nth-child(even) {
+    flex-direction: column-reverse;
+    gap: 2.5rem;
+  }
+
+  .projectInfo,
+  .projectItem:nth-child(even) .projectInfo {
+    max-width: 100%;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  .projectVisual {
+    width: 100%;
+  }
+
+  .list {
+    gap: 5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .portfolio {
+    padding-top: 4rem;
+  }
+
+  .container {
+    padding: 0 1.25rem 3rem;
+  }
+
+  .header {
+    margin-bottom: 4rem;
+  }
+
+  .bgDecor {
+    display: none;
+  }
+
+  .pagination {
+    gap: 0.5rem;
+  }
+
+  .paginationArrow,
+  .pageNumber {
+    width: 40px;
+    height: 40px;
+  }
+}
