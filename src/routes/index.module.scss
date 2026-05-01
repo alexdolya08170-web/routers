@@ -69,15 +69,6 @@
     animation-duration: 25s;
   }
 
-  .glowBlob__2 {
-    bottom: -30%;
-    right: -10%;
-    width: 50vw;
-    height: 50vw;
-    animation-duration: 30s;
-    animation-delay: -5s;
-  }
-
   @keyframes moveBlob {
     0% { transform: translate(0, 0) scale(1); }
     50% { transform: translate(40px, -40px) scale(1.1); }

@@ -136,7 +136,7 @@ function HomePage() {
         <div className={styles.hero__content}>
           <h1 className={styles.hero__title}>Олександр Долинський</h1>
           <p className={styles.hero__subtitle}>
-              Розробник (React/Next) та адміністратор.
+              Веб-розробник (React/Next) 
           </p>
 
           <div className={styles.hero__buttons}>
@@ -156,9 +156,9 @@ function HomePage() {
             <div className={styles.content}>
               <h2 className={styles.title}>Про мене</h2>
               <h3 className={styles.name}>Олександр Долинський</h3>
-              <p className={styles.role}>Розробник (React/Next) та адміністратор.</p>
+              <p className={styles.role}>Веб-розробник (React/Next)</p>
               <p className={styles.description}>
-              Маю глибокі технічні знання в побудові швидких та адаптивних інтерфейсів, а також у налаштуванні та підтримці мережевої інфраструктури (TCP/IP, DNS, DHCP, VLAN, VPN).
+              Маю глибокі технічні знання в побудові швидких та адаптивних інтерфейсів, а також у налаштуванні інфраструктури.
               </p>
             </div>
             <div className={styles.imageWrapper}>
