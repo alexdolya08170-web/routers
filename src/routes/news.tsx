@@ -20,7 +20,7 @@ function PortfolioPage() {
         </>
       ),
       image: "https://kamil-abzalov.com/wp-content/uploads/2022/11/ClientApp-%F0%9F%94%8A-2022-07-28-14-40-17.png",
-      link: "#"
+      link: "/projects/dashboard" // Приклад посилання
     },
     {
       id: 2,
@@ -31,7 +31,7 @@ function PortfolioPage() {
         </>
       ),
       image: "https://kamil-abzalov.com/wp-content/uploads/2022/07/dashboard.png",
-      link: "#"
+      link: "/projects/ecommerce"
     },
     {
       id: 3,
@@ -42,7 +42,7 @@ function PortfolioPage() {
         </>
       ),
       image: "https://kamil-abzalov.com/wp-content/uploads/2022/07/eye.png",
-      link: "#"
+      link: "/projects/task-manager"
     },
     {
       id: 4,
@@ -53,7 +53,7 @@ function PortfolioPage() {
         </>
       ),
       image: "https://kamil-abzalov.com/wp-content/uploads/2022/07/paromy.jpg",
-      link: "#"
+      link: "/projects/analytics"
     },
     {
       id: 5,
@@ -64,7 +64,7 @@ function PortfolioPage() {
         </>
       ),
       image: "https://kamil-abzalov.com/wp-content/uploads/2022/07/mQf83duhIEA.jpg",
-      link: "#"
+      link: "/projects/portfolio"
     }
   ];
 
@@ -90,6 +90,12 @@ function PortfolioPage() {
       <div className={styles.bgDecor}>
         <div className={styles.decor__rectLeft}></div>
         <div className={styles.decor__rectRight}></div>
+        
+        <div className={styles.decorCubes}>
+          <div className={`${styles.cube} ${styles.cube__1}`}></div>
+          <div className={`${styles.cube} ${styles.cube__2}`}></div>
+          <div className={`${styles.cube} ${styles.cube__3}`}></div>
+        </div>
       </div>
 
       <div className={styles.container}>
@@ -106,7 +112,9 @@ function PortfolioPage() {
               <div className={styles.projectInfo}>
                 <h2 className={styles.projectTitle}>{project.title}</h2>
                 <p className={styles.projectDesc}>{project.description}</p>
-                {/* Кнопка удалена */}
+                <a href={project.link} className={styles.projectLink}>
+                  Детальніше &rarr;
+                </a>
               </div>
 
               <div className={styles.projectVisual}>

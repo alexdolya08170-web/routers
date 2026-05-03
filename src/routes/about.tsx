@@ -7,7 +7,7 @@ export const Route = createFileRoute('/about')({
 function AboutPage() {
   return (
     <section style={{ padding: '4rem 2rem', textAlign: 'center' }}>
-      <h1>Про нас</h1>
+      <h1>Про мене</h1>
       <p>Сторінка у розробці...</p>
     </section>
   );

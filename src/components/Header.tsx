@@ -9,6 +9,7 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   { to: '/', label: 'Головна' },
+  { to: '/about', label: 'Про мене' },
   { to: '/news', label: 'Мої роботи' }, 
   { to: '/events', label: 'Мій блог' }
 ];
@@ -18,7 +19,6 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Ефект для зміни стилю хедера при скролі
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -30,7 +30,6 @@ export function Header() {
   const toggleMobileMenu = () => setIsMobileMenuOpen((prev) => !prev);
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
-  // Блокування скролу сторінки, коли відкрите мобільне меню
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -45,14 +44,9 @@ export function Header() {
   return (
     <header className={`${styles.header} ${isScrolled ? styles.headerScrolled : ''}`}>
       <div className={styles.container}>
-        <Link to="/" className={styles.logo} onClick={closeMobileMenu} aria-label="На головну">
-          <span className={styles.logoText}>Олександр Долинський</span>
-        </Link>
-
         <nav className={`${styles.nav} ${isMobileMenuOpen ? styles.navOpen : ''}`}>
           <ul className={styles.navList}>
             {navItems.map(({ to, label }) => {
-              // Перевірка активності маршруту (можна покращити через useMatchRoute, якщо потрібно точніше співпадіння)
               const isActive = location.pathname === to || (to !== '/' && location.pathname.startsWith(to));
               
               return (
@@ -78,14 +72,16 @@ export function Header() {
 
         <div className={styles.controls}>
           <div className={styles.langSwitcher}>
-             <button className={`${styles.langBtn} ${styles.langActive}`}>UK</button>
+             <button className={`${styles.langBtn} ${styles.langActive}`}>UA</button>
              <span className={styles.langDivider}>/</span>
              <button className={styles.langBtn}>EN</button>
           </div>
 
           <Link to="/login" className={`${styles.btn} ${styles.btnPrimary}`}>
-            Увійти
-          </Link>
+          <span className={styles.btnContent}>
+            Увійти 
+          </span>
+        </Link>
         </div>
 
         <button
@@ -100,7 +96,6 @@ export function Header() {
         </button>
       </div>
       
-      {/* Затемнення фону при відкритому меню */}
       <div 
         className={`${styles.overlay} ${isMobileMenuOpen ? styles.overlayActive : ''}`}
         onClick={closeMobileMenu}

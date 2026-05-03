@@ -65,25 +65,6 @@
     }
   }
 
-  .socials {
-    display: flex;
-    gap: 1.5rem;
-    margin-top: 2rem;
-
-    a {
-      color: rgba(255, 255, 255, 0.7);
-      transition: color 0.3s ease, transform 0.3s ease;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      &:hover {
-        color: #ffffff;
-        transform: translateY(-3px);
-      }
-    }
-  }
-
   .bgShape {
     position: absolute;
     top: 0;

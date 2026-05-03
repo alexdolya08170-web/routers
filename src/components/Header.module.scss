@@ -160,14 +160,9 @@
     background: #f5f7fa;
     padding: 0.4rem 0.8rem;
     border-radius: 2rem;
-
-    .langActive {
-      color: #0055ff;
-    }
-
-    .langDivider {
-      color: #cccccc;
-      font-weight: 400;
+    
+    &:hover {
+      cursor: pointer;
     }
 
     .langBtn {
@@ -179,11 +174,6 @@
       font-size: inherit;
       font-weight: inherit;
       padding: 0;
-      transition: color 0.2s;
-      
-      &:hover {
-        color: #0055ff;
-      }
     }
   }
 
@@ -200,22 +190,47 @@
     justify-content: center;
   }
 
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    border: none;
+    font-size: 14px;
+  }
+
   .btnPrimary {
-    background-color: #0055ff;
-    color: white;
-    border: 1px solid #0055ff;
-    box-shadow: 0 4px 12px rgba(0, 85, 255, 0.25);
+    background-color: #f0f0f0;
+    color: #555555;
+    text-decoration: none;
+    font-weight: 500;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
 
-    &:hover {
-      background-color: #0044cc; 
-      border-color: #0044cc;
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 85, 255, 0.35);
-    }
+  .btnPrimary:hover {
+    background-color: #e0e0e0;
+    color: #333333;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+  }
 
-    &:active {
-      transform: translateY(0);
-    }
+  .btnContent {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .icon {
+    display: block;
+    opacity: 0.8; 
+    transition: opacity 0.2s;
+  }
+
+  .btnPrimary:hover .icon {
+    opacity: 1;
   }
 
   .burgerBtn {

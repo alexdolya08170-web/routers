@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
 import { useEffect, useRef } from 'react';
 import styles from './index.module.scss';
 
@@ -136,17 +136,8 @@ function HomePage() {
         <div className={styles.hero__content}>
           <h1 className={styles.hero__title}>Олександр Долинський</h1>
           <p className={styles.hero__subtitle}>
-              Веб-розробник (React/Next) 
+              Веб-розробник 
           </p>
-
-          <div className={styles.hero__buttons}>
-            <a href="/projects" className={`${styles.btn} ${styles.btn_primary}`}>
-              МОЇ РОБОТИ
-            </a>
-            <a href="/contacts" className={`${styles.btn} ${styles.btn_outline}`}>
-              МІЙ БЛОГ
-            </a>
-          </div>
         </div>
       </section>
 
@@ -156,10 +147,13 @@ function HomePage() {
             <div className={styles.content}>
               <h2 className={styles.title}>Про мене</h2>
               <h3 className={styles.name}>Олександр Долинський</h3>
-              <p className={styles.role}>Веб-розробник (React/Next)</p>
+              <p className={styles.role}>Веб-розробник</p>
               <p className={styles.description}>
-              Маю глибокі технічні знання в побудові швидких та адаптивних інтерфейсів, а також у налаштуванні інфраструктури.
+                Маю глибокі технічні знання в побудові швидких та адаптивних інтерфейсів, а також у налаштуванні інфраструктури.
               </p>
+              <Link to="/about" className={styles.aboutLink}>
+                Детальніше &rarr;
+              </Link>
             </div>
             <div className={styles.imageWrapper}>
               <img 
@@ -203,12 +197,12 @@ function HomePage() {
             <h2 className={styles.sectionTitle}>БЛОГ</h2>
             <div className={styles.blogGrid}>
               {blogPosts.map((post) => (
-                // Оборачиваем article в ссылку
                 <a key={post.id} href={post.link} className={styles.blogCardLink}>
                   <article className={styles.blogCard}>
                     <div className={styles.blogContent}>
                       <h3 className={styles.blogTitle}>{post.title}</h3>
                       <p className={styles.blogExcerpt}>{post.excerpt}</p>
+                      <span className={styles.readMore}>Читати далі &rarr;</span>
                     </div>
                   </article>
                 </a>
