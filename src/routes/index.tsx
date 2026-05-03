@@ -157,7 +157,7 @@ function HomePage() {
             </div>
             <div className={styles.imageWrapper}>
               <img 
-                src="https://placehold.co/400" 
+                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop" 
                 alt="Олександр Долинський" 
                 className={styles.image}
               />

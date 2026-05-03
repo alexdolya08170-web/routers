@@ -100,7 +100,7 @@ function LoginPage() {
       <div className={styles.container}>
         <article className={styles.card}>
           <h1 className={styles.title}>Увійти</h1>
-          <p className={styles.subtitle}>Адмінка для контенту</p>
+          <p className={styles.subtitle}>Мій кабінет</p>
           
           <Formik
             initialValues={{ email: '', password: '' }}

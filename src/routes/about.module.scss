@@ -1,0 +1,410 @@
+@use '../styles/variables' as *; // Если у вас есть файл переменных
+@use '../styles/mixins' as *;    // Если у вас есть файл миксинов
+
+// Если переменные не подключены, можно использовать значения напрямую:
+$primary-color: #0055ff;
+$primary-dark: #0044cc;
+$text-main: #1a1a1a;
+$text-secondary: #555;
+$bg-light: #f9fafb;
+
+/* --- HERO SECTION --- */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 0 200px;
+  box-sizing: border-box;
+  background-color: #ffffff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: $text-main;
+  gap: 4rem;
+
+  &__content {
+    flex: 1;
+    width: 100%;
+    text-align: left;
+  }
+
+  &__title {
+    font-size: 4rem;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    letter-spacing: -0.03em;
+    color: #111;
+  }
+
+  &__subtitle {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: $text-secondary;
+    margin-bottom: 2.5rem;
+    line-height: 1.4;
+  }
+
+  &__actions {
+    margin-bottom: 0;
+  }
+
+  &__btn {
+    display: inline-block;
+    background-color: $primary-color;
+    color: #fff;
+    padding: 0.8rem 1.8rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba($primary-color, 0.2);
+
+    &:hover {
+      background-color: $primary-dark;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba($primary-color, 0.3);
+    }
+  }
+
+  /* --- IMAGE WRAPPER & PHOTO (Desktop Default) --- */
+  &__imageWrapper {
+    flex: 0.8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    
+    // Важно для поворота фото, чтобы оно не обрезалось
+    overflow: visible; 
+    padding: 20px; 
+
+    // Серый фон (подложка) - строго вертикальный
+    &::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 100%;
+      max-width: 400px;
+      aspect-ratio: 4/5;
+      background-color: rgba(0, 0, 0, 0.05);
+      border-radius: 20px;
+      z-index: 0;
+      transform: none;
+    }
+  }
+
+  &__photo {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    border-radius: 20px;
+    
+    filter: none; // Без ч/б фильтра
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    
+    position: relative;
+    z-index: 1;
+    
+    // Легкий наклон для динамики
+    transform: rotate(-3deg);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    &:hover {
+      // При наведении выравниваем и увеличиваем
+      transform: rotate(0deg) scale(1.02);
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+    }
+  }
+}
+
+/* --- COMMON SECTIONS --- */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section {
+  padding: 6rem 0;
+  background-color: #fff;
+}
+
+.sectionAlt {
+  background-color: $bg-light;
+}
+
+.sectionTitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 3rem;
+  color: #111;
+  text-align: center;
+}
+
+.text {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: #4b5563;
+  width: 600px;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.skillsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.skillTag {
+  background-color: #e5e7eb;
+  color: #374151;
+  padding: 0.5rem 1.25rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #d1d5db;
+  }
+}
+
+/* --- TIMELINE --- */
+.timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    background: #e5e7eb;
+    z-index: 0;
+  }
+}
+
+.timelineItem {
+  position: relative;
+  margin-bottom: 3rem;
+  width: 50%;
+  z-index: 1;
+
+  &:nth-child(odd) {
+    padding-right: 40px;
+    text-align: right;
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  &:nth-child(even) {
+    padding-left: 40px;
+    text-align: left;
+    margin-left: auto;
+    margin-right: 0;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 5px;
+    width: 16px;
+    height: 16px;
+    background: #fff;
+    border: 4px solid $primary-color;
+    border-radius: 50%;
+    margin: 0 auto;
+    z-index: 2;
+  }
+
+  &:nth-child(odd)::before {
+    right: -8px;
+  }
+
+  &:nth-child(even)::before {
+    left: -8px;
+  }
+}
+
+.timelineHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.5rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  .timelineItem:nth-child(odd) & {
+    flex-direction: row-reverse; 
+  }
+}
+
+.jobRole {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111;
+}
+
+.jobPeriod {
+  font-size: 0.9rem;
+  color: #6b7280;
+  font-weight: 500;
+  background: #f3f4f6;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.jobCompany {
+  font-size: 1.1rem;
+  color: $primary-color;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.jobDesc {
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+/* --- MEDIA QUERIES --- */
+
+// Large Laptops
+@media (max-width: 1400px) {
+  .hero {
+    padding: 0 100px;
+    gap: 3rem;
+    
+    &__title {
+      font-size: 3.5rem;
+    }
+  }
+}
+
+// Tablets & Small Laptops
+@media (max-width: 1024px) {
+  .hero {
+    flex-direction: column-reverse; // Текст сверху, фото снизу
+    padding: 4rem 50px;
+    gap: 3rem;
+    text-align: center;
+    min-height: auto;
+    padding-top: 6rem;
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &__title {
+      font-size: 3rem;
+      text-align: center;
+    }
+
+    &__subtitle {
+      font-size: 1.4rem;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    &__imageWrapper {
+      flex: none;
+      width: 100%;
+      padding: 0; // Убираем паддинг, так как убираем поворот
+      overflow: hidden;
+
+      // Убираем серый фон на планшетах для чистоты
+      &::before {
+        display: none;
+      }
+    }
+
+    &__photo {
+      max-width: 350px;
+      // Сбрасываем поворот, оставляем прямоугольную форму
+      transform: rotate(0deg);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+
+      &:hover {
+        transform: scale(1.02);
+      }
+    }
+  }
+}
+
+// Vertical Tablets
+@media (max-width: 768px) {
+  .timeline {
+    &::before {
+      left: 20px;
+      transform: none;
+    }
+  }
+
+  .timelineItem {
+    width: 100%;
+    padding-left: 50px;
+    padding-right: 0;
+    text-align: left;
+    margin-left: 0;
+    margin-right: 0;
+
+    &::before {
+      left: 12px;
+      right: auto;
+    }
+
+    &:nth-child(odd) .timelineHeader {
+      flex-direction: row;
+    }
+  }
+  
+  .timelineHeader {
+     justify-content: flex-start;
+  }
+
+  // Делаем фото круглым на мобильных
+  .hero__photo {
+    max-width: 260px;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+  }
+}
+
+// Mobile Phones
+@media (max-width: 480px) {
+  .hero {
+    padding: 3rem 20px;
+
+    &__title {
+      font-size: 2.5rem;
+    }
+    
+    &__subtitle {
+      font-size: 1.2rem;
+    }
+
+    &__btn {
+      padding: 0.8rem 1.5rem;
+      font-size: 0.95rem;
+    }
+  }
+
+  .section {
+    padding: 4rem 0;
+  }
+
+  .sectionTitle {
+    font-size: 2rem;
+  }
+}

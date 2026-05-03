@@ -162,7 +162,7 @@
     border-radius: 2rem;
     
     &:hover {
-      cursor: pointer;
+      cursor: default;
     }
 
     .langBtn {
@@ -174,63 +174,51 @@
       font-size: inherit;
       font-weight: inherit;
       padding: 0;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: #0055ff;
+      }
+      
+      &Active {
+        color: #0055ff;
+      }
+    }
+    
+    .langDivider {
+      color: #ccc;
     }
   }
 
-  .btn {
-    padding: 0.6rem 1.5rem;
-    border-radius: 2rem;
-    font-weight: 600;
-    font-size: 0.95rem;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px 16px;
-    border-radius: 6px;
-    transition: all 0.2s ease-in-out;
-    cursor: pointer;
-    border: none;
-    font-size: 14px;
-  }
-
-  .btnPrimary {
-    background-color: #f0f0f0;
-    color: #555555;
-    text-decoration: none;
-    font-weight: 500;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-
-  .btnPrimary:hover {
-    background-color: #e0e0e0;
-    color: #333333;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-  }
-
-  .btnContent {
+  .loginLink {
     display: flex;
     align-items: center;
-    gap: 8px;
-  }
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: transparent;
+    color: #555555;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    
+    &:hover {
+      background-color: #f5f7fa; 
+      color: #0055ff;
+    }
 
-  .icon {
-    display: block;
-    opacity: 0.8; 
-    transition: opacity 0.2s;
-  }
+    .loginIcon {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+      transition: transform 0.3s ease;
+    }
 
-  .btnPrimary:hover .icon {
-    opacity: 1;
+    &:hover .loginIcon {
+      transform: rotate(90deg);
+    }
   }
 
   .burgerBtn {

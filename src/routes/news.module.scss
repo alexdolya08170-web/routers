@@ -388,3 +388,83 @@
     height: 40px;
   }
 }
+
+/* --- Стили для поиска --- */
+.searchWrapper {
+  position: relative;
+  margin-top: 2rem;
+  max-width: 500px;
+  width: 100%;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 1rem 3.5rem 1rem 1.5rem; // Отступ справа для кнопки очистки
+  font-size: 1rem;
+  color: #111827;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+
+  &::placeholder {
+    color: #9ca3af;
+  }
+
+  &:hover {
+    border-color: rgba(0, 85, 255, 0.3);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+  }
+
+  &:focus {
+    border-color: #0055ff;
+    box-shadow: 0 0 0 4px rgba(0, 85, 255, 0.1);
+  }
+}
+
+.clearSearchBtn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #9ca3af;
+  cursor: pointer;
+  
+  transition: all 0.2s ease;
+  padding: 0;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #111827;
+  }
+
+  &:active {
+    transform: translateY(-50%) scale(0.9);
+  }
+}
+
+/* Адаптив для поиска на мобильных */
+@media (max-width: 576px) {
+  .searchWrapper {
+    margin-top: 1.5rem;
+  }
+  
+  .searchInput {
+    padding: 0.875rem 3rem 0.875rem 1.25rem;
+    font-size: 0.95rem;
+  }
+}
