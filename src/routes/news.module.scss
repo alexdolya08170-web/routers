@@ -1,5 +1,38 @@
 @use '../styles/mixins' as *;
 
+/* --- KEYFRAMES --- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+// Новий кейфрейм для плаваючих елементів
+@keyframes floatAround {
+  0%, 100% {
+    transform: translate(0, 0) rotate(var(--r, 0deg));
+  }
+  25% {
+    transform: translate(var(--tx, 10px), var(--ty, -15px)) rotate(calc(var(--r, 0deg) + 5deg));
+  }
+  50% {
+    transform: translate(calc(var(--tx, 10px) * -1), calc(var(--ty, -15px) * 1.5)) rotate(calc(var(--r, 0deg) - 5deg));
+  }
+  75% {
+    transform: translate(var(--tx, 10px), calc(var(--ty, -15px) * 0.5)) rotate(calc(var(--r, 0deg) + 2deg));
+  }
+}
+
 .portfolio {
   position: relative;
   background-color: #fafafa;
@@ -16,7 +49,7 @@
   height: 800px;
   pointer-events: none;
   z-index: 0;
-  opacity: 0.8; /* Трохи підвищив загальну видимість декору */
+  opacity: 0.8;
 }
 
 .decor__rectLeft {
@@ -28,6 +61,8 @@
   border: 1px solid rgba(0, 0, 0, 0.03);
   transform: rotate(-6deg);
   border-radius: 20px;
+  // Легка анімація появи декору
+  animation: fadeIn 1.5s ease-out;
 }
 
 .decor__rectRight {
@@ -39,6 +74,7 @@
   border: 1px solid rgba(0, 0, 0, 0.03);
   transform: rotate(6deg);
   border-radius: 20px;
+  animation: fadeIn 1.5s ease-out 0.2s backwards;
 }
 
 .decorCubes {
@@ -53,12 +89,13 @@
 
 .cube {
   position: absolute;
-  /* Щільніший колір #0055ff */
   background: linear-gradient(135deg, rgba(0, 85, 255, 0.25), rgba(0, 85, 255, 0.1));
   border: 1px solid rgba(0, 85, 255, 0.4);
   box-shadow: 0 4px 20px rgba(0, 85, 255, 0.15);
   backdrop-filter: blur(4px);
-  animation: floatCube 15s infinite ease-in-out;
+  
+  // Змінив анімацію на більш хаотичну і плавну
+  animation: floatAround 20s infinite ease-in-out;
 }
 
 .cube__1 {
@@ -67,7 +104,9 @@
   width: 60px;
   height: 60px;
   border-radius: 12px;
-  transform: rotate(15deg);
+  --r: 15deg;
+  --tx: 20px;
+  --ty: -20px;
   animation-delay: 0s;
 }
 
@@ -77,8 +116,10 @@
   width: 40px;
   height: 40px;
   border-radius: 8px;
-  transform: rotate(-10deg);
-  animation-delay: 2s;
+  --r: -10deg;
+  --tx: -15px;
+  --ty: 15px;
+  animation-delay: -2s; // Negative delay to start animation mid-cycle
   background: linear-gradient(135deg, rgba(0, 85, 255, 0.2), rgba(0, 85, 255, 0.05));
   border-color: rgba(0, 85, 255, 0.35);
 }
@@ -89,19 +130,12 @@
   width: 80px;
   height: 80px;
   border-radius: 16px;
-  transform: rotate(45deg);
-  animation-delay: 4s;
+  --r: 45deg;
+  --tx: 10px;
+  --ty: 25px;
+  animation-delay: -5s;
   background: linear-gradient(135deg, rgba(0, 85, 255, 0.22), rgba(0, 85, 255, 0.08));
   border-color: rgba(0, 85, 255, 0.38);
-}
-
-@keyframes floatCube {
-  0%, 100% {
-    transform: translateY(0) rotate(var(--r, 0deg));
-  }
-  50% {
-    transform: translateY(-20px) rotate(calc(var(--r, 0deg) + 10deg));
-  }
 }
 
 .container {
@@ -115,6 +149,7 @@
 .header {
   margin-bottom: 6rem;
   max-width: 800px;
+  opacity: 0;
   animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
@@ -134,6 +169,86 @@
   max-width: 600px;
 }
 
+/* --- SEARCH STYLES WITH ANIMATION --- */
+.searchWrapper {
+  position: relative;
+  margin-top: 2rem;
+  max-width: 500px;
+  width: 100%;
+  
+  // Анімація появи пошуку разом із заголовком
+  opacity: 0;
+  animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 1rem 3.5rem 1rem 1.5rem;
+  font-size: 1rem;
+  color: #111827;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+
+  &::placeholder {
+    color: #9ca3af;
+    transition: color 0.3s ease;
+  }
+
+  &:hover {
+    border-color: rgba(0, 85, 255, 0.3);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+    
+    &::placeholder {
+      color: #6b7280;
+    }
+  }
+
+  &:focus {
+    border-color: #0055ff;
+    box-shadow: 0 0 0 4px rgba(0, 85, 255, 0.1);
+    transform: translateY(-1px); // Легкий підскок при фокусі
+  }
+}
+
+.clearSearchBtn {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #9ca3af;
+  cursor: pointer;
+  
+  transition: all 0.2s ease;
+  padding: 0;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #111827;
+    transform: translateY(-50%) rotate(90deg); // Обертання при ховері
+  }
+
+  &:active {
+    transform: translateY(-50%) scale(0.9);
+  }
+}
+
+/* --- PROJECT LIST --- */
 .list {
   display: flex;
   flex-direction: column;
@@ -146,8 +261,9 @@
   gap: 5rem;
   
   opacity: 0;
-  transform: translateY(40px);
-  animation: fadeInUpItem 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  // Додав scale(0.95) для ефекту "наближення" при появі
+  transform: translateY(40px) scale(0.98);
+  animation: fadeInUpProject 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   
   &:nth-child(even) {
     flex-direction: row-reverse;
@@ -159,16 +275,17 @@
   }
 }
 
-@for $i from 1 through 10 {
-  .projectItem:nth-child(#{$i}) {
-    animation-delay: #{$i * 0.1}s;
+// Оновлений кейфрейм для проектів
+@keyframes fadeInUpProject {
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 
-@keyframes fadeInUpItem {
-  to {
-    opacity: 1;
-    transform: translateY(0);
+@for $i from 1 through 10 {
+  .projectItem:nth-child(#{$i}) {
+    animation-delay: #{$i * 0.15}s; // Трохи збільшив затримку для плавності
   }
 }
 
@@ -191,6 +308,12 @@
   margin-bottom: 1rem;
   line-height: 1.2;
   letter-spacing: -0.02em;
+  transition: color 0.3s ease;
+  
+  // При ховері на всю картку, заголовок може міняти колір
+  .projectItem:hover & {
+    color: #0055ff;
+  }
 }
 
 .projectDesc {
@@ -207,22 +330,39 @@
   font-weight: 600;
   color: #0055ff;
   text-decoration: none;
-  transition: transform 0.2s ease, color 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   margin-top: 0.5rem;
+  position: relative;
+
+  // Ефект підкреслення, що роз'їжджається
+  &::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #0055ff;
+    transition: width 0.3s ease;
+  }
 
   &:hover {
     color: #003399;
     transform: translateX(5px);
+    
+    &::after {
+      width: 100%;
+    }
   }
 }
 
 .projectVisual {
   flex: 1.5;
   position: relative;
-  transition: transform 0.4s ease;
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   
   .projectItem:hover & {
-    transform: translateY(-5px);
+    transform: translateY(-8px) scale(1.01); // Більш виразний підскок
   }
 }
 
@@ -235,12 +375,12 @@
     0 0 0 1px rgba(0, 0, 0, 0.03);
   border-radius: 12px;
   overflow: hidden;
-  transition: box-shadow 0.3s ease;
+  transition: box-shadow 0.4s ease, border-color 0.4s ease;
 
   .projectItem:hover & {
     box-shadow: 
-      0 25px 50px -12px rgba(0, 0, 0, 0.15),
-      0 0 0 1px rgba(0, 0, 0, 0.05);
+      0 30px 60px -12px rgba(0, 0, 0, 0.15),
+      0 0 0 1px rgba(0, 85, 255, 0.1); // Легке синє кільце при ховері
   }
 
   img {
@@ -249,9 +389,16 @@
     display: block;
     object-fit: cover;
     border-radius: 8px;
+    transition: transform 0.5s ease;
+    
+    // Легкий зум картинки всередині рамки при ховері
+    .projectItem:hover & {
+      transform: scale(1.03);
+    }
   }
 }
 
+/* --- PAGINATION --- */
 .pagination {
   display: flex;
   justify-content: center;
@@ -261,10 +408,6 @@
   
   opacity: 0;
   animation: fadeIn 1s ease-out 0.8s forwards;
-}
-
-@keyframes fadeIn {
-  to { opacity: 1; }
 }
 
 .paginationArrow {
@@ -285,7 +428,7 @@
     background: #0055ff;
     color: white;
     border-color: #0055ff;
-    transform: scale(1.05);
+    transform: scale(1.1) rotate(360deg); // Обертання стрілки при ховері
     box-shadow: 0 4px 12px rgba(0, 85, 255, 0.3);
   }
 
@@ -317,15 +460,18 @@
   &:hover {
     color: #111827;
     background: rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
   }
 
   &.active {
     background: #0055ff;
     color: white;
     box-shadow: 0 4px 10px rgba(0, 85, 255, 0.3);
+    transform: scale(1.1);
   }
 }
 
+/* --- MEDIA QUERIES --- */
 @media (max-width: 992px) {
   .portfolio {
     padding-top: 5rem;
@@ -387,78 +533,7 @@
     width: 40px;
     height: 40px;
   }
-}
-
-/* --- Стили для поиска --- */
-.searchWrapper {
-  position: relative;
-  margin-top: 2rem;
-  max-width: 500px;
-  width: 100%;
-}
-
-.searchInput {
-  width: 100%;
-  padding: 1rem 3.5rem 1rem 1.5rem; // Отступ справа для кнопки очистки
-  font-size: 1rem;
-  color: #111827;
-  background-color: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
-  outline: none;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-
-  &::placeholder {
-    color: #9ca3af;
-  }
-
-  &:hover {
-    border-color: rgba(0, 85, 255, 0.3);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-  }
-
-  &:focus {
-    border-color: #0055ff;
-    box-shadow: 0 0 0 4px rgba(0, 85, 255, 0.1);
-  }
-}
-
-.clearSearchBtn {
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 28px;
-  height: 28px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   
-  background: transparent;
-  border: none;
-  border-radius: 50%;
-  
-  font-size: 1.5rem;
-  line-height: 1;
-  color: #9ca3af;
-  cursor: pointer;
-  
-  transition: all 0.2s ease;
-  padding: 0;
-
-  &:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-    color: #111827;
-  }
-
-  &:active {
-    transform: translateY(-50%) scale(0.9);
-  }
-}
-
-/* Адаптив для поиска на мобильных */
-@media (max-width: 576px) {
   .searchWrapper {
     margin-top: 1.5rem;
   }

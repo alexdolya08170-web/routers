@@ -73,24 +73,21 @@ function PortfolioPage() {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentProjects = filteredProjects.slice(startIndex, startIndex + itemsPerPage);
 
-  // Прокрутка к началу списка ТОЛЬКО при смене страницы пагинации
-  // Убрали searchQuery из зависимостей, чтобы не было прыжка при вводе текста
-  useEffect(() => {
-    const listElement = document.querySelector(`.${styles.list}`);
-    if (listElement) {
-      listElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }, [currentPage]); // <--- ВАЖНО: только currentPage
+  // --- ВИДАЛЕНО: useEffect зі scrollIntoView, щоб уникнути конфліктів ---
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
+      // Миттєвий скрол на самий верх сторінки
+      window.scrollTo(0, 0);
     }
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
-    setCurrentPage(1); // Сбрасываем на первую страницу при поиске
+    setCurrentPage(1);
+    // Миттєвий скрол на самий верх сторінки при початку пошуку
+    window.scrollTo(0, 0);
   };
 
   return (
@@ -124,7 +121,7 @@ function PortfolioPage() {
             />
             {searchQuery && (
               <button 
-                onClick={() => { setSearchQuery(''); setCurrentPage(1); }}
+                onClick={() => { setSearchQuery(''); setCurrentPage(1); window.scrollTo(0, 0); }}
                 className={styles.clearSearchBtn}
                 aria-label="Очистити пошук"
               >
@@ -140,7 +137,7 @@ function PortfolioPage() {
           </div>
         ) : (
           <>
-            {/* Ключ зависит от currentPage и searchQuery, чтобы перерисовывать список при фильтрации */}
+            {/* Ключ залежить від сторінки та пошуку для коректного оновлення анімацій */}
             <div className={styles.list} key={`${currentPage}-${searchQuery}`}>
               {currentProjects.map((project) => (
                 <article key={project.id} className={styles.projectItem}>

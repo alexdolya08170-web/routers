@@ -1,7 +1,8 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router';
+import { createFileRoute, useNavigate } from '@tanstack/react-router'; // Додаємо хук навігації
 import { Formik, Form, Field, ErrorMessage, FieldProps } from 'formik';
 import * as Yup from 'yup';
 import styles from './login.module.scss';
+import { useAuth } from '../context/AuthContext';
 
 export const Route = createFileRoute('/login')({
   component: LoginPage,
@@ -12,7 +13,6 @@ const LoginSchema = Yup.object().shape({
   password: Yup.string().min(6, 'Мінімум 6 символів').required('Обовязкове поле'),
 });
 
-// Компонент поля з кнопкою очищення
 interface CustomFieldProps {
   name: string;
   type: string;
@@ -28,7 +28,6 @@ const CustomInput = ({ name, type, placeholder, icon }: CustomFieldProps) => {
 
         const handleClear = () => {
           form.setFieldValue(name, '');
-          // Фокус залишається на полі після очищення
           const inputElement = document.getElementById(name);
           if (inputElement) inputElement.focus();
         };
@@ -72,15 +71,22 @@ const CustomInput = ({ name, type, placeholder, icon }: CustomFieldProps) => {
 };
 
 function LoginPage() {
-  const navigate = useNavigate();
+  const { login } = useAuth();
+  const navigate = useNavigate(); // Ініціалізуємо хук для програмної навігації
 
   const handleSubmit = async (values: { email: string; password: string }) => {
     console.log('Login:', values);
+    
+    // Імітація асинхронного запиту до сервера
     await new Promise((resolve) => setTimeout(resolve, 800));
-    navigate({ to: '/dashboard' });
+
+    // Зберігаємо стан авторизації в контексті та localStorage
+    login();
+    
+    // Перенаправляємо користувача на головну сторінку після успішного входу
+    navigate({ to: '/' });
   };
 
-  // SVG іконки
   const EmailIcon = (
     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
       <rect width="20" height="16" x="2" y="4" rx="2"/>

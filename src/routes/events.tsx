@@ -108,22 +108,21 @@ function BlogPage() {
   const startIndex = (currentPage - 1) * itemsPerPage;
   const currentPosts = filteredPosts.slice(startIndex, startIndex + itemsPerPage);
 
-  useEffect(() => {
-    const gridElement = document.querySelector(`.${styles.grid}`);
-    if (gridElement) {
-      gridElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }, [currentPage]);
+  // --- ВИДАЛЕНО: useEffect зі scrollIntoView ---
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
+      // Миттєвий скрол на самий верх сторінки
+      window.scrollTo(0, 0);
     }
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
     setCurrentPage(1);
+    // Миттєвий скрол на самий верх сторінки при початку пошуку
+    window.scrollTo(0, 0);
   };
 
   const getPageNumbers = () => {
@@ -186,7 +185,7 @@ function BlogPage() {
           />
           {searchQuery && (
              <button 
-               onClick={() => { setSearchQuery(''); setCurrentPage(1); }}
+               onClick={() => { setSearchQuery(''); setCurrentPage(1); window.scrollTo(0, 0); }}
                className={styles.clearSearchBtn}
                aria-label="Очистити пошук"
              >
