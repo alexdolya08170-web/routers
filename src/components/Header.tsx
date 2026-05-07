@@ -1,5 +1,5 @@
-import { Link, useLocation } from '@tanstack/react-router';
-import { useState, useEffect } from 'react';
+import { Link, useMatchRoute } from '@tanstack/react-router';
+import { useState, useEffect, useCallback } from 'react';
 import styles from './Header.module.scss';
 import { useAuth } from '../context/AuthContext'; 
 
@@ -8,18 +8,20 @@ interface NavItem {
   label: string;
 }
 
-const navItems: NavItem[] = [
+const NAV_ITEMS: NavItem[] = [
   { to: '/', label: 'Головна' },
   { to: '/about', label: 'Про мене' },
   { to: '/events', label: 'Мої роботи' }
 ];
 
 export function Header() {
-  const location = useLocation();
+  const matchRoute = useMatchRoute();
   const { isAuthenticated, logout } = useAuth(); 
   
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  
+  // Стан мови (в реальному проекті краще використовувати Context або URL params)
   const [currentLang, setCurrentLang] = useState<'UA' | 'EN'>('UA');
 
   // Ефект для скролу
@@ -27,52 +29,97 @@ export function Header() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
+    
+    handleScroll(); // Перевірка при монтуванні
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Ефект для блокування скролу body
+  // Ефект для блокування скролу body та закриття по Escape
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
+      
+      const handleEsc = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') setIsMobileMenuOpen(false);
+      };
+      window.addEventListener('keydown', handleEsc);
+      
+      return () => {
+        document.body.style.overflow = '';
+        window.removeEventListener('keydown', handleEsc);
+      };
     } else {
       document.body.style.overflow = '';
     }
-    return () => {
-      document.body.style.overflow = '';
-    };
   }, [isMobileMenuOpen]);
 
-  const toggleMobileMenu = () => setIsMobileMenuOpen((prev) => !prev);
-  const closeMobileMenu = () => setIsMobileMenuOpen(false);
+  const toggleMobileMenu = useCallback(() => {
+    setIsMobileMenuOpen((prev) => !prev);
+  }, []);
+
+  const closeMobileMenu = useCallback(() => {
+    setIsMobileMenuOpen(false);
+  }, []);
 
   const handleLogout = () => {
     logout();
     closeMobileMenu();
   };
 
+  // Компонент перемикача мови (для уникнення дублювання коду)
+  const LangSwitcher = ({ isMobile = false }: { isMobile?: boolean }) => (
+    <div className={isMobile ? styles.langSwitcherMobile : styles.desktopLangSwitcher}>
+      <button 
+        className={`${styles.langBtn} ${currentLang === 'UA' ? styles.langBtnActive : ''}`}
+        onClick={() => setCurrentLang('UA')}
+        aria-pressed={currentLang === 'UA'}
+      >
+        UA
+      </button>
+      <span className={styles.langDivider} aria-hidden="true">/</span>
+      <button 
+        className={`${styles.langBtn} ${currentLang === 'EN' ? styles.langBtnActive : ''}`}
+        onClick={() => setCurrentLang('EN')}
+        aria-pressed={currentLang === 'EN'}
+      >
+        EN
+      </button>
+    </div>
+  );
+
   return (
     <header className={`${styles.header} ${isScrolled ? styles.headerScrolled : ''}`}>
       <div className={styles.container}>
         
         {/* Логотип */}
-        <Link to="/" className={styles.logo} onClick={closeMobileMenu}>
+        <Link 
+          to="/" 
+          className={styles.logo} 
+          onClick={closeMobileMenu}
+          preload="intent"
+        >
           Долинський <span>О.С.</span>
         </Link>
 
         {/* Навігація */}
-        <nav className={`${styles.nav} ${isMobileMenuOpen ? styles.navOpen : ''}`}>
+        <nav 
+          className={`${styles.nav} ${isMobileMenuOpen ? styles.navOpen : ''}`}
+          aria-label="Головна навігація"
+        >
           <ul className={styles.navList}>
-            {navItems.map(({ to, label }) => {
-              const isActive = location.pathname === to || (to !== '/' && location.pathname.startsWith(to + '/'));
+            {NAV_ITEMS.map(({ to, label }) => {
+              const isActive = matchRoute({ to, fuzzy: true });
               
               return (
                 <li key={to} className={styles.navItem}>
                   <Link
                     to={to}
-                    className={`${styles.navLink} ${isActive ? styles.navLinkActive : ''}`}
+                    className={styles.navLink}
                     onClick={closeMobileMenu}
                     activeProps={{ className: styles.navLinkActive }}
+                    preload="intent"
                   >
                     {label}
                   </Link>
@@ -80,42 +127,31 @@ export function Header() {
               );
             })}
             
-            {/* Мобільні контролли (ТІЛЬКИ ТУТ перемикач мов) */}
-            <div className={styles.mobileControls}>
-              <div className={styles.langSwitcherMobile}>
-                 <button 
-                   className={`${styles.langBtn} ${currentLang === 'UA' ? styles.langBtnActive : ''}`}
-                   onClick={() => setCurrentLang('UA')}
-                 >
-                   UA
-                 </button>
-                 <span className={styles.langDivider}>/</span>
-                 <button 
-                   className={`${styles.langBtn} ${currentLang === 'EN' ? styles.langBtnActive : ''}`}
-                   onClick={() => setCurrentLang('EN')}
-                 >
-                   EN
-                 </button>
-              </div>
+            {/* Мобільні контролли (всередині меню) */}
+            <li className={styles.mobileControls}>
+              <LangSwitcher isMobile />
 
               {isAuthenticated && (
-                <button className={styles.logoutBtnMobile} onClick={handleLogout}>
+                <button 
+                  className={styles.logoutBtnMobile} 
+                  onClick={handleLogout}
+                >
                   Вийти
                 </button>
               )}
-            </div>
+            </li>
           </ul>
         </nav>
 
-        {/* Десктопні контролли (ПУСТО, або можна додати щось інше, але мови тут немає) */}
+        {/* Десктопні контролли (справа) */}
         <div className={styles.desktopControls}>
-          {/* Перемикач мов видалено звідси */}
+          <LangSwitcher />
         </div>
 
         {/* Бургер кнопка */}
         <button
           className={`${styles.burgerBtn} ${isMobileMenuOpen ? styles.burgerBtnActive : ''}`}
-          aria-label="Меню"
+          aria-label={isMobileMenuOpen ? "Закрити меню" : "Відкрити меню"}
           aria-expanded={isMobileMenuOpen}
           onClick={toggleMobileMenu}
         >

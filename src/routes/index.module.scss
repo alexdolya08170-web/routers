@@ -210,6 +210,7 @@
     animation: fadeInUp 0.8s ease-out 0.2s forwards;
   }
 
+  // --- ИЗМЕНЕНИЕ ЗДЕСЬ: Унифицированный стиль заголовка ---
   .title {
     font-size: 1.5rem; 
     font-weight: 800; 
@@ -223,20 +224,15 @@
     &::after {
       content: ''; 
       display: block; 
-      width: 0; 
+      width: 60px; // Фиксированная ширина, как в других секциях
       height: 4px;
       background: #0055ff; 
-      margin: 10px 0 0; 
+      margin: 10px 0 0; // Отступ сверху
       border-radius: 2px;
-      opacity: 0;
-      transition: all 0.5s ease 0.3s;
-    }
-    
-    :global(.is-visible) &::after {
-       width: 60px;
-       opacity: 1;  
+      // Убрали анимацию ширины и opacity, теперь статично
     }
   }
+  // -------------------------------------------------------
 
   .name { 
     font-size: 2.2rem; 
@@ -350,9 +346,12 @@
     .content { 
       max-width: 100%; 
       
-      .title::after { 
-        margin: 10px auto 0; 
-      } 
+      .title {
+        // Центрируем подчеркивание на мобильных, если нужно
+        &::after { 
+          margin: 10px auto 0; 
+        } 
+      }
     }
     
     .imageWrapper { 
@@ -395,6 +394,7 @@
     width: 100%;
   }
 
+  // --- ИЗМЕНЕНИЕ ЗДЕСЬ: Тот же стиль, что и в .about .title ---
   .sectionTitle {
     font-size: 1.5rem; 
     font-weight: 800; 
@@ -411,10 +411,11 @@
       width: 60px; 
       height: 4px;
       background: #0055ff; 
-      margin: 10px auto 0; 
+      margin: 10px auto 0; // auto по бокам для центрирования
       border-radius: 2px;
     }
   }
+  // -----------------------------------------------------------
 
   .grid {
     display: grid; 
@@ -541,6 +542,7 @@
     width: 100%;
   }
 
+  // --- ИЗМЕНЕНИЕ ЗДЕСЬ: Тот же стиль, что и в .works .sectionTitle ---
   .sectionTitle {
     font-size: 1.5rem; 
     font-weight: 800; 
@@ -561,6 +563,7 @@
       border-radius: 2px;
     }
   }
+  // --------------------------------------------------------------------
 
   .servicesSwiper {
     width: 100%;

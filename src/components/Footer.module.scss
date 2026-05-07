@@ -2,15 +2,19 @@
 
 .footer {
   position: relative;
-  background-color: #000000; 
+  background-color: #0f172a; // Трохи м'якший чорний (slate-900) для глибини, або залиште #000
   color: #ffffff;
-  padding: 6rem 2rem;
+  padding: 8rem 2rem;
   overflow: hidden; 
-  text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 400px;
+  min-height: 500px;
+
+  @media (max-width: 768px) {
+    padding: 6rem 1.5rem;
+    min-height: 400px;
+  }
 
   .container {
     position: relative;
@@ -20,51 +24,71 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
+    gap: 2rem;
+    text-align: center;
   }
 
   .title {
-    font-size: 3rem;
-    font-weight: 700;
-    line-height: 1.2;
+    font-size: clamp(2rem, 5vw, 3.5rem); // Адаптивний розмір шрифту
+    font-weight: 800;
+    line-height: 1.1;
     margin: 0;
+    letter-spacing: -0.02em;
     
-    @media (max-width: 768px) {
-      font-size: 2rem;
-    }
+    // Градієнтний текст для акценту (опціонально)
+    background: linear-gradient(to right, #ffffff, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   .subtitle {
     font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: 2px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: rgba(255, 255, 255, 0.6); 
     margin: 0;
+    max-width: 600px;
+    line-height: 1.6;
   }
 
   .button {
-    margin-top: 1rem;
-    background-color: #0055ff; 
+    margin-top: 1.5rem;
+    background-color: #3b82f6; // Яскравіший синій
     color: white;
     border: none;
     padding: 1rem 2.5rem;
     font-size: 1rem;
-    font-weight: 700;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.05em;
     cursor: pointer;
-    transition: all 0.3s ease;
-    border-radius: 2px; 
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 4px; 
     text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 
     &:hover {
-      background-color: #0044cc;
+      background-color: #2563eb;
       transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(0, 85, 255, 0.3);
+      box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.3);
+    }
+
+    &:active {
+      transform: translateY(0);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+
+    &:focus-visible {
+      outline: 2px solid #ffffff;
+      outline-offset: 2px;
     }
   }
 
+  // Декоративні елементи
   .bgShape {
     position: absolute;
     top: 0;
@@ -73,6 +97,7 @@
     height: 100%;
     pointer-events: none;
     z-index: 1;
+    overflow: hidden;
   }
 
   .shape__rect {
@@ -81,29 +106,51 @@
     left: -5%;
     width: 300px;
     height: 400px;
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     transform: rotate(-15deg);
+    border-radius: 20px;
+    
+    @media (max-width: 768px) {
+      width: 200px;
+      height: 300px;
+      left: -10%;
+    }
   }
 
   .shape__rect_small {
     position: absolute;
-    top: 10%;
-    right: -10%;
+    top: 15%;
+    right: -5%;
     width: 200px;
     height: 300px;
-    background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 100%);
+    background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, transparent 100%);
     transform: rotate(10deg);
+    border-radius: 12px;
+
+    @media (max-width: 768px) {
+      width: 150px;
+      height: 200px;
+      right: -10%;
+    }
   }
 
   .shape__accent {
     position: absolute;
-    bottom: -50px;
+    bottom: 10%;
     right: 15%;
-    width: 100px;
-    height: 100px;
-    background: #ff3333;
+    width: 80px;
+    height: 80px;
+    background: #ef4444; // Червоний акцент
     clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-    opacity: 0.8;
+    opacity: 0.6;
     transform: rotate(45deg);
+    filter: blur(40px); // Ефект світіння
+
+    @media (max-width: 768px) {
+      width: 60px;
+      height: 60px;
+      bottom: 5%;
+      right: 10%;
+    }
   }
 }

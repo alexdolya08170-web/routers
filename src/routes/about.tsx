@@ -1,13 +1,25 @@
 import { createFileRoute } from '@tanstack/react-router';
 import styles from './about.module.scss';
 
-const experience = [
+// --- Types ---
+
+interface ExperienceItem {
+  id: number;
+  role: string;
+  company: string;
+  period: string;
+  description: string;
+}
+
+// --- Constants ---
+
+const EXPERIENCE_DATA: ExperienceItem[] = [
   {
     id: 1,
     role: "Senior Frontend Engineer",
     company: "FinTech Solutions Group (Kyiv / EU)",
     period: "2023 – 2025",
-    description: "Проєктування архітектури на Next.js (SPA/SSR). Оптимізація Core Web Vitals та code splitting. Розробка складних UI (дашборди, аналітика, великі таблиці). Інтеграція REST API та WebSockets. Впровадження SEO-стратегій (SSR, structured data). Робота з великими обсягами даних та оптимізація кешування."
+    description: "Проєктування архітектури на Next.js (SPA/SSR). Оптимізація Core Web Vitals та code splitting. Розробка складних UI (дашборди, аналітика, великі таблиці). Інтеграція REST API. Впровадження SEO-стратегій (SSR, structured data). Робота з великими обсягами даних та оптимізація кешування."
   },
   {
     id: 2,
@@ -39,7 +51,7 @@ const experience = [
   }
 ];
 
-const skills = [
+const SKILLS_LIST = [
   // Core
   "React", "Next", "TypeScript", "JavaScript (ES6+)",
   
@@ -65,11 +77,13 @@ const skills = [
   "PWA", "Web Accessibility (a11y)", "Core Web Vitals", "Linux"
 ];
 
+// --- Component ---
+
 function AboutPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className={styles.hero}>
+      <section className={styles.hero} aria-label="Introduction">
         <div className={styles.hero__cube} aria-hidden="true"></div>
         <div className={`${styles.hero__cube} ${styles['hero__cube--2']}`} aria-hidden="true"></div>
         <div className={`${styles.hero__cube} ${styles['hero__cube--3']}`} aria-hidden="true"></div>
@@ -83,7 +97,12 @@ function AboutPage() {
           </p>
           
           <div className={styles.hero__actions}>
-            <a href="/cv.pdf" download className={styles.hero__btn}>
+            <a 
+              href="/cv.pdf" 
+              download 
+              className={styles.hero__btn}
+              aria-label="Завантажити резюме у форматі PDF"
+            >
               Завантажити резюме (PDF)
             </a>
           </div>
@@ -94,6 +113,9 @@ function AboutPage() {
             src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop" 
             alt="Олександр Долинський" 
             className={styles.hero__photo}
+            width={400}
+            height={400}
+            loading="eager" // Hero image should load ASAP
           />
         </div>
       </section>
@@ -106,39 +128,39 @@ function AboutPage() {
           <div className={styles.aboutContent}>
             <p className={styles.text}>
               Моя філософія розробки базується на створенні архітектури, яка не просто виконує поточні вимоги бізнесу, 
-              але й залишається гнучкою, масштабованою та підтримуваною.
+              але залишається гнучкою.
             </p>
 
-            <div className={styles.aboutBlock}>
+            <article className={styles.aboutBlock}>
               <h3>Архітектура</h3>
               <p className={styles.text}>
                 У роботі з React я приділяю особливу увагу управлінню станом. Я активно використовую композицію компонентів замість наслідування, що дозволяє створювати перевикористовувані будівельні блоки.
                 Використовую патерни <strong>Container/Presentational</strong> та <strong>Custom Hooks</strong> для інкапсуляції бізнес-логіки.
               </p>
-            </div>
+            </article>
 
-            <div className={styles.aboutBlock}>
+            <article className={styles.aboutBlock}>
               <h3>Робота з даними</h3>
               <p className={styles.text}>
                 Маю досвід побудови надійних шарів взаємодії з API. Реалізую оптимістичні оновлення (Optimistic UI) 
                 та запобігаю race conditions. Використовую <strong>TanStack Query</strong> для ефективного кешування серверного стану.
               </p>
-            </div>
+            </article>
 
-            <div className={styles.aboutBlock}>
+            <article className={styles.aboutBlock}>
               <h3>Продуктивність</h3>
               <p className={styles.text}>
                 Розумію механізми рендерингу React. Застосовую оптимізації (<code>React.memo</code>, <code>useMemo</code>) 
                 та слідкую за показниками (FCP, CLS, LCP).
               </p>
-            </div>
+            </article>
 
-            <div className={styles.aboutBlock}>
+            <article className={styles.aboutBlock}>
               <h3>TypeScript</h3>
               <p className={styles.text}>
                 Ціную важливість Developer Experience: налаштовую лінтери, pre-commit хуки та автоматизоване тестування (Jest, Cypress).
               </p>
-            </div>
+            </article>
           </div>
         </div>
       </section>
@@ -147,9 +169,9 @@ function AboutPage() {
       <section className={`${styles.section} ${styles.sectionAlt}`}>
         <div className={styles.container}>
           <h2 className={styles.sectionTitle}>Технічний стек</h2>
-          <div className={styles.skillsGrid}>
-            {skills.map((skill, index) => (
-              <span key={index} className={styles.skillTag}>
+          <div className={styles.skillsGrid} role="list">
+            {SKILLS_LIST.map((skill) => (
+              <span key={skill} className={styles.skillTag} role="listitem">
                 {skill}
               </span>
             ))}
@@ -161,18 +183,18 @@ function AboutPage() {
       <section className={styles.section}>
         <div className={styles.container}>
           <h2 className={styles.sectionTitle}>Досвід роботи</h2>
-          <div className={styles.timeline}>
-            {experience.map((job) => (
-              <div key={job.id} className={styles.timelineItem}>
+          <ul className={styles.timeline}>
+            {EXPERIENCE_DATA.map((job) => (
+              <li key={job.id} className={styles.timelineItem}>
                 <div className={styles.timelineHeader}>
                   <h3 className={styles.jobRole}>{job.role}</h3>
-                  <span className={styles.jobPeriod}>{job.period}</span>
+                  <time className={styles.jobPeriod}>{job.period}</time>
                 </div>
                 <div className={styles.jobCompany}>{job.company}</div>
                 <p className={styles.jobDesc}>{job.description}</p>
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
     </>

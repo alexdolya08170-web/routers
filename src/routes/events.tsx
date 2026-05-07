@@ -1,25 +1,23 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import styles from './events.module.scss';
 
-export const Route = createFileRoute('/events')({
-  component: PortfolioPage,
-});
+// --- Types & Constants ---
 
 type Category = 'All' | 'Web Apps' | 'E-commerce' | 'Corporate' | 'Landing' | 'UI/UX';
+
+const CATEGORIES: Category[] = ['All', 'Web Apps', 'E-commerce', 'Corporate', 'Landing', 'UI/UX'];
 
 interface Project {
   id: number;
   title: string;
   description: string;
   category: Category;
-  techStack: string[]; // Залишаємо в інтерфейсі для логіки, якщо потрібно, але не рендеримо
+  techStack: string[];
   link?: string;
 }
 
-const categories: Category[] = ['All', 'Web Apps', 'E-commerce', 'Corporate', 'Landing', 'UI/UX'];
-
-const projects: Project[] = [
+const PROJECTS: Project[] = [
   // --- Web Apps ---
   {
     id: 1,
@@ -151,15 +149,53 @@ const projects: Project[] = [
   }
 ];
 
+const ITEMS_PER_PAGE = 6;
+
+// --- Helper Functions ---
+
+// Використовуємо явний тип для повернення масиву чисел або рядків
+const getPageNumbers = (currentPage: number, totalPages: number): (number | string)[] => {
+  const delta = 1;
+  const range: number[] = [];
+  const rangeWithDots: (number | string)[] = [];
+  let l: number | undefined;
+
+  for (let i = 1; i <= totalPages; i++) {
+    if (i === 1 || i === totalPages || (i >= currentPage - delta && i <= currentPage + delta)) {
+      range.push(i);
+    }
+  }
+
+  for (const i of range) {
+    if (l !== undefined) {
+      // Перевірка типів перед відніманням
+      if (typeof i === 'number' && i - l === 2) {
+        rangeWithDots.push(l + 1);
+      } else if (typeof i === 'number' && i - l !== 1) {
+        rangeWithDots.push('...');
+      }
+    }
+    rangeWithDots.push(i);
+    l = i;
+  }
+
+  return rangeWithDots;
+};
+
+// --- Component ---
+
+export const Route = createFileRoute('/events')({
+  component: PortfolioPage,
+});
+
 function PortfolioPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState<Category>('All');
   
-  const itemsPerPage = 6; 
-
+  // Filtering Logic
   const filteredProjects = useMemo(() => {
-    let result = projects;
+    let result = PROJECTS;
 
     if (activeCategory !== 'All') {
       result = result.filter(project => project.category === activeCategory);
@@ -177,72 +213,48 @@ function PortfolioPage() {
     return result;
   }, [activeCategory, searchQuery]);
 
-  const totalPages = Math.ceil(filteredProjects.length / itemsPerPage);
+  // Pagination Logic
+  const totalPages = Math.ceil(filteredProjects.length / ITEMS_PER_PAGE);
   
+  // Reset page if filters change result in fewer pages
   useEffect(() => {
     if (totalPages > 0 && currentPage > totalPages) {
       setCurrentPage(1);
     }
-    if (totalPages === 0 && currentPage !== 1) {
-      setCurrentPage(1);
-    }
   }, [totalPages, currentPage]);
 
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentProjects = filteredProjects.slice(startIndex, startIndex + itemsPerPage);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const currentProjects = filteredProjects.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  const pageNumbers = getPageNumbers(currentPage, totalPages);
 
-  const handlePageChange = (page: number) => {
+  // Handlers
+  const handlePageChange = useCallback((page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
-      window.scrollTo(0, 0);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
-  };
+  }, [totalPages]);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
     setCurrentPage(1);
-    window.scrollTo(0, 0);
+  };
+
+  const clearSearch = () => {
+    setSearchQuery('');
+    setCurrentPage(1);
   };
 
   const handleCategoryChange = (category: Category) => {
     setActiveCategory(category);
     setSearchQuery('');
     setCurrentPage(1);
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-
-  const getPageNumbers = () => {
-    const delta = 1;
-    const range = [];
-    const rangeWithDots = [];
-    let l;
-
-    for (let i = 1; i <= totalPages; i++) {
-      if (i === 1 || i === totalPages || (i >= currentPage - delta && i <= currentPage + delta)) {
-        range.push(i);
-      }
-    }
-
-    for (let i of range) {
-      if (l) {
-        if (i - l === 2) {
-          rangeWithDots.push(l + 1);
-        } else if (i - l !== 1) {
-          rangeWithDots.push('...');
-        }
-      }
-      rangeWithDots.push(i);
-      l = i;
-    }
-
-    return rangeWithDots;
-  };
-
-  const pageNumbers = getPageNumbers();
 
   return (
     <section className={styles.blog}>
-      <div className={styles.bgDecor}>
+      <div className={styles.bgDecor} aria-hidden="true">
         <div className={styles.decor__rectLeft}></div>
         <div className={styles.decor__rectRight}></div>
         
@@ -262,10 +274,13 @@ function PortfolioPage() {
         </header>
 
         <div className={styles.tabsWrapper}>
-          <div className={styles.tabs}>
-            {categories.map((cat) => (
+          <div className={styles.tabs} role="tablist" aria-label="Фільтр проектів">
+            {CATEGORIES.map((cat) => (
               <button
                 key={cat}
+                role="tab"
+                aria-selected={activeCategory === cat}
+                aria-controls="projects-grid"
                 onClick={() => handleCategoryChange(cat)}
                 className={`${styles.tabBtn} ${activeCategory === cat ? styles.tabBtnActive : ''}`}
               >
@@ -276,18 +291,22 @@ function PortfolioPage() {
         </div>
 
         <div className={styles.searchWrapper}>
+          <label htmlFor="project-search" className={styles.visuallyHidden}>Пошук проектів</label>
           <input 
+            id="project-search"
             type="text" 
             placeholder={`Пошук проектів або технологій...`} 
             value={searchQuery}
             onChange={handleSearchChange}
             className={styles.searchInput}
+            aria-label="Пошук проектів"
           />
           {searchQuery && (
              <button 
-               onClick={() => { setSearchQuery(''); setCurrentPage(1); }}
+               onClick={clearSearch}
                className={styles.clearSearchBtn}
                aria-label="Очистити пошук"
+               type="button"
              >
                ×
              </button>
@@ -295,28 +314,29 @@ function PortfolioPage() {
         </div>
 
         {filteredProjects.length === 0 ? (
-          <div className={styles.noResults}>
+          <div className={styles.noResults} role="status">
             Проекти не знайдено
           </div>
         ) : (
           <>
-            <div className={styles.grid} key={`${currentPage}-${activeCategory}-${searchQuery}`}>
+            {/* Removed dynamic key to preserve animation stability and performance */}
+            <div className={styles.grid} id="projects-grid">
               {currentProjects.map((project) => (
                 <article key={project.id} className={styles.card}>
                   <div className={styles.cardHeader}>
                     <span className={styles.cardCategory}>{project.category}</span>
                   </div>
                   <h2 className={styles.cardTitle}>
-                    <a href={project.link}>{project.title}</a>
+                    <a href={project.link} target="_blank" rel="noopener noreferrer">
+                      {project.title}
+                    </a>
                   </h2>
                   
                   <p className={styles.excerpt}>
                     {project.description}
                   </p>
-
-                  {/* Блок techStack видалено */}
                   
-                  <a href={project.link} className={styles.readMoreLink}>
+                  <a href={project.link} className={styles.readMoreLink} aria-label={`Детальніше про проект ${project.title}`}>
                     Детальніше →
                   </a>
                 </article>
@@ -324,7 +344,7 @@ function PortfolioPage() {
             </div>
 
             {totalPages > 1 && (
-              <nav className={styles.pagination}>
+              <nav className={styles.pagination} aria-label="Навігація по сторінках">
                 <button 
                   onClick={() => handlePageChange(currentPage - 1)} 
                   disabled={currentPage === 1}
@@ -335,9 +355,10 @@ function PortfolioPage() {
                 </button>
                 
                 {pageNumbers.map((page, index) => {
-                  if (page === '...') {
+                  // Перевірка типу перед рендерингом
+                  if (typeof page === 'string') {
                     return (
-                      <span key={`dots-${index}`} className={styles.dots}>
+                      <span key={`dots-${index}`} className={styles.dots} aria-hidden="true">
                         ...
                       </span>
                     );
@@ -345,8 +366,9 @@ function PortfolioPage() {
                   return (
                     <button
                       key={page}
-                      onClick={() => handlePageChange(Number(page))}
+                      onClick={() => handlePageChange(page)} // Тепер TypeScript знає, що page це number
                       className={`${styles.pageNumber} ${currentPage === page ? styles.active : ''}`}
+                      aria-current={currentPage === page ? 'page' : undefined}
                     >
                       {page}
                     </button>
