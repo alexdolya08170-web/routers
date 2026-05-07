@@ -7,6 +7,7 @@ $text-main: #1a1a1a;
 $text-secondary: #555;
 $bg-light: #f9fafb;
 
+// --- Animations ---
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -39,6 +40,7 @@ $bg-light: #f9fafb;
   animation-delay: $delay;
 }
 
+// --- Hero Section ---
 .hero {
   position: relative;
   display: flex;
@@ -131,7 +133,6 @@ $bg-light: #f9fafb;
   &__actions {
     margin-bottom: 0;
     @include animation-delay(0.3s);
-
     opacity: 0;
     animation: fadeInUp 0.8s ease-out forwards;
   }
@@ -197,13 +198,10 @@ $bg-light: #f9fafb;
     aspect-ratio: 4/5;
     object-fit: cover;
     border-radius: 20px;
-
     filter: none;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-
     position: relative;
     z-index: 1;
-
     transform: rotate(-3deg);
     transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
@@ -214,6 +212,7 @@ $bg-light: #f9fafb;
   }
 }
 
+// --- Common Layout ---
 .container {
   max-width: 1000px;
   margin: 0 auto;
@@ -238,17 +237,68 @@ $bg-light: #f9fafb;
   margin-bottom: 3rem;
   color: #111;
   text-align: center;
+  
+  // Анімація для заголовків секцій
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
+  // Проста затримка, можна налаштувати точніше через JS або nth-child батька
+  animation-delay: 0.2s; 
 }
 
+// --- Text Content Styles ---
 .text {
   font-size: 1.125rem;
   line-height: 1.8;
   color: #4b5563;
-  width: 600px;
-  max-width: 100%;
-  margin: 0 auto;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto 1.5rem auto;
+  
+  strong {
+    color: $text-main;
+    font-weight: 600;
+  }
+  
+  code {
+    background-color: rgba($primary-color, 0.1);
+    color: $primary-color;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 0.9em;
+  }
 }
 
+.aboutContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: center;
+}
+
+.aboutBlock {
+  width: 100%;
+  max-width: 800px;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
+  
+  // Каскадна анімація для блоків "Про мене"
+  @for $i from 1 through 5 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{0.1 + (0.1 * $i)}s;
+    }
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+    color: $text-main;
+    margin-bottom: 1rem;
+    text-align: center;
+    font-weight: 700;
+  }
+}
+
+// --- Skills ---
 .skillsGrid {
   display: flex;
   flex-wrap: wrap;
@@ -266,21 +316,23 @@ $bg-light: #f9fafb;
   transition: background-color 0.2s, transform 0.2s;
   position: relative;
   z-index: 1;
+  opacity: 0; // Початковий стан для анімації
+  animation: fadeInUp 0.5s ease-out forwards;
 
   &:hover {
     background-color: #d1d5db;
     transform: translateY(-2px);
   }
 
-  @for $i from 1 through 20 {
+  // Каскадна анімація для тегів (до 40 тегів)
+  @for $i from 1 through 40 {
     &:nth-child(#{$i}) {
-      animation: fadeInUp 0.5s ease-out forwards;
       animation-delay: #{0.05 * $i}s;
-      opacity: 0;
     }
   }
 }
 
+// --- Timeline ---
 .timeline {
   position: relative;
   max-width: 800px;
@@ -308,6 +360,7 @@ $bg-light: #f9fafb;
   opacity: 0;
   animation: fadeInUp 0.8s ease-out forwards;
 
+  // Каскадна анімація для елементів таймлайну
   @for $i from 1 through 10 {
     &:nth-child(#{$i}) {
       animation-delay: #{0.2 * $i}s;
@@ -403,6 +456,7 @@ $bg-light: #f9fafb;
   line-height: 1.6;
 }
 
+// --- Responsive ---
 @media (max-width: 1400px) {
   .hero {
     padding: 0 100px;
@@ -445,7 +499,6 @@ $bg-light: #f9fafb;
       width: 100%;
       padding: 0;
       overflow: hidden;
-
       animation: fadeIn 1s ease-out 0.4s forwards;
 
       &::before {
@@ -466,6 +519,10 @@ $bg-light: #f9fafb;
 }
 
 @media (max-width: 768px) {
+  .hero__cube {
+    display: none;
+  }
+
   .timeline {
     &::before {
       left: 20px;
@@ -500,6 +557,19 @@ $bg-light: #f9fafb;
     border-radius: 50%;
     aspect-ratio: 1/1;
   }
+  
+  .sectionTitle {
+    font-size: 2rem;
+  }
+  
+  .text {
+    font-size: 1rem;
+    text-align: left;
+  }
+  
+  .aboutBlock h3 {
+    text-align: left;
+  }
 }
 
 @media (max-width: 480px) {
@@ -507,24 +577,27 @@ $bg-light: #f9fafb;
     padding: 3rem 20px;
 
     &__title {
-      font-size: 2.5rem;
+      font-size: 2.2rem;
     }
 
     &__subtitle {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
     }
 
     &__btn {
       padding: 0.8rem 1.5rem;
       font-size: 0.95rem;
+      width: 100%;
+      text-align: center;
     }
   }
 
   .section {
-    padding: 4rem 0;
+    padding: 3rem 0;
   }
-
-  .sectionTitle {
-    font-size: 2rem;
+  
+  .skillTag {
+    font-size: 0.9rem;
+    padding: 0.4rem 1rem;
   }
 }

@@ -257,7 +257,7 @@ function PortfolioPage() {
         <header className={styles.header}>
           <h1 className={styles.title}>Мої роботи</h1>
           <p className={styles.subtitle}>
-            Вибрані проекти: від Веб-додатків до UI/UX дизайну
+            Від Веб-додатків до UI/UX дизайну
           </p>
         </header>
 

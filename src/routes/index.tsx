@@ -79,7 +79,7 @@ function HomePage() {
     { 
       id: 1, 
       title: "Frontend", 
-      description: "Створення швидких, адаптивних SPA додатків на React, Next.js та TypeScript. Використання сучасних підходів (FSD, CDD).",
+      description: "Створення швидких, адаптивних SPA додатків на React, Next та TypeScript. Використання сучасних підходів (FSD, CDD).",
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <polyline points="16 18 22 12 16 6"></polyline>
@@ -90,7 +90,7 @@ function HomePage() {
     { 
       id: 2, 
       title: "DevOps", 
-      description: "Налаштування CI/CD пайплайнів, робота з Docker, Nginx та хмарними рішеннями (AWS, Vercel) для стабільної роботи проектів.",
+      description: "Налаштування CI/CD пайплайнів, робота з Nginx та хмарними рішеннями (AWS, Vercel) для стабільної роботи проектів.",
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
@@ -100,7 +100,7 @@ function HomePage() {
     { 
       id: 3, 
       title: "Backend", 
-      description: "Робота з API, базами даних (MySQL, PostgreSQL), налаштування серверної логіки та безпеки даних.",
+      description: "Робота з API, базами даних (MySQL, PostgreSQL).",
       icon: (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
@@ -128,7 +128,7 @@ function HomePage() {
         <div className={`${styles.shape} ${styles.shape__square1} parallax-shape`} data-speed="-0.1" data-depth="-40"></div>
         <div className={styles.hero__diagonal}></div>
         <div className={styles.hero__content}>
-          <h1 className={styles.hero__title}>Олександр Долинський</h1>
+          <h1 className={styles.hero__title}>Долинський Олександр Сергійович</h1>
           <p className={styles.hero__subtitle}>Веб-розробник</p>
         </div>
       </section>
@@ -138,7 +138,7 @@ function HomePage() {
           <div className={styles.container}>
             <div className={styles.content}>
               <h2 className={styles.title}>Про мене</h2>
-              <h3 className={styles.name}>Олександр Долинський</h3>
+              <h3 className={styles.name}>Олександр</h3>
               <p className={styles.role}>Веб-розробник</p>
               <p className={styles.description}>
                 Маю глибокі технічні знання в побудові швидких та адаптивних інтерфейсів на React.

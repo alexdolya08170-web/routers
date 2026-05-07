@@ -1,5 +1,6 @@
 @use '../styles/mixins' as *;
 
+// --- Animations ---
 @keyframes slideInLeft {
   from {
     opacity: 0;
@@ -38,12 +39,13 @@
 
 .blog {
   position: relative;
-  padding: 6rem 10%;
+  padding: 6rem 5%; // Зменшено бокові відступи для безпеки
   background-color: #fcfcfc;
   min-height: 100vh;
   overflow-x: hidden;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 
+  // --- Background Decorations ---
   .bgDecor {
     position: absolute;
     top: 0;
@@ -52,6 +54,7 @@
     height: 100%;
     pointer-events: none;
     z-index: 0;
+    overflow: hidden;
   }
 
   .decor__rectLeft {
@@ -82,7 +85,6 @@
     height: 100%;
     top: 0;
     left: 0;
-    overflow: hidden;
     z-index: -1;
   }
 
@@ -102,7 +104,6 @@
     height: 50px;
     border-radius: 10px;
     transform: rotate(15deg);
-    animation-delay: 0s;
   }
 
   .cube__2 {
@@ -113,8 +114,6 @@
     border-radius: 6px;
     transform: rotate(-10deg);
     animation-delay: 2s;
-    background: linear-gradient(135deg, rgba(0, 85, 255, 0.08), rgba(0, 85, 255, 0.02));
-    border-color: rgba(0, 85, 255, 0.12);
   }
 
   .cube__3 {
@@ -125,15 +124,15 @@
     border-radius: 14px;
     transform: rotate(45deg);
     animation-delay: 4s;
-    background: linear-gradient(135deg, rgba(0, 85, 255, 0.09), rgba(0, 85, 255, 0.03));
-    border-color: rgba(0, 85, 255, 0.14);
   }
 
+  // --- Main Layout ---
   .container {
     position: relative;
     z-index: 1;
     max-width: 1200px;
     margin: 0 auto;
+    width: 100%;
   }
 
   .header {
@@ -142,6 +141,7 @@
   }
 
   .title {
+    // Плавна зміна розміру шрифту
     font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 800;
     color: #333333;
@@ -162,11 +162,14 @@
     animation: slideInLeft 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s forwards;
   }
 
+  // --- Tabs & Search ---
   .tabsWrapper {
     margin-bottom: 2rem;
     overflow-x: auto;
-    padding-bottom: 5px;
+    padding-bottom: 10px;
+    // Приховуємо скролбар, але залишаємо функціонал
     scrollbar-width: none;
+    -ms-overflow-style: none;
     
     &::-webkit-scrollbar {
       display: none;
@@ -176,7 +179,8 @@
   .tabs {
     display: flex;
     gap: 0.8rem;
-    flex-wrap: wrap;
+    // На мобільних дозволяємо скрол, на десктопі - перенос
+    flex-wrap: wrap; 
   }
 
   .tabBtn {
@@ -209,6 +213,7 @@
     position: relative;
     max-width: 500px;
     margin-bottom: 4rem;
+    width: 100%;
   }
 
   .searchInput {
@@ -221,6 +226,7 @@
     transition: all 0.3s ease;
     outline: none;
     color: #333;
+    box-sizing: border-box; // Важливо для правильної ширини
 
     &::placeholder {
       color: #999;
@@ -268,19 +274,21 @@
     border: 1px dashed #ddd;
   }
 
+  // --- Grid System ---
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 2.5rem;
+    // Автоматичне заповнення: мінімум 300px, максимум - 1 частка
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
     
     .card {
       opacity: 0;
       transform: translateY(20px);
       animation: fadeInUpItem 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
       
-      @for $i from 1 through 10 {
+      @for $i from 1 through 12 {
         &:nth-child(#{$i}) { 
-          animation-delay: #{0.1 + ($i * 0.1)}s; 
+          animation-delay: #{0.1 + ($i * 0.08)}s; 
         }
       }
     }
@@ -293,7 +301,7 @@
     border: 1px solid #eeeeee;
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     border-radius: 12px;
     position: relative;
     overflow: hidden;
@@ -302,7 +310,7 @@
     &:hover {
       transform: translateY(-5px);
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
-      border-color: rgba(0, 85, 255, 0.1);
+      border-color: rgba(0, 85, 255, 0.2);
     }
   }
 
@@ -364,6 +372,7 @@
     }
   }
 
+  // --- Pagination ---
   .pagination {
     display: flex;
     justify-content: center;
@@ -441,78 +450,108 @@
     user-select: none;
   }
 
-  @media (max-width: 992px) {
-    padding: 4rem 5%;
-    
-    .grid {
-      gap: 2rem;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    }
+  // --- Responsive Breakpoints ---
 
-    .title {
-      font-size: 2.5rem;
-    }
-    
-    .subtitle {
-      font-size: 1.1rem;
-    }
-    
-    .cube {
-       opacity: 0.5;
+  // Tablet Landscape & Small Desktop
+  @media (max-width: 1024px) {
+    .blog {
+      padding: 4rem 5%;
+      
+      .grid {
+        gap: 1.5rem;
+      }
     }
   }
 
+  // Tablet Portrait
   @media (max-width: 768px) {
-    .header {
-      margin-bottom: 2rem;
-    }
+    .blog {
+      .header {
+        margin-bottom: 2rem;
+      }
 
-    .tabs {
-      flex-wrap: nowrap;
-      padding-bottom: 10px;
+      // Теги в один ряд зі скролом
+      .tabs {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 10px;
+        // Snap scrolling for better UX
+        scroll-snap-type: x mandatory;
+        
+        .tabBtn {
+          scroll-snap-align: start;
+        }
+      }
+
+      .decor__rectLeft, 
+      .decor__rectRight {
+        opacity: 0.5; // Зменшуємо видимість декору
+      }
     }
   }
 
+  // Mobile Large
   @media (max-width: 576px) {
-    padding: 3rem 4%;
+    .blog {
+      padding: 3rem 1.5rem;
 
-    .title {
-      font-size: 2rem;
-    }
-    
-    .subtitle {
-      font-size: 1rem;
-    }
+      .title {
+        font-size: 2rem;
+      }
+      
+      .subtitle {
+        font-size: 1rem;
+      }
 
-    .decor__rectLeft, .decor__rectRight, .decorCubes {
-      display: none;
-    }
-    
-    .searchWrapper {
-      margin-bottom: 2.5rem;
-    }
+      // Ховаємо важкий декор на мобільному
+      .decor__rectLeft, 
+      .decor__rectRight, 
+      .decorCubes {
+        display: none;
+      }
+      
+      .searchWrapper {
+        margin-bottom: 2.5rem;
+      }
 
-    .grid {
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
+      .grid {
+        // Одна колонка на вузьких екранах
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
 
-    .card {
-      padding: 1.5rem;
-    }
+      .card {
+        padding: 1.5rem;
+      }
 
-    .pagination {
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.5rem;
+      // Адаптація пагінації для вузьких екранів
+      .pagination {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      
+      .paginationArrow,
+      .pageNumber,
+      .dots {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
+      }
     }
-    
-    .paginationArrow,
-    .pageNumber,
-    .dots {
-      width: 36px;
-      height: 36px;
-      font-size: 0.9rem;
+  }
+
+  // Mobile Small (iPhone SE etc)
+  @media (max-width: 375px) {
+    .blog {
+      padding: 2rem 1rem;
+      
+      .card {
+        padding: 1.25rem;
+      }
+      
+      .cardTitle {
+        font-size: 1.2rem;
+      }
     }
   }
 }

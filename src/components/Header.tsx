@@ -20,36 +20,51 @@ export function Header() {
   
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [currentLang, setCurrentLang] = useState<'UA' | 'EN'>('UA');
 
+  // Ефект для скролу
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const toggleMobileMenu = () => setIsMobileMenuOpen((prev) => !prev);
-  const closeMobileMenu = () => setIsMobileMenuOpen(false);
-
+  // Ефект для блокування скролу body
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
     }
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = '';
     };
   }, [isMobileMenuOpen]);
+
+  const toggleMobileMenu = () => setIsMobileMenuOpen((prev) => !prev);
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
+
+  const handleLogout = () => {
+    logout();
+    closeMobileMenu();
+  };
 
   return (
     <header className={`${styles.header} ${isScrolled ? styles.headerScrolled : ''}`}>
       <div className={styles.container}>
+        
+        {/* Логотип */}
+        <Link to="/" className={styles.logo} onClick={closeMobileMenu}>
+          Долинський <span>О.С.</span>
+        </Link>
+
+        {/* Навігація */}
         <nav className={`${styles.nav} ${isMobileMenuOpen ? styles.navOpen : ''}`}>
           <ul className={styles.navList}>
             {navItems.map(({ to, label }) => {
-              const isActive = location.pathname === to || (to !== '/' && location.pathname.startsWith(to));
+              const isActive = location.pathname === to || (to !== '/' && location.pathname.startsWith(to + '/'));
               
               return (
                 <li key={to} className={styles.navItem}>
@@ -57,6 +72,7 @@ export function Header() {
                     to={to}
                     className={`${styles.navLink} ${isActive ? styles.navLinkActive : ''}`}
                     onClick={closeMobileMenu}
+                    activeProps={{ className: styles.navLinkActive }}
                   >
                     {label}
                   </Link>
@@ -64,24 +80,39 @@ export function Header() {
               );
             })}
             
+            {/* Мобільні контролли (ТІЛЬКИ ТУТ перемикач мов) */}
             <div className={styles.mobileControls}>
-               {isAuthenticated && (
-                 <button className={styles.logoutBtnMobile} onClick={() => { logout(); closeMobileMenu(); }}>
-                   Вийти
+              <div className={styles.langSwitcherMobile}>
+                 <button 
+                   className={`${styles.langBtn} ${currentLang === 'UA' ? styles.langBtnActive : ''}`}
+                   onClick={() => setCurrentLang('UA')}
+                 >
+                   UA
                  </button>
-               )}
+                 <span className={styles.langDivider}>/</span>
+                 <button 
+                   className={`${styles.langBtn} ${currentLang === 'EN' ? styles.langBtnActive : ''}`}
+                   onClick={() => setCurrentLang('EN')}
+                 >
+                   EN
+                 </button>
+              </div>
+
+              {isAuthenticated && (
+                <button className={styles.logoutBtnMobile} onClick={handleLogout}>
+                  Вийти
+                </button>
+              )}
             </div>
           </ul>
         </nav>
 
-        <div className={styles.controls}>
-          <div className={styles.langSwitcher}>
-             <button className={`${styles.langBtn} ${styles.langBtnActive}`}>UA</button>
-             <span className={styles.langDivider}>/</span>
-             <button className={styles.langBtn}>EN</button>
-          </div>
+        {/* Десктопні контролли (ПУСТО, або можна додати щось інше, але мови тут немає) */}
+        <div className={styles.desktopControls}>
+          {/* Перемикач мов видалено звідси */}
         </div>
 
+        {/* Бургер кнопка */}
         <button
           className={`${styles.burgerBtn} ${isMobileMenuOpen ? styles.burgerBtnActive : ''}`}
           aria-label="Меню"
@@ -94,9 +125,11 @@ export function Header() {
         </button>
       </div>
       
+      {/* Overlay */}
       <div 
         className={`${styles.overlay} ${isMobileMenuOpen ? styles.overlayActive : ''}`}
         onClick={closeMobileMenu}
+        aria-hidden="true"
       />
     </header>
   );
