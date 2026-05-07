@@ -1,7 +1,10 @@
 @use '../styles/variables' as *;
 @use '../styles/mixins' as *;
 
-/* --- GLOBAL ANIMATIONS --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -28,11 +31,18 @@
   50% { transform: translateY(20px) rotate(55deg); }
 }
 
+@keyframes moveBlob {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, -40px) scale(1.1); }
+  100% { transform: translate(-20px, 20px) scale(0.95); }
+}
+
 .fade-in-section {
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-  will-change: opacity, visibility;
+  will-change: opacity, transform;
+  width: 100%;
   
   &.is-visible {
     opacity: 1;
@@ -40,7 +50,6 @@
   }
 }
 
-/* --- HERO SECTION --- */
 .hero {
   position: relative;
   width: 100%;
@@ -53,6 +62,7 @@
   background-color: #0055ff;
   background-image: radial-gradient(circle at 50% 50%, #0066ff 0%, #0044cc 100%);
   z-index: 1;
+  will-change: contents;
 
   &::before {
     content: '';
@@ -64,7 +74,7 @@
     background-size: 50px 50px;
     z-index: 1;
     pointer-events: none;
-    animation: fadeIn 1.5s ease-out; // Поява сітки
+    animation: fadeIn 1.5s ease-out;
   }
 
   .glowBlob {
@@ -76,6 +86,7 @@
     animation: moveBlob 20s infinite alternate ease-in-out;
     pointer-events: none;
     background: white;
+    will-change: transform;
   }
 
   .glowBlob__1 {
@@ -83,20 +94,15 @@
     animation-duration: 25s;
   }
 
-  @keyframes moveBlob {
-    0% { transform: translate(0, 0) scale(1); }
-    50% { transform: translate(40px, -40px) scale(1.1); }
-    100% { transform: translate(-20px, 20px) scale(0.95); }
-  }
-
   .shape {
     position: absolute;
     border: 2px solid rgba(255, 255, 255, 0.2);
-    opacity: 0; // Початково приховані
+    opacity: 0;
     pointer-events: none;
     z-index: 2;
     backdrop-filter: blur(2px);
-    animation-fill-mode: forwards; // Зберегти кінцевий стан
+    animation-fill-mode: forwards;
+    will-change: transform, margin;
   }
 
   .shape__circle1 {
@@ -130,7 +136,6 @@
     color: white;
     text-align: left;
     
-    // Каскадна анімація дітей
     > * {
       opacity: 0;
       animation: fadeInUp 0.8s ease-out forwards;
@@ -138,7 +143,7 @@
   }
 
   &__title {
-    font-size: clamp(3rem, 6vw, 5rem);
+    font-size: clamp(2.5rem, 5vw, 5rem);
     font-weight: 800;
     margin-bottom: 1rem;
     line-height: 1.1;
@@ -149,7 +154,7 @@
   }
 
   &__subtitle {
-    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    font-size: clamp(1.1rem, 2.5vw, 1.8rem);
     font-weight: 400;
     margin-bottom: 3rem;
     color: rgba(255, 255, 255, 0.9);
@@ -157,94 +162,156 @@
     animation-delay: 0.2s;
   }
 
-  // Якщо є кнопка в герої, вона з'явиться третьою
-  .hero__btn {
-     animation-delay: 0.3s;
-  }
-
   @media (max-width: 768px) {
-    padding-left: 5%; padding-right: 5%;
-    justify-content: center; text-align: center;
-    &__content { display: flex; flex-direction: column; align-items: center; }
-    &__diagonal { width: 100%; height: 30%; }
+    padding-left: 5%; 
+    padding-right: 5%;
+    justify-content: center; 
+    text-align: center;
+    
+    &__content { 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+    }
+    
+    &__diagonal { 
+      width: 100%; 
+      height: 20%; 
+    }
+    
     .shape__square1 { display: none; }
   }
 }
 
-/* --- ABOUT SECTION --- */
 .about {
   padding: 6rem 10%;
   background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
   color: #333;
   position: relative;
   z-index: 4;
+  width: 100%;
   
-  // Анімація появи всієї секції
   opacity: 0;
   animation: fadeInUp 1s ease-out forwards;
-  // Можна додати intersection observer trigger, якщо треба анімацію при скролі
-  // Або залишити так, якщо секція не далеко від верху
 
   .container {
-    display: flex; gap: 4rem; align-items: center;
-    max-width: 1200px; margin: 0 auto;
+    display: flex; 
+    gap: 4rem; 
+    align-items: center;
+    max-width: 1200px; 
+    margin: 0 auto;
+    width: 100%;
   }
 
   .content { 
-    flex: 1; max-width: 550px; 
+    flex: 1; 
+    max-width: 550px; 
     opacity: 0;
     animation: fadeInUp 0.8s ease-out 0.2s forwards;
   }
 
   .title {
-    font-size: 1.5rem; font-weight: 800; text-transform: uppercase;
-    letter-spacing: 2px; color: #0055ff; margin-bottom: 3rem;
-    display: inline-block; position: relative;
+    font-size: 1.5rem; 
+    font-weight: 800; 
+    text-transform: uppercase;
+    letter-spacing: 2px; 
+    color: #0055ff; 
+    margin-bottom: 3rem;
+    display: inline-block; 
+    position: relative;
+    
     &::after {
-      content: ''; display: block; width: 60px; height: 4px;
-      background: #0055ff; margin: 10px 0 0; border-radius: 2px;
+      content: ''; 
+      display: block; 
+      width: 60px; 
+      height: 4px;
+      background: #0055ff; 
+      margin: 10px 0 0; 
+      border-radius: 2px;
       transform: scaleX(0);
       transform-origin: left;
-      transition: transform 0.5s ease 0.5s; // Анімація лінії після появи тексту
+      transition: transform 0.5s ease 0.5s;
     }
     
-    // Тригер для лінії, коли секція видима (якщо використовується JS клас)
     .is-visible &::after {
        transform: scaleX(1);
     }
-    // Або просто завжди показувати, якщо без JS
-    &.visible::after { transform: scaleX(1); }
   }
 
-  .name { font-size: 2.2rem; font-weight: 700; margin-bottom: 0.5rem; color: #1a1a1a; line-height: 1.2; }
-  .role { font-size: 1.2rem; color: #555; margin-bottom: 2rem; font-weight: 500; }
+  .name { 
+    font-size: 2.2rem; 
+    font-weight: 700; 
+    margin-bottom: 0.5rem; 
+    color: #1a1a1a; 
+    line-height: 1.2; 
+  }
+  
+  .role { 
+    font-size: 1.2rem; 
+    color: #555; 
+    margin-bottom: 2rem; 
+    font-weight: 500; 
+  }
   
   .description {
-    font-size: 1.05rem; line-height: 1.8; color: #444; margin-bottom: 1.5rem;
+    font-size: 1.05rem; 
+    line-height: 1.8; 
+    color: #444; 
+    margin-bottom: 1.5rem;
+    
     strong { color: #222; font-weight: 600; }
+    
     a {
-      color: #0055ff; text-decoration: none; font-weight: 600;
-      transition: color 0.2s; border-bottom: 1px solid rgba(0, 85, 255, 0.3);
-      &:hover { color: #003399; border-bottom-color: #003399; }
+      color: #0055ff; 
+      text-decoration: none; 
+      font-weight: 600;
+      transition: color 0.2s; 
+      border-bottom: 1px solid rgba(0, 85, 255, 0.3);
+      
+      &:hover { 
+        color: #003399; 
+        border-bottom-color: #003399; 
+      }
     }
   }
 
   .aboutLink {
-    display: inline-flex; align-items: center; font-size: 1rem; font-weight: 600;
-    color: #0055ff; text-decoration: none; transition: transform 0.2s ease, color 0.2s ease;
+    display: inline-flex; 
+    align-items: center; 
+    font-size: 1rem; 
+    font-weight: 600;
+    color: #0055ff; 
+    text-decoration: none; 
+    transition: transform 0.2s ease, color 0.2s ease;
     margin-top: 0.5rem;
-    &:hover { color: #003399; transform: translateX(5px); }
+    
+    &:hover { 
+      color: #003399; 
+      transform: translateX(5px); 
+    }
   }
 
   .imageWrapper {
-    flex: 1; display: flex; justify-content: center; align-items: center; position: relative;
+    flex: 1; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    position: relative;
     opacity: 0;
-    animation: fadeInUp 0.8s ease-out 0.4s forwards; // Затримка більша, ніж у тексту
+    animation: fadeInUp 0.8s ease-out 0.4s forwards;
+    width: 100%;
     
     &::before {
-      content: ''; position: absolute; top: -20px; right: -20px;
-      width: 100%; height: 100%; background: rgba(0, 85, 255, 0.08);
-      z-index: 0; border-radius: 12px; transform: rotate(3deg);
+      content: ''; 
+      position: absolute; 
+      top: -20px; 
+      right: -20px;
+      width: 100%; 
+      height: 100%; 
+      background: rgba(0, 85, 255, 0.08);
+      z-index: 0; 
+      border-radius: 12px; 
+      transform: rotate(3deg);
       transition: transform 0.5s ease;
     }
     
@@ -254,22 +321,55 @@
   }
 
   .image {
-    width: 100%; max-width: 420px; height: auto; border-radius: 20px;
-    box-shadow: 20px 20px 0px rgba(0, 0, 0, 0.05); position: relative; z-index: 1;
-    object-fit: cover; aspect-ratio: 4/5; filter: grayscale(20%);
+    width: 100%; 
+    max-width: 420px; 
+    height: auto; 
+    border-radius: 20px;
+    position: relative; 
+    z-index: 1;
+    object-fit: cover; 
+    aspect-ratio: 4/5; 
+    filter: grayscale(20%);
     transition: filter 0.3s ease, transform 0.3s ease;
-    &:hover { filter: grayscale(0%); transform: scale(1.02); }
+    
+    &:hover { 
+      filter: grayscale(0%); 
+      transform: scale(1.02); 
+    }
   }
 
   @media (max-width: 992px) {
     padding: 4rem 5%;
-    .container { flex-direction: column-reverse; gap: 3rem; text-align: center; }
-    .content { max-width: 100%; .title::after { margin: 10px auto 0; } }
-    .imageWrapper { width: 100%; max-width: 350px; &::before { right: 0; left: 0; margin: 0 auto; } }
+    
+    .container { 
+      flex-direction: column-reverse; 
+      gap: 3rem; 
+      text-align: center; 
+    }
+    
+    .content { 
+      max-width: 100%; 
+      
+      .title::after { 
+        margin: 10px auto 0; 
+      } 
+    }
+    
+    .imageWrapper { 
+      width: 100%; 
+      max-width: 350px; 
+      
+      &::before { 
+        right: 0; 
+        left: 0; 
+        margin: 0 auto; 
+      } 
+    }
   }
 
   @media (max-width: 576px) {
     padding: 3rem 4%;
+    
     .title { font-size: 1.2rem; margin-bottom: 2rem; }
     .name { font-size: 1.8rem; }
     .role { font-size: 1.1rem; }
@@ -278,86 +378,138 @@
   }
 }
 
-/* --- WORKS SECTION --- */
 .works {
   padding: 6rem 10%;
   background-color: #ffffff;
   text-align: center;
   position: relative;
   z-index: 4;
+  width: 100%;
   
   opacity: 0;
   animation: fadeInUp 1s ease-out 0.2s forwards;
 
-  .container { max-width: 1200px; margin: 0 auto; }
+  .container { 
+    max-width: 1200px; 
+    margin: 0 auto; 
+    width: 100%;
+  }
 
   .sectionTitle {
-    font-size: 1.5rem; font-weight: 800; text-transform: uppercase;
-    letter-spacing: 2px; color: #0055ff; margin-bottom: 3rem;
-    display: inline-block; position: relative;
+    font-size: 1.5rem; 
+    font-weight: 800; 
+    text-transform: uppercase;
+    letter-spacing: 2px; 
+    color: #0055ff; 
+    margin-bottom: 3rem;
+    display: inline-block; 
+    position: relative;
+    
     &::after {
-      content: ''; display: block; width: 60px; height: 4px;
-      background: #0055ff; margin: 10px auto 0; border-radius: 2px;
+      content: ''; 
+      display: block; 
+      width: 60px; 
+      height: 4px;
+      background: #0055ff; 
+      margin: 10px auto 0; 
+      border-radius: 2px;
     }
   }
 
   .grid {
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: 1.5rem; margin-bottom: 3rem;
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem; 
+    margin-bottom: 3rem;
+    width: 100%;
   }
 
   .card {
-    position: relative; border-radius: 8px; overflow: hidden;
+    position: relative; 
+    border-radius: 8px; 
+    overflow: hidden;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background: #f9f9f9; aspect-ratio: 16/10;
+    background: #f9f9f9; 
+    aspect-ratio: 16/10;
+    width: 100%;
     
-    // Початковий стан для анімації
     opacity: 0;
     transform: translateY(20px);
     animation: fadeInUp 0.6s ease-out forwards;
 
-    // Каскадна затримка для карток
     @for $i from 1 through 10 {
       &:nth-child(#{$i}) {
         animation-delay: #{0.1 + ($i * 0.1)}s;
       }
     }
 
-    &:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); }
+    &:hover { 
+      transform: translateY(-5px); 
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); 
+    }
   }
 
   .imageWrapper {
-    width: 100%; height: 100%; position: relative;
+    width: 100%; 
+    height: 100%; 
+    position: relative;
+    
     img {
-      width: 100%; height: 100%; object-fit: cover; object-position: top left;
+      width: 100%; 
+      height: 100%; 
+      object-fit: cover; 
+      object-position: top left;
       transition: transform 0.5s ease;
     }
+    
     .card:hover img { transform: scale(1.05); }
   }
 
   .overlay {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 85, 255, 0.9); display: flex; align-items: center;
-    justify-content: center; opacity: 0; transition: opacity 0.3s ease;
-    color: white; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;
+    position: absolute; 
+    top: 0; left: 0; 
+    width: 100%; height: 100%;
+    background: rgba(0, 85, 255, 0.9); 
+    display: flex; 
+    align-items: center;
+    justify-content: center; 
+    opacity: 0; 
+    transition: opacity 0.3s ease;
+    color: white; 
+    font-weight: 600; 
+    text-transform: uppercase; 
+    letter-spacing: 1px;
   }
+  
   .card:hover .overlay { opacity: 1; }
 
   .footerAction { 
     margin-top: 2rem; 
-    display: flex; justify-content: center; 
+    display: flex; 
+    justify-content: center; 
     opacity: 0;
     animation: fadeIn 0.8s ease-out 0.8s forwards;
   }
 
   .btnOutline {
-    display: inline-block; padding: 1rem 2.5rem; font-size: 1rem; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 1px; color: #0055ff;
-    border: 2px solid #0055ff; background: transparent; text-decoration: none;
-    border-radius: 4px; transition: all 0.3s ease;
+    display: inline-block; 
+    padding: 1rem 2.5rem; 
+    font-size: 1rem; 
+    font-weight: 700;
+    text-transform: uppercase; 
+    letter-spacing: 1px; 
+    color: #0055ff;
+    border: 2px solid #0055ff; 
+    background: transparent; 
+    text-decoration: none;
+    border-radius: 4px; 
+    transition: all 0.3s ease;
+    
     &:hover {
-      background: #0055ff; color: white; transform: translateY(-2px);
+      background: #0055ff; 
+      color: white; 
+      transform: translateY(-2px);
       box-shadow: 0 5px 15px rgba(0, 85, 255, 0.3);
     }
   }
@@ -375,44 +527,105 @@
   }
 }
 
-/* --- BLOG SECTION WITH DOT PAGINATION --- */
-.blog {
+.services {
   padding: 6rem 10%;
-  background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
-  text-align: center;
+  background-color: #fcfcfc;
+  width: 100%;
   position: relative;
   z-index: 4;
-  overflow: hidden; 
+  text-align: center;
 
   .container {
     max-width: 1200px;
     margin: 0 auto;
-    position: relative;
+    width: 100%;
   }
 
   .sectionTitle {
-    font-size: 1.5rem; font-weight: 800; text-transform: uppercase;
-    letter-spacing: 2px; color: #0055ff; margin-bottom: 3rem;
-    display: inline-block; position: relative;
+    font-size: 1.5rem; 
+    font-weight: 800; 
+    text-transform: uppercase;
+    letter-spacing: 2px; 
+    color: #0055ff; 
+    margin-bottom: 3rem;
+    display: inline-block; 
+    position: relative;
+    
     &::after {
-      content: ''; display: block; width: 60px; height: 4px;
-      background: #0055ff; margin: 10px auto 0; border-radius: 2px;
+      content: ''; 
+      display: block; 
+      width: 60px; 
+      height: 4px;
+      background: #0055ff; 
+      margin: 10px auto 0; 
+      border-radius: 2px;
     }
   }
 
-  /* Swiper Container */
-  .blogSwiper {
+  .servicesSwiper {
     width: 100%;
-    padding: 1rem 0 3rem 0; 
+    padding: 1rem 0 3rem 0;
     overflow: hidden !important;
+    text-align: left;
   }
 
-  .blogSlide {
+  .serviceSlide {
     height: auto;
     display: flex;
   }
 
-  /* --- CUSTOM DOT PAGINATION STYLES --- */
+  .serviceCard {
+    background: #ffffff;
+    padding: 2.5rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    border: 1px solid #eee;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 85, 255, 0.1);
+      border-color: rgba(0, 85, 255, 0.2);
+    }
+  }
+
+  .serviceIcon {
+    width: 60px;
+    height: 60px;
+    background: rgba(0, 85, 255, 0.08);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    color: #0055ff;
+    flex-shrink: 0;
+
+    svg {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  .serviceTitle {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+
+  .serviceDescription {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #666;
+    margin: 0;
+  }
+
   .swiperPagination {
     position: relative;
     bottom: 0 !important; 
@@ -420,7 +633,6 @@
     text-align: center;
     z-index: 10;
     
-    // Анімація появи пагінації
     opacity: 0;
     animation: fadeIn 0.8s ease-out 1s forwards;
   }
@@ -441,66 +653,20 @@
     border-radius: 5px;
   }
 
-  .blogCardLink {
-    display: block;
-    height: 100%;
-    text-decoration: none;
-  }
-
-  .blogCard {
-    background: white;
-    border-radius: 8px;
-    padding: 2rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 250px;
-    border: 1px solid rgba(0, 85, 255, 0.1);
-    height: 100%;
-    
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0, 85, 255, 0.1);
-      border-color: rgba(0, 85, 255, 0.3);
-    }
-  }
-
-  .blogContent {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-
-  .blogTitle {
-    font-size: 1.2rem; font-weight: 700; color: #1a1a1a;
-    margin-bottom: 1rem; line-height: 1.4;
-  }
-
-  .blogExcerpt {
-    font-size: 0.95rem; color: #555; line-height: 1.6;
-    margin-bottom: 1.5rem; flex-grow: 1;
-  }
-
-  .readMore {
-    font-size: 0.9rem; font-weight: 600; color: #0055ff;
-    margin-top: auto; display: inline-flex; align-items: center;
-    transition: transform 0.2s ease;
-  }
-
-  .blogCard:hover .readMore { transform: translateX(5px); }
-
   @media (max-width: 992px) {
     padding: 4rem 5%;
   }
 
   @media (max-width: 576px) {
     padding: 3rem 4%;
-    .sectionTitle { font-size: 1.2rem; margin-bottom: 2rem; }
-    .blogCard { padding: 1.5rem; }
-    .blogTitle { font-size: 1.1rem; }
-    .blogExcerpt { font-size: 0.9rem; }
+    
+    .sectionTitle { 
+      font-size: 1.2rem; 
+      margin-bottom: 2rem; 
+    }
+    
+    .serviceCard {
+      padding: 1.5rem;
+    }
   }
 }

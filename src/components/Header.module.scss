@@ -23,8 +23,6 @@
     justify-content: space-between;
   }
 
-  // ... (стилі для .logo залишаємо без змін, якщо вони є) ...
-
   .nav {
     @media (max-width: 992px) {
       position: fixed;
@@ -168,75 +166,6 @@
     }
   }
 
-  // --- Стилі для іконки входу (шестерня) ---
-  .loginLink {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: transparent;
-    color: #555555;
-    transition: all 0.2s ease;
-    text-decoration: none;
-    border: 1px solid transparent; // Для стабільності розміру
-    
-    &:hover {
-      background-color: #f5f7fa; 
-      color: #0055ff;
-      border-color: rgba(0, 85, 255, 0.1);
-    }
-
-    .loginIcon {
-      width: 22px;
-      height: 22px;
-      stroke: currentColor;
-      stroke-width: 2;
-      fill: none;
-      transition: transform 0.3s ease;
-    }
-
-    &:hover .loginIcon {
-      transform: rotate(90deg);
-    }
-  }
-
-  // --- Стилі для іконки профілю (користувач) ---
-  .profileLink {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: transparent;
-    color: #0055ff; // Акцентний колір для авторизованого користувача
-    transition: all 0.2s ease;
-    border: 1px solid transparent;
-    cursor: pointer;
-
-    &:hover {
-      background-color: rgba(0, 85, 255, 0.08);
-      color: #0044cc;
-      border-color: rgba(0, 85, 255, 0.2);
-      transform: translateY(-1px);
-    }
-
-    .loginIcon {
-      width: 22px;
-      height: 22px;
-      stroke: currentColor;
-      stroke-width: 2;
-      fill: none;
-      transition: transform 0.3s ease;
-    }
-
-    &:hover .loginIcon {
-      transform: scale(1.1);
-    }
-  }
-
   .burgerBtn {
     display: none;
     flex-direction: column;
@@ -288,35 +217,15 @@
     }
   }
 
-  .loginBtnMobile {
-    display: block;
-    width: 100%;
-    text-align: center;
-    padding: 1rem;
-    background-color: #0055ff;
-    color: white;
-    border-radius: 0.75rem;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 1rem;
-    box-shadow: 0 4px 15px rgba(0, 85, 255, 0.2);
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    
-    &:hover {
-       background-color: #0044cc;
-    }
-  }
+  // Стилі для .loginBtnMobile видалено, оскільки елемент більше не використовується
 
-  // --- Стилі для кнопки виходу в мобільному меню ---
   .logoutBtnMobile {
     display: block;
     width: 100%;
     text-align: center;
     padding: 1rem;
     background-color: transparent;
-    color: #dc3545; // Червоний відтінок для дії виходу
+    color: #dc3545;
     border: 1px solid #dc3545;
     border-radius: 0.75rem;
     font-weight: 600;

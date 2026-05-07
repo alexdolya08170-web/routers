@@ -3,117 +3,197 @@ import { useState, useEffect, useMemo } from 'react';
 import styles from './events.module.scss';
 
 export const Route = createFileRoute('/events')({
-  component: BlogPage,
+  component: PortfolioPage,
 });
 
-function BlogPage() {
+type Category = 'All' | 'Web Apps' | 'E-commerce' | 'Corporate' | 'Landing' | 'UI/UX';
+
+interface Project {
+  id: number;
+  title: string;
+  description: string;
+  category: Category;
+  techStack: string[]; // Залишаємо в інтерфейсі для логіки, якщо потрібно, але не рендеримо
+  link?: string;
+}
+
+const categories: Category[] = ['All', 'Web Apps', 'E-commerce', 'Corporate', 'Landing', 'UI/UX'];
+
+const projects: Project[] = [
+  // --- Web Apps ---
+  {
+    id: 1,
+    title: "CRM система для логістики",
+    description: "Розробка повного циклу внутрішньої CRM для управління автопарком. Realtime-трекінг, ролі, аналітика.",
+    category: "Web Apps",
+    techStack: ["React", "TypeScript", "Node", "PostgreSQL"],
+    link: "#"
+  },
+  {
+    id: 4,
+    title: "SaaS платформа для навчання",
+    description: "Платформа з відео-уроками, тестами та прогресом студентів. Адмін-панель для викладачів.",
+    category: "Web Apps",
+    techStack: ["React", "Firebase", "Material UI", "Stripe"],
+    link: "#"
+  },
+  {
+    id: 7,
+    title: "Dashboard фінансового аналізу",
+    description: "Візуалізація великих масивів даних, графіки D3.js, експорт звітів у Excel/PDF.",
+    category: "Web Apps",
+    techStack: ["React", "TypeScript", "D3.js", "Python API"],
+    link: "#"
+  },
+  {
+    id: 9,
+    title: "Сервіс доставки їжі (PWA)",
+    description: "Додаток для замовлення їжі. Робота офлайн, push-сповіщення, кошик.",
+    category: "Web Apps",
+    techStack: ["React", "Service Workers", "Node", "MongoDB"],
+    link: "#"
+  },
+  {
+    id: 11,
+    title: "B2B портал постачальника",
+    description: "Особистий кабінет для оптових покупців, історія замовлень, документообіг.",
+    category: "Web Apps",
+    techStack: ["Vue", "Laravel", "MySQL"],
+    link: "#"
+  },
+
+  // --- E-commerce ---
+  {
+    id: 2,
+    title: "Інтернет-магазин електроніки",
+    description: "Високонавантажений магазин з фільтрацією товарів та інтеграцією платіжних систем.",
+    category: "E-commerce",
+    techStack: ["Next", "Redux Toolkit", "Strapi", "MySQL"],
+    link: "#"
+  },
+  {
+    id: 6,
+    title: "Маркетплейс рукоділля",
+    description: "Платформа для продажу хендмейд виробів. Акцент на мобільну версію та швидкість.",
+    category: "E-commerce",
+    techStack: ["Next", "PostgreSQL", "Prisma", "AWS S3"],
+    link: "#"
+  },
+
+  // --- Corporate ---
+  {
+    id: 3,
+    title: "Корпоративний портал IT-компанії",
+    description: "Багатомовний сайт з блогом, кейсами та особистим кабінетом клієнта.",
+    category: "Corporate",
+    techStack: ["Next", "GraphQL", "Tailwind", "Vercel"],
+    link: "#"
+  },
+  {
+    id: 8,
+    title: "Сайт будівельної компанії",
+    description: "Каталог об'єктів, форма зворотного зв'язку, галерея реалізованих проектів.",
+    category: "Corporate",
+    techStack: ["WordPress", "PHP", "ACF", "JS"],
+    link: "#"
+  },
+  {
+    id: 12,
+    title: "Блог подорожей",
+    description: "Швидкий статичний блог з CMS. Інтеграція Instagram стрічки.",
+    category: "Corporate",
+    techStack: ["Next", "Contentful", "Styled Components"],
+    link: "#"
+  },
+
+  // --- Landing ---
+  {
+    id: 5,
+    title: "Лендінг для нерухомості",
+    description: "Продаючий лендінг з 3D-туром квартир та калькулятором іпотеки.",
+    category: "Landing",
+    techStack: ["HTML/SCSS", "Vanilla JS", "GSAP"],
+    link: "#"
+  },
+  {
+    id: 10,
+    title: "Promo-сайт гаджету",
+    description: "Презентаційний сайт з складними скрол-ефектами та відео-фоном.",
+    category: "Landing",
+    techStack: ["Next", "Framer Motion", "SCSS"],
+    link: "#"
+  },
+
+  // --- UI/UX ---
+  {
+    id: 13,
+    title: "Дизайн-система для банку",
+    description: "Створення повної бібліотеки UI-компонентів, гайдлайнів та токенів для веб та мобільних додатків.",
+    category: "UI/UX",
+    techStack: ["Figma", "Storybook", "React", "SCSS"],
+    link: "#"
+  },
+  {
+    id: 14,
+    title: "Редизайн мобільного додатку",
+    description: "UX-аудит та оновлення інтерфейсу додатку доставки. Збільшення конверсії на 15%.",
+    category: "UI/UX",
+    techStack: ["Figma", "Prototyping", "User Research"],
+    link: "#"
+  },
+  {
+    id: 15,
+    title: "Концепт панелі керування",
+    description: "UI-концепт для IoT пристроїв. Темна тема, мінімалізм, адаптивність.",
+    category: "UI/UX",
+    techStack: ["Figma", "Adobe Illustrator"],
+    link: "#"
+  }
+];
+
+function PortfolioPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
+  const [activeCategory, setActiveCategory] = useState<Category>('All');
   
   const itemsPerPage = 6; 
 
-  const posts = [
-    {
-      id: 1,
-      title: "Про нашу опозицію",
-      excerpt: "Побуду трохи аналітиком. Звучить смішно, але ще смішніше виглядає той нечисленний освічений народ, який в принципі по поглядах мені близький.",
-      link: "/blog/post-1"
-    },
-    {
-      id: 2,
-      title: "Яскравий полум'яний Атлетіко",
-      excerpt: "У вівторок (3 травня) подивився відповідний півфінальний матч між Атлетіко та Баварією.",
-      link: "/blog/post-2"
-    },
-    {
-      id: 3,
-      title: "Жалоба за загиблими в авіакатастрофі в Єгипті",
-      excerpt: "Я ніяк не можу зрозуміти, чому ніхто не хоче лагодити літаки, але хочуть пускати ракети по Сирії.",
-      link: "/blog/post-3"
-    },
-    {
-      id: 4,
-      title: "Рефакторинг legacy-коду: стратегії та помилки",
-      excerpt: "Робота зі старим кодом — це завжди виклик. У цій статті я розповідаю про те, як правильно підходити до рефакторингу.",
-      link: "/blog/post-4"
-    },
-    {
-      id: 5,
-      title: "Чому TypeScript стає стандартом індустрії",
-      excerpt: "Статична типізація перестає бути опцією і стає обов'язковою вимогою для серйозних проектів.",
-      link: "/blog/post-5"
-    },
-    {
-      id: 6,
-      title: "Декоратори в JavaScript: майбутнє вже тут",
-      excerpt: "Новий стандарт декораторів нарешті затверджено. Це відкриває неймовірні можливості для метапрограмування.",
-      link: "/blog/post-6"
-    },
-    {
-      id: 7,
-      title: "React Server Components: Глубокое погружение",
-      excerpt: "Как RSC меняют подход к разработке на Next.js и почему это важно для производительности.",
-      link: "/blog/post-7"
-    },
-    {
-      id: 8,
-      title: "Оптимизация сборки Vite",
-      excerpt: "Тонкие настройки Rollup и ESBuild для ускорения разработки больших приложений.",
-      link: "/blog/post-8"
-    },
-    {
-      id: 9,
-      title: "Микросервисы vs Монолит в 2026",
-      excerpt: "Когда стоит дробить приложение, а когда лучше оставить всё в одном репозитории.",
-      link: "/blog/post-9"
-    },
-    {
-      id: 10,
-      title: "AI в фронтенде: уже реальность?",
-      excerpt: "Использование генеративных моделей для создания UI компонентов и тестов.",
-      link: "/blog/post-10"
-    },
-    {
-      id: 11,
-      title: "CSS Container Queries",
-      excerpt: "Адаптивность, зависящая от размера контейнера, а не экрана. Полное руководство.",
-      link: "/blog/post-11"
-    },
-    {
-      id: 12,
-      title: "State Management без библиотек",
-      excerpt: "Как использовать Context API и useReducer эффективно в больших приложениях.",
-      link: "/blog/post-12"
+  const filteredProjects = useMemo(() => {
+    let result = projects;
+
+    if (activeCategory !== 'All') {
+      result = result.filter(project => project.category === activeCategory);
     }
-  ];
 
-  const filteredPosts = useMemo(() => {
-    if (!searchQuery.trim()) return posts;
-    
-    const lowerCaseQuery = searchQuery.toLowerCase();
-    return posts.filter(post => 
-      post.title.toLowerCase().includes(lowerCaseQuery) || 
-      post.excerpt.toLowerCase().includes(lowerCaseQuery)
-    );
-  }, [posts, searchQuery]);
+    if (searchQuery.trim()) {
+      const lowerCaseQuery = searchQuery.toLowerCase();
+      result = result.filter(project => 
+        project.title.toLowerCase().includes(lowerCaseQuery) || 
+        project.description.toLowerCase().includes(lowerCaseQuery) ||
+        project.techStack.some(tech => tech.toLowerCase().includes(lowerCaseQuery))
+      );
+    }
 
-  const totalPages = Math.ceil(filteredPosts.length / itemsPerPage);
+    return result;
+  }, [activeCategory, searchQuery]);
+
+  const totalPages = Math.ceil(filteredProjects.length / itemsPerPage);
   
   useEffect(() => {
     if (totalPages > 0 && currentPage > totalPages) {
       setCurrentPage(1);
     }
+    if (totalPages === 0 && currentPage !== 1) {
+      setCurrentPage(1);
+    }
   }, [totalPages, currentPage]);
 
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentPosts = filteredPosts.slice(startIndex, startIndex + itemsPerPage);
-
-  // --- ВИДАЛЕНО: useEffect зі scrollIntoView ---
+  const currentProjects = filteredProjects.slice(startIndex, startIndex + itemsPerPage);
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
       setCurrentPage(page);
-      // Миттєвий скрол на самий верх сторінки
       window.scrollTo(0, 0);
     }
   };
@@ -121,7 +201,13 @@ function BlogPage() {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
     setCurrentPage(1);
-    // Миттєвий скрол на самий верх сторінки при початку пошуку
+    window.scrollTo(0, 0);
+  };
+
+  const handleCategoryChange = (category: Category) => {
+    setActiveCategory(category);
+    setSearchQuery('');
+    setCurrentPage(1);
     window.scrollTo(0, 0);
   };
 
@@ -169,23 +255,37 @@ function BlogPage() {
 
       <div className={styles.container}>
         <header className={styles.header}>
-          <h1 className={styles.title}>Мій блог</h1>
+          <h1 className={styles.title}>Мої роботи</h1>
           <p className={styles.subtitle}>
-            Думки про технології та життя
+            Вибрані проекти: від Веб-додатків до UI/UX дизайну
           </p>
         </header>
+
+        <div className={styles.tabsWrapper}>
+          <div className={styles.tabs}>
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => handleCategoryChange(cat)}
+                className={`${styles.tabBtn} ${activeCategory === cat ? styles.tabBtnActive : ''}`}
+              >
+                {cat === 'All' ? 'Всі' : cat}
+              </button>
+            ))}
+          </div>
+        </div>
 
         <div className={styles.searchWrapper}>
           <input 
             type="text" 
-            placeholder="Пошук статей..." 
+            placeholder={`Пошук проектів або технологій...`} 
             value={searchQuery}
             onChange={handleSearchChange}
             className={styles.searchInput}
           />
           {searchQuery && (
              <button 
-               onClick={() => { setSearchQuery(''); setCurrentPage(1); window.scrollTo(0, 0); }}
+               onClick={() => { setSearchQuery(''); setCurrentPage(1); }}
                className={styles.clearSearchBtn}
                aria-label="Очистити пошук"
              >
@@ -194,25 +294,30 @@ function BlogPage() {
           )}
         </div>
 
-        {filteredPosts.length === 0 ? (
+        {filteredProjects.length === 0 ? (
           <div className={styles.noResults}>
-            Нічого не знайдено за запитом "{searchQuery}"
+            Проекти не знайдено
           </div>
         ) : (
           <>
-            <div className={styles.grid} key={`${currentPage}-${searchQuery}`}>
-              {currentPosts.map((post) => (
-                <article key={post.id} className={styles.card}>
+            <div className={styles.grid} key={`${currentPage}-${activeCategory}-${searchQuery}`}>
+              {currentProjects.map((project) => (
+                <article key={project.id} className={styles.card}>
+                  <div className={styles.cardHeader}>
+                    <span className={styles.cardCategory}>{project.category}</span>
+                  </div>
                   <h2 className={styles.cardTitle}>
-                    <a href={post.link}>{post.title}</a>
+                    <a href={project.link}>{project.title}</a>
                   </h2>
                   
                   <p className={styles.excerpt}>
-                    {post.excerpt}
+                    {project.description}
                   </p>
+
+                  {/* Блок techStack видалено */}
                   
-                  <a href={post.link} className={styles.readMoreLink}>
-                    Читати далі →
+                  <a href={project.link} className={styles.readMoreLink}>
+                    Детальніше →
                   </a>
                 </article>
               ))}

@@ -7,40 +7,46 @@ const experience = [
     role: "Senior Frontend Developer",
     company: "Tech Solutions Inc.",
     period: "2023 — Теперішній час",
-    description: "Розробка та підтримка складних SPA на React/Next. Оптимізація продуктивності (Core Web Vitals), впровадження CI/CD пайплайнів, код-рев'ю та менторство молодших розробників. Міграція легасі-коду на TypeScript."
+    description: "Архітектура та розробка SPA на React/Next (TypeScript). Оптимізація продуктивності (Core Web Vitals, Lighthouse 95+). Налаштування CI/CD пайплайнів для фронтенду. Проведення код-рев'ю, менторство команди та міграція legacy-кодбази на сучасний стек."
   },
   {
     id: 2,
     role: "Middle Frontend Developer",
     company: "Digital Agency",
     period: "2021 — 2023",
-    description: "Створення адаптивних інтерфейсів для e-commerce проектів високого навантаження. Інтеграція REST API та GraphQL, робота зі стейт-менеджерами Redux Toolkit та Zustand. Тестування компонентів за допомогою Jest та React Testing Library."
+    description: "Розробка e-commerce рішень. Інтеграція REST API та GraphQL. Ефективне управління станом через Redux Toolkit та Zustand. Впровадження unit та E2E тестів (Jest, React Testing Library, Cypress) для забезпечення стабільності релізів."
   },
   {
     id: 3,
     role: "Junior Web Developer",
     company: "StartUp Studio",
     period: "2019 — 2021",
-    description: "Верстка лендінгів та корпоративних сайтів. Адаптація дизайну з Figma. Підтримка та доопрацювання сайтів на CMS WordPress. Активне вивчення сучасного стеку JavaScript."
+    description: "Pixel-perfect верстка адаптивних інтерфейсів за макетами Figma. Розробка та кастомізація тем для WordPress. Оптимізація швидкості завантаження сайтів. Активне занурення в екосистему JavaScript та сучасні стандарти ES6+."
   }
 ];
 
 const skills = [
-  "React", "TypeScript", "Next", "Redux Toolkit", 
-  "Tailwind", "SCSS/CSS Modules", "Node", "Git", 
-  "Cypress", "Figma", "Webpack/Vite"
+  "React", "Next", "TypeScript", "Redux Toolkit", 
+  "Zustand", "Tailwind CSS", "SCSS Modules", 
+  "Node.js", "CI/CD", "Git", 
+  "Cypress", "Jest", "FSD Architecture", "Webpack/Vite"
 ];
 
 function HeroSection() {
   return (
     <>
       <section className={styles.hero}>
+        {/* Декоративні кубики на фоні */}
+        <div className={styles.hero__cube} aria-hidden="true"></div>
+        <div className={`${styles.hero__cube} ${styles['hero__cube--2']}`} aria-hidden="true"></div>
+        <div className={`${styles.hero__cube} ${styles['hero__cube--3']}`} aria-hidden="true"></div>
+
         <div className={styles.hero__content}>
           <h1 className={styles.hero__title}>
             Олександр Долинський
           </h1>
           <p className={styles.hero__subtitle}>
-            Веб-розробник
+             Frontend Developer
           </p>
           
           <div className={styles.hero__actions}>
@@ -63,9 +69,8 @@ function HeroSection() {
         <div className={styles.container}>
           <h2 className={styles.sectionTitle}>Про мене</h2>
           <p className={styles.text}>
-            Я розробник з досвідом створення швидких, масштабованих та доступних додатків. 
-            Спеціалізуюся на системі React та Linux. Маю грозуміння принципів компонентного підходу та оптимізації.
-            Вмію працювати як самостійно, так і в крос-функціональних командах. Захоплююсь новими технологіями, веду блог про розробку та беру участь у проектах.
+            Маю глибоке розуміння принципів компонентного підходу, роботи з асинхронністю та побудови стабільного UI. 
+            Веду технічний блог, ділюсь знаннями та постійно досліджую нові інструменти для покращення Developer Experience.
           </p>
         </div>
       </section>
