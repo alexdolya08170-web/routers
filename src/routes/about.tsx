@@ -62,7 +62,7 @@ const SKILLS_LIST = [
   "Tailwind CSS", "SCSS Modules", "CSS-in-JS", "Framer Motion", "Shadcn/UI",
   
   // Testing & Quality
-  "Jest", "React Testing Library", "Cypress", "Playwright", "Storybook",
+  "React Testing Library", "Cypress", "Playwright", "Storybook",
   
   // Architecture & Patterns
   "FSD Architecture", "Clean Code", "SOLID", "Design Patterns", "Micro-frontends",
@@ -115,7 +115,7 @@ function AboutPage() {
             className={styles.hero__photo}
             width={400}
             height={400}
-            loading="eager" // Hero image should load ASAP
+            loading="eager" 
           />
         </div>
       </section>
@@ -127,38 +127,30 @@ function AboutPage() {
           
           <div className={styles.aboutContent}>
             <p className={styles.text}>
-              Моя філософія розробки базується на створенні архітектури, яка не просто виконує поточні вимоги бізнесу, 
-              але залишається гнучкою.
+              Моя філософія розробки базується на створенні архітектури Feature-Sliced Design.
             </p>
-
-            <article className={styles.aboutBlock}>
-              <h3>Архітектура</h3>
-              <p className={styles.text}>
-                У роботі з React я приділяю особливу увагу управлінню станом. Я активно використовую композицію компонентів замість наслідування, що дозволяє створювати перевикористовувані будівельні блоки.
-                Використовую патерни <strong>Container/Presentational</strong> та <strong>Custom Hooks</strong> для інкапсуляції бізнес-логіки.
-              </p>
-            </article>
 
             <article className={styles.aboutBlock}>
               <h3>Робота з даними</h3>
               <p className={styles.text}>
-                Маю досвід побудови надійних шарів взаємодії з API. Реалізую оптимістичні оновлення (Optimistic UI) 
-                та запобігаю race conditions. Використовую <strong>TanStack Query</strong> для ефективного кешування серверного стану.
+                Реалізую оптимістичні оновлення та запобігаю race conditions.
               </p>
             </article>
 
             <article className={styles.aboutBlock}>
               <h3>Продуктивність</h3>
               <p className={styles.text}>
-                Розумію механізми рендерингу React. Застосовую оптимізації (<code>React.memo</code>, <code>useMemo</code>) 
-                та слідкую за показниками (FCP, CLS, LCP).
+                Розумію механізми рендерингу React. </p>
+              <p className={styles.text}>
+                Застосовую оптимізації (<code>React.memo</code>, <code>useMemo</code>) 
+                та слідкую за показниками (FCP, CLS).
               </p>
             </article>
 
             <article className={styles.aboutBlock}>
               <h3>TypeScript</h3>
               <p className={styles.text}>
-                Ціную важливість Developer Experience: налаштовую лінтери, pre-commit хуки та автоматизоване тестування (Jest, Cypress).
+                Ціную важливість Developer Experience: налаштовую лінтери, pre-commit хуки та автоматизоване тестування (React Testing Library, Cypress).
               </p>
             </article>
           </div>

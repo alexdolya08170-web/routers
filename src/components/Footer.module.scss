@@ -29,23 +29,17 @@
   }
 
   .title {
-    font-size: clamp(2rem, 5vw, 3.5rem); // Адаптивний розмір шрифту
+    font-size: clamp(2rem, 5vw, 3.5rem); 
     font-weight: 800;
     line-height: 1.1;
     margin: 0;
     letter-spacing: -0.02em;
-    
-    // Градієнтний текст для акценту (опціонально)
-    background: linear-gradient(to right, #ffffff, #94a3b8);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
   }
 
   .subtitle {
     font-size: 1rem;
     font-weight: 500;
     letter-spacing: 0.1em;
-    text-transform: uppercase;
     color: rgba(255, 255, 255, 0.6); 
     margin: 0;
     max-width: 600px;
@@ -54,7 +48,7 @@
 
   .button {
     margin-top: 1.5rem;
-    background-color: #3b82f6; // Яскравіший синій
+    background-color: #3b82f6; 
     color: white;
     border: none;
     padding: 1rem 2.5rem;

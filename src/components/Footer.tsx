@@ -12,7 +12,7 @@ export function Footer() {
     <div className={styles.container}>
       <h2 className={styles.title}>Маєте проект?</h2>
       <p className={styles.subtitle}>
-        Давайте обговоримо деталі.
+        Давайте обговоримо деталі
       </p>
       <a href="mailto:your@email.com" className={styles.button}>
         Зв'язатися зі мною
