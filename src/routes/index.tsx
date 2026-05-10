@@ -136,7 +136,7 @@ function HomePage() {
             </div>
             <div className={styles.imageWrapper}>
               <img 
-                src="/photo.jpg" 
+                src="./../../photo.jpg" 
                 alt="Олександр Долинський" 
                 className={styles.image} 
                 width="400"
