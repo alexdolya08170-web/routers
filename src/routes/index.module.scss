@@ -210,7 +210,6 @@
     animation: fadeInUp 0.8s ease-out 0.2s forwards;
   }
 
-  // --- ИЗМЕНЕНИЕ ЗДЕСЬ: Унифицированный стиль заголовка ---
   .title {
     font-size: 1.5rem; 
     font-weight: 800; 
@@ -224,15 +223,13 @@
     &::after {
       content: ''; 
       display: block; 
-      width: 60px; // Фиксированная ширина, как в других секциях
+      width: 60px;
       height: 4px;
       background: #0055ff; 
-      margin: 10px 0 0; // Отступ сверху
+      margin: 10px 0 0;
       border-radius: 2px;
-      // Убрали анимацию ширины и opacity, теперь статично
     }
   }
-  // -------------------------------------------------------
 
   .name { 
     font-size: 2.2rem; 
@@ -347,7 +344,6 @@
       max-width: 100%; 
       
       .title {
-        // Центрируем подчеркивание на мобильных, если нужно
         &::after { 
           margin: 10px auto 0; 
         } 
@@ -394,7 +390,6 @@
     width: 100%;
   }
 
-  // --- ИЗМЕНЕНИЕ ЗДЕСЬ: Тот же стиль, что и в .about .title ---
   .sectionTitle {
     font-size: 1.5rem; 
     font-weight: 800; 
@@ -411,11 +406,10 @@
       width: 60px; 
       height: 4px;
       background: #0055ff; 
-      margin: 10px auto 0; // auto по бокам для центрирования
+      margin: 10px auto 0;
       border-radius: 2px;
     }
   }
-  // -----------------------------------------------------------
 
   .grid {
     display: grid; 
@@ -525,151 +519,5 @@
     .sectionTitle { font-size: 1.2rem; margin-bottom: 2rem; }
     .grid { grid-template-columns: 1fr; gap: 1.5rem; }
     .btnOutline { width: 100%; max-width: 280px; padding: 0.8rem 1.5rem; }
-  }
-}
-
-.services {
-  padding: 6rem 10%;
-  background-color: #fcfcfc;
-  width: 100%;
-  position: relative;
-  z-index: 4;
-  text-align: center;
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    width: 100%;
-  }
-
-  // --- ИЗМЕНЕНИЕ ЗДЕСЬ: Тот же стиль, что и в .works .sectionTitle ---
-  .sectionTitle {
-    font-size: 1.5rem; 
-    font-weight: 800; 
-    text-transform: uppercase;
-    letter-spacing: 2px; 
-    color: #0055ff; 
-    margin-bottom: 3rem;
-    display: inline-block; 
-    position: relative;
-    
-    &::after {
-      content: ''; 
-      display: block; 
-      width: 60px; 
-      height: 4px;
-      background: #0055ff; 
-      margin: 10px auto 0; 
-      border-radius: 2px;
-    }
-  }
-  // --------------------------------------------------------------------
-
-  .servicesSwiper {
-    width: 100%;
-    padding: 1rem 0 3rem 0;
-    overflow: hidden !important;
-    text-align: left;
-  }
-
-  .serviceSlide {
-    height: auto;
-    display: flex;
-  }
-
-  .serviceCard {
-    background: #ffffff;
-    padding: 2.5rem 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
-    border: 1px solid #eee;
-    height: 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0, 85, 255, 0.1);
-      border-color: rgba(0, 85, 255, 0.2);
-    }
-  }
-
-  .serviceIcon {
-    width: 60px;
-    height: 60px;
-    background: rgba(0, 85, 255, 0.08);
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1.5rem;
-    color: #0055ff;
-    flex-shrink: 0;
-
-    svg {
-      width: 32px;
-      height: 32px;
-    }
-  }
-
-  .serviceTitle {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-    color: #333;
-  }
-
-  .serviceDescription {
-    font-size: 1rem;
-    line-height: 1.6;
-    color: #666;
-    margin: 0;
-  }
-
-  .swiperPagination {
-    position: relative;
-    bottom: 0 !important; 
-    margin-top: 1rem;
-    text-align: center;
-    z-index: 10;
-    
-    opacity: 0;
-    animation: fadeIn 0.8s ease-out 1s forwards;
-  }
-
-  :global(.swiper-pagination-bullet) {
-    width: 10px;
-    height: 10px;
-    background: #cbd5e1; 
-    opacity: 1;
-    margin: 0 6px !important;
-    transition: all 0.3s ease;
-    cursor: pointer;
-  }
-
-  :global(.swiper-pagination-bullet-active) {
-    background: #0055ff; 
-    width: 24px; 
-    border-radius: 5px;
-  }
-
-  @media (max-width: 992px) {
-    padding: 4rem 5%;
-  }
-
-  @media (max-width: 576px) {
-    padding: 3rem 4%;
-    
-    .sectionTitle { 
-      font-size: 1.2rem; 
-      margin-bottom: 2rem; 
-    }
-    
-    .serviceCard {
-      padding: 1.5rem;
-    }
   }
 }

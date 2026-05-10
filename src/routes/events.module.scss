@@ -37,9 +37,21 @@
   }
 }
 
+@keyframes slideUpModal {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// --- Main Blog Section ---
 .blog {
   position: relative;
-  padding: 6rem 5%; // Зменшено бокові відступи для безпеки
+  padding: 6rem 5%;
   background-color: #fcfcfc;
   min-height: 100vh;
   overflow-x: hidden;
@@ -141,7 +153,6 @@
   }
 
   .title {
-    // Плавна зміна розміру шрифту
     font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 800;
     color: #333333;
@@ -167,7 +178,6 @@
     margin-bottom: 2rem;
     overflow-x: auto;
     padding-bottom: 10px;
-    // Приховуємо скролбар, але залишаємо функціонал
     scrollbar-width: none;
     -ms-overflow-style: none;
     
@@ -179,7 +189,6 @@
   .tabs {
     display: flex;
     gap: 0.8rem;
-    // На мобільних дозволяємо скрол, на десктопі - перенос
     flex-wrap: wrap; 
   }
 
@@ -226,7 +235,7 @@
     transition: all 0.3s ease;
     outline: none;
     color: #333;
-    box-sizing: border-box; // Важливо для правильної ширини
+    box-sizing: border-box;
 
     &::placeholder {
       color: #999;
@@ -277,7 +286,6 @@
   // --- Grid System ---
   .grid {
     display: grid;
-    // Автоматичне заповнення: мінімум 300px, максимум - 1 частка
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 2rem;
     
@@ -306,6 +314,7 @@
     position: relative;
     overflow: hidden;
     height: 100%;
+    cursor: pointer;
 
     &:hover {
       transform: translateY(-5px);
@@ -336,10 +345,18 @@
     margin-bottom: 1rem;
     line-height: 1.4;
     
-    a {
+    a, button {
       color: #333333;
       text-decoration: none;
       transition: color 0.2s;
+      background: none;
+      border: none;
+      font: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      cursor: pointer;
+      text-align: left;
+      width: 100%;
 
       &:hover {
         color: #0055ff;
@@ -365,6 +382,10 @@
     display: inline-flex;
     align-items: center;
     gap: 0.25rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
 
     &:hover {
       opacity: 0.8;
@@ -450,9 +471,304 @@
     user-select: none;
   }
 
-  // --- Responsive Breakpoints ---
+  // ==========================================
+  // --- MODAL STYLES (LIGHT THEME) ---
+  // ==========================================
 
-  // Tablet Landscape & Small Desktop
+  .modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem;
+    animation: fadeIn 0.25s ease-out;
+  }
+
+  .modalContent {
+    background: #ffffff;
+    border-radius: 24px;
+    max-width: 700px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 
+      0 25px 50px -12px rgba(0, 0, 0, 0.1),
+      0 0 0 1px rgba(0, 0, 0, 0.05),
+      0 0 0 6px rgba(255, 255, 255, 0.9);
+    animation: slideUpModal 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+
+    scroll-behavior: smooth;
+    
+    &::-webkit-scrollbar {
+      width: 6px;
+    }
+    &::-webkit-scrollbar-track {
+      background: #f8f9fa;
+      border-radius: 3px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: #c5c9d4;
+      border-radius: 3px;
+      border: 2px solid #f8f9fa;
+      
+      &:hover {
+        background: #a5aab5;
+      }
+    }
+  }
+
+  .modalCloseBtn {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 2px solid #e8eaf2;
+    background: #ffffff;
+    font-size: 1.8rem;
+    line-height: 1;
+    color: #6b7280;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 10;
+    padding: 0;
+
+    &:hover {
+      background: #f8f9ff;
+      border-color: #0055ff;
+      color: #0055ff;
+      transform: rotate(90deg);
+      box-shadow: 0 4px 12px rgba(0, 85, 255, 0.15);
+    }
+
+    &:active {
+      transform: rotate(90deg) scale(0.95);
+    }
+  }
+
+  .modalHeader {
+    padding: 2.5rem 2.5rem 1.5rem;
+    border-bottom: 1px solid #f0f2f5;
+    background: linear-gradient(180deg, #ffffff 0%, #fafbff 100%);
+    position: sticky;
+    top: 0;
+    z-index: 5;
+  }
+
+  .modalCategory {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #0055ff;
+    background: #f0f5ff;
+    padding: 0.45rem 0.9rem;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(0, 85, 255, 0.15);
+  }
+
+  .modalTitle {
+    font-size: 1.65rem;
+    font-weight: 800;
+    color: #111827;
+    margin: 0;
+    line-height: 1.25;
+    padding-right: 2.5rem;
+  }
+
+  .modalBody {
+    padding: 1.75rem 2.5rem;
+  }
+
+  .modalDescription {
+    font-size: 1.05rem;
+    color: #4b5563;
+    line-height: 1.8;
+    margin: 0 0 2rem;
+    font-weight: 400;
+  }
+
+  .modalSection {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: #f8fafc;
+    border-radius: 16px;
+    border: 1px solid #e8edf5;
+  }
+
+  .modalSectionTitle {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    &::before {
+      content: '';
+      width: 4px;
+      height: 18px;
+      background: #0055ff;
+      border-radius: 2px;
+    }
+  }
+
+  .featuresList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .featureItem {
+    font-size: 1rem;
+    color: #4b5563;
+    padding-left: 0.8rem;
+    position: relative;
+    transition: color 0.2s ease;
+    
+    &:hover {
+      color: #111827;
+    }
+    
+    &::before {
+      content: '●';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      background: #0055ff;
+      border-radius: 50%;
+    }
+  }
+
+  // ==========================================
+  // --- PROJECT LINK (replaces tech stack) ---
+  // ==========================================
+
+  .modalProjectLink {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    width: 100%;
+    max-width: 320px;
+    margin: 2.5rem auto 1rem;
+    padding: 1rem 1.75rem;
+    background: linear-gradient(135deg, #0055ff, #0066ff);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1rem;
+    text-decoration: none;
+    border-radius: 14px;
+    border: none;
+    box-shadow: 0 4px 14px rgba(0, 85, 255, 0.35);
+    transition: all 0.2s ease;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 85, 255, 0.5);
+      background: linear-gradient(135deg, #0044cc, #0055ff);
+    }
+
+    &:active {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 14px rgba(0, 85, 255, 0.35);
+    }
+  }
+
+  .modalLinkIcon {
+    font-size: 1.2rem;
+    font-weight: 700;
+    transition: transform 0.2s ease;
+    
+    .modalProjectLink:hover & {
+      transform: translate(3px, -3px);
+    }
+  }
+
+  .modalLinkText {
+    letter-spacing: 0.02em;
+  }
+
+  // ==========================================
+  // --- MODAL FOOTER ---
+  // ==========================================
+
+  .modalFooter {
+    padding: 1rem 2rem 2.25rem;
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid #f0f2f5;
+    background: linear-gradient(180deg, #fafbff 0%, #ffffff 100%);
+    position: sticky;
+    bottom: 0;
+  }
+
+  .modalCloseBtnPrimary {
+    padding: 0.875rem 2rem;
+    background: #f1f5f9;
+    color: #334155;
+    border: 2px solid #e2e8f0;
+    border-radius: 14px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 140px;
+
+    &:hover {
+      background: #e2e8f0;
+      border-color: #cbd5e1;
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  // --- Utility Classes ---
+  .visuallyHidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  // ==========================================
+  // --- RESPONSIVE BREAKPOINTS ---
+  // ==========================================
+
   @media (max-width: 1024px) {
     .blog {
       padding: 4rem 5%;
@@ -463,19 +779,16 @@
     }
   }
 
-  // Tablet Portrait
   @media (max-width: 768px) {
     .blog {
       .header {
         margin-bottom: 2rem;
       }
 
-      // Теги в один ряд зі скролом
       .tabs {
         flex-wrap: nowrap;
         overflow-x: auto;
         padding-bottom: 10px;
-        // Snap scrolling for better UX
         scroll-snap-type: x mandatory;
         
         .tabBtn {
@@ -485,12 +798,42 @@
 
       .decor__rectLeft, 
       .decor__rectRight {
-        opacity: 0.5; // Зменшуємо видимість декору
+        opacity: 0.5;
+      }
+
+      .modalContent {
+        max-height: 95vh;
+        margin: 0.5rem;
+        border-radius: 20px;
+      }
+
+      .modalHeader {
+        padding: 2rem 2rem 1.25rem;
+      }
+
+      .modalTitle {
+        font-size: 1.45rem;
+        padding-right: 2.5rem;
+      }
+
+      .modalBody {
+        padding: 1.25rem 2rem;
+      }
+
+      .modalFooter {
+        padding: 1rem 1.5rem 1.5rem;
+        flex-direction: column;
+        align-items: center;
+        
+        button {
+          width: 100%;
+          max-width: 280px;
+          justify-content: center;
+        }
       }
     }
   }
 
-  // Mobile Large
   @media (max-width: 576px) {
     .blog {
       padding: 3rem 1.5rem;
@@ -503,7 +846,6 @@
         font-size: 1rem;
       }
 
-      // Ховаємо важкий декор на мобільному
       .decor__rectLeft, 
       .decor__rectRight, 
       .decorCubes {
@@ -515,7 +857,6 @@
       }
 
       .grid {
-        // Одна колонка на вузьких екранах
         grid-template-columns: 1fr;
         gap: 1.5rem;
       }
@@ -524,7 +865,6 @@
         padding: 1.5rem;
       }
 
-      // Адаптація пагінації для вузьких екранів
       .pagination {
         flex-wrap: wrap;
         gap: 0.5rem;
@@ -537,10 +877,71 @@
         height: 36px;
         font-size: 0.9rem;
       }
+
+      // Modal mobile
+      .modalOverlay {
+        padding: 0.5rem;
+        align-items: flex-end;
+        background: rgba(255, 255, 255, 0.92);
+      }
+
+      .modalContent {
+        max-height: 92vh;
+        border-radius: 24px 24px 0 0;
+        margin: 0;
+        animation: slideUpModalMobile 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 
+          0 -4px 20px rgba(0, 0, 0, 0.08),
+          0 0 0 1px rgba(0, 0, 0, 0.05);
+      }
+
+      .modalCloseBtn {
+        top: 1rem;
+        right: 1rem;
+        width: 38px;
+        height: 38px;
+        font-size: 1.6rem;
+      }
+
+      .modalHeader {
+        padding: 1.75rem 1.5rem 1rem;
+      }
+
+      .modalTitle {
+        font-size: 1.35rem;
+        padding-right: 2rem;
+      }
+
+      .modalBody {
+        padding: 1rem 1.5rem;
+      }
+
+      .modalProjectLink {
+        max-width: 280px;
+        padding: 0.875rem 1.5rem;
+        font-size: 0.95rem;
+      }
+
+      .modalFooter {
+        padding: 1rem 1.5rem 1.75rem;
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: center;
+        
+        button {
+          width: 100%;
+          max-width: 260px;
+          justify-content: center;
+        }
+      }
+
+      .modalCloseBtnPrimary {
+        padding: 0.875rem 1.25rem;
+        font-size: 0.9rem;
+      }
     }
   }
 
-  // Mobile Small (iPhone SE etc)
   @media (max-width: 375px) {
     .blog {
       padding: 2rem 1rem;
@@ -552,6 +953,47 @@
       .cardTitle {
         font-size: 1.2rem;
       }
+
+      .modalHeader {
+        padding: 1.5rem 1.25rem 0.875rem;
+      }
+
+      .modalBody {
+        padding: 0.875rem 1.25rem;
+      }
+
+      .modalFooter {
+        padding: 0.875rem 1.25rem 1.25rem;
+      }
+
+      .modalTitle {
+        font-size: 1.25rem;
+      }
+
+      .modalDescription {
+        font-size: 1rem;
+      }
+
+      .featureItem {
+        font-size: 0.95rem;
+      }
+
+      .modalProjectLink {
+        max-width: 260px;
+        padding: 0.75rem 1.25rem;
+        font-size: 0.9rem;
+      }
     }
+  }
+}
+
+@keyframes slideUpModalMobile {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

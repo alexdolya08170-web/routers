@@ -84,70 +84,60 @@ function AboutPage() {
     <>
       {/* Hero Section */}
       <section className={styles.hero} aria-label="Introduction">
-        <div className={styles.hero__cube} aria-hidden="true"></div>
-        <div className={`${styles.hero__cube} ${styles['hero__cube--2']}`} aria-hidden="true"></div>
-        <div className={`${styles.hero__cube} ${styles['hero__cube--3']}`} aria-hidden="true"></div>
+        <div className={styles['hero__cube']} aria-hidden="true"></div>
+        <div className={`${styles['hero__cube']} ${styles['hero__cube--2']}`} aria-hidden="true"></div>
+        <div className={`${styles['hero__cube']} ${styles['hero__cube--3']}`} aria-hidden="true"></div>
 
-        <div className={styles.hero__content}>
-          <h1 className={styles.hero__title}>
+        <div className={styles['hero__content']}>
+          <h1 className={styles['hero__title']}>
             Долинський Олександр Сергійович
           </h1>
-          <p className={styles.hero__subtitle}>
+          <p className={styles['hero__subtitle']}>
             Веб-розробник
           </p>
           
-          <div className={styles.hero__actions}>
+          <div className={styles['hero__actions']}>
             <a 
               href="/cv.pdf" 
               download 
-              className={styles.hero__btn}
+              className={styles['hero__btn']}
               aria-label="Завантажити резюме у форматі PDF"
             >
-              Завантажити резюме (PDF)
+              Завантажити резюме 
             </a>
           </div>
-        </div>
-
-        <div className={styles.hero__imageWrapper}>
-          <img 
-            src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop" 
-            alt="Олександр Долинський" 
-            className={styles.hero__photo}
-            width={400}
-            height={400}
-            loading="eager" 
-          />
         </div>
       </section>
 
       {/* About Section */}
       <section className={styles.section}>
         <div className={styles.container}>
-          <h2 className={styles.sectionTitle}>Про мене</h2>
+          <h2 className={styles['section-title']}>Про мене</h2>
           
-          <div className={styles.aboutContent}>
+          <div className={styles['about-content']}>
             <p className={styles.text}>
               Моя філософія розробки базується на створенні архітектури Feature-Sliced Design.
             </p>
 
-            <article className={styles.aboutBlock}>
+            <article className={styles['about-block']}>
               <h3>Робота з даними</h3>
               <p className={styles.text}>
                 Реалізую оптимістичні оновлення та запобігаю race conditions.
               </p>
             </article>
 
-            <article className={styles.aboutBlock}>
+            <article className={styles['about-block']}>
               <h3>Продуктивність</h3>
               <p className={styles.text}>
-                Розумію механізми рендерингу React. </p>
+                Розумію механізми рендерингу React.
+              </p>
               <p className={styles.text}>
                 Застосовую оптимізації (<code>React.memo</code>, <code>useMemo</code>) 
                 та слідкую за показниками (FCP, CLS).
               </p>
             </article>
 
-            <article className={styles.aboutBlock}>
+            <article className={styles['about-block']}>
               <h3>TypeScript</h3>
               <p className={styles.text}>
                 Ціную важливість Developer Experience: налаштовую лінтери, pre-commit хуки та автоматизоване тестування (React Testing Library, Cypress).
@@ -158,12 +148,12 @@ function AboutPage() {
       </section>
 
       {/* Skills Section */}
-      <section className={`${styles.section} ${styles.sectionAlt}`}>
+      <section className={`${styles.section} ${styles['section--alt']}`}>
         <div className={styles.container}>
-          <h2 className={styles.sectionTitle}>Технічний стек</h2>
-          <div className={styles.skillsGrid} role="list">
+          <h2 className={styles['section-title']}>Технічний стек</h2>
+          <div className={styles['skills-grid']} role="list">
             {SKILLS_LIST.map((skill) => (
-              <span key={skill} className={styles.skillTag} role="listitem">
+              <span key={skill} className={styles['skill-tag']} role="listitem">
                 {skill}
               </span>
             ))}
@@ -174,16 +164,16 @@ function AboutPage() {
       {/* Experience Section */}
       <section className={styles.section}>
         <div className={styles.container}>
-          <h2 className={styles.sectionTitle}>Досвід роботи</h2>
+          <h2 className={styles['section-title']}>Досвід роботи</h2>
           <ul className={styles.timeline}>
             {EXPERIENCE_DATA.map((job) => (
-              <li key={job.id} className={styles.timelineItem}>
-                <div className={styles.timelineHeader}>
-                  <h3 className={styles.jobRole}>{job.role}</h3>
-                  <time className={styles.jobPeriod}>{job.period}</time>
+              <li key={job.id} className={styles['timeline-item']}>
+                <div className={styles['timeline-header']}>
+                  <h3 className={styles['job-role']}>{job.role}</h3>
+                  <time className={styles['job-period']}>{job.period}</time>
                 </div>
-                <div className={styles.jobCompany}>{job.company}</div>
-                <p className={styles.jobDesc}>{job.description}</p>
+                <div className={styles['job-company']}>{job.company}</div>
+                <p className={styles['job-desc']}>{job.description}</p>
               </li>
             ))}
           </ul>

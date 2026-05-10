@@ -28,7 +28,6 @@
   position: relative;
 }
 
-/* --- Logo --- */
 .logo {
   font-family: 'Inter', sans-serif;
   font-weight: 800;
@@ -49,7 +48,6 @@
   }
 }
 
-/* --- Navigation --- */
 .nav {
   display: flex;
   align-items: center;
@@ -114,43 +112,28 @@
     color: #0055FF;
   }
 
-  &Active {
-    color: #0055FF;
-    font-weight: 600;
-    
-    &::after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      background-color: #3b82f6;
-      transform: scaleX(1);
-    }
-  }
-  
-  &:not(.navLinkActive):hover::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: rgba(0,0,0,0.1);
-    transform: scaleX(1);
-  }
-  
   &::after {
     content: '';
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 2px;
-    background-color: transparent;
+    height: 3px;
+    background-color: #0055FF;
     transform: scaleX(0);
-    transition: transform 0.2s ease;
+    transform-origin: left center;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: 2px;
+  }
+
+  &:hover::after,
+  &Active::after {
+    transform: scaleX(1);
+  }
+
+  &Active {
+    color: #0055FF;
+    font-weight: 600;
   }
 
   @media (max-width: 768px) {
@@ -159,14 +142,13 @@
     font-weight: 600;
     padding: 8px 0;
     
-    &Active::after {
-      height: 3px;
-      background-color: #3b82f6;
+    &::after {
+      height: 4px;
+      bottom: 2px;
     }
   }
 }
 
-/* --- Desktop Controls (Right Side) --- */
 .desktopControls {
   display: flex;
   align-items: center;
@@ -187,7 +169,6 @@
   border-radius: 20px;
 }
 
-/* --- Mobile Controls (Inside Menu) --- */
 .mobileControls {
   display: none;
   
@@ -214,7 +195,6 @@
   border: 1px solid #e5e7eb;
 }
 
-/* --- Common Language Button Styles --- */
 .langBtn {
   background: none;
   border: none;
@@ -244,7 +224,6 @@
   user-select: none;
 }
 
-/* --- Burger Button --- */
 .burgerBtn {
   display: none;
   flex-direction: column;
@@ -307,7 +286,6 @@
   }
 }
 
-/* --- Overlay --- */
 .overlay {
   position: fixed;
   top: 0;
