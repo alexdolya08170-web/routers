@@ -57,7 +57,7 @@ const SERVICES_DATA: ServiceItem[] = [
   {
     id: 6,
     title: "Консультації",
-    description: "Допомога у архітектурних рішеннях, код-рев'ю та розвиток команди розробників",
+    description: "Допомога у архітектурних рішеннях, код-рев'ю.",
     features: ["Архітектурний консалтинг", "Code review та best practices", "Технічна документація"]
   }
 ];
@@ -178,10 +178,10 @@ function AboutPage() {
         <div className={styles.container}>
           <h2 className={styles['section-title']}>Про мене</h2>
           <div className={styles['about-content']}>
-            <p className={styles.text}>Основний фокус — <strong>React, Next (SSR/SSG/ISR)</strong>.</p>
+            <p className={styles.text}>Основний фокус — <strong>React, Next (SSR/SSG/ISR)</strong></p>
             <article className={styles['about-block']}>
               <h3>Архітектура та підходи</h3>
-              <p className={styles.text}>Моя філософія розробки базується на <strong>Feature-Sliced Design</strong>. Ціную чистий код, дотримуюсь принципів SOLID та використовую перевірені патерни проєктування.</p>
+              <p className={styles.text}>Моя філософія розробки базується на <strong>Feature-Sliced Design</strong>. Ціную код, дотримуюсь принципів SOLID та використовую перевірені патерни проєктування.</p>
             </article>
             <article className={styles['about-block']}>
               <h3>Робота з даними</h3>
