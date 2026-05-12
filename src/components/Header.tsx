@@ -20,23 +20,18 @@ export function Header() {
   
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  
-  // Стан мови (в реальному проекті краще використовувати Context або URL params)
   const [currentLang, setCurrentLang] = useState<'UA' | 'EN'>('UA');
 
-  // Ефект для скролу
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
     
-    handleScroll(); // Перевірка при монтуванні
-
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Ефект для блокування скролу body та закриття по Escape
   useEffect(() => {
     if (isMobileMenuOpen) {
       document.body.style.overflow = 'hidden';
@@ -68,7 +63,6 @@ export function Header() {
     closeMobileMenu();
   };
 
-  // Компонент перемикача мови (для уникнення дублювання коду)
   const LangSwitcher = ({ isMobile = false }: { isMobile?: boolean }) => (
     <div className={isMobile ? styles.langSwitcherMobile : styles.desktopLangSwitcher}>
       <button 
@@ -93,14 +87,57 @@ export function Header() {
     <header className={`${styles.header} ${isScrolled ? styles.headerScrolled : ''}`}>
       <div className={styles.container}>
         
-        {/* Логотип */}
+        {/* Логотип React */}
         <Link 
           to="/" 
           className={styles.logo} 
           onClick={closeMobileMenu}
           preload="intent"
+          aria-label="Долинський О.С. — головна сторінка"
         >
-          Долинський <span>О.С.</span>
+          <svg 
+            viewBox="0 0 100 100" 
+            className={styles.logoSvg}
+            role="img"
+            aria-labelledby="logoTitle"
+          >
+            <title id="logoTitle">Логотип React</title>
+            
+            {/* Група по центру для обертання */}
+            <g transform="translate(50, 50)">
+              {/* Орбіти */}
+              <ellipse 
+                cx="0" cy="0" rx="42" ry="14" 
+                fill="none" 
+                stroke="#0055FF" 
+                strokeWidth="3.5"
+                className={styles.reactOrbit}
+              />
+              <ellipse 
+                cx="0" cy="0" rx="42" ry="14" 
+                fill="none" 
+                stroke="#0055FF" 
+                strokeWidth="3.5"
+                transform="rotate(60)"
+                className={styles.reactOrbit}
+              />
+              <ellipse 
+                cx="0" cy="0" rx="42" ry="14" 
+                fill="none" 
+                stroke="#0055FF" 
+                strokeWidth="3.5"
+                transform="rotate(120)"
+                className={styles.reactOrbit}
+              />
+              
+              {/* Ядро (планета) */}
+              <circle 
+                cx="0" cy="0" r="7" 
+                fill="#0055FF"
+                className={styles.reactCore}
+              />
+            </g>
+          </svg>
         </Link>
 
         {/* Навігація */}
@@ -127,7 +164,7 @@ export function Header() {
               );
             })}
             
-            {/* Мобільні контролли (всередині меню) */}
+            {/* Мобільні контролли */}
             <li className={styles.mobileControls}>
               <LangSwitcher isMobile />
 
@@ -143,7 +180,7 @@ export function Header() {
           </ul>
         </nav>
 
-        {/* Десктопні контролли (справа) */}
+        {/* Десктопні контролли */}
         <div className={styles.desktopControls}>
           <LangSwitcher />
         </div>

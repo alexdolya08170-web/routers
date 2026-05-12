@@ -1,3 +1,7 @@
+// =============================================
+// Header Styles (Light Mode Only)
+// =============================================
+
 .header {
   position: fixed;
   top: 0;
@@ -28,26 +32,62 @@
   position: relative;
 }
 
+// =============================================
+// React Logo
+// =============================================
 .logo {
-  font-family: 'Inter', sans-serif;
-  font-weight: 800;
-  font-size: 1.5rem;
-  color: #1a1a1a;
+  display: flex;
+  align-items: center;
   text-decoration: none;
-  letter-spacing: -0.5px;
   z-index: 1002;
   transition: opacity 0.2s;
+  padding: 5px 0;
 
   &:hover {
     opacity: 0.8;
   }
 
-  span {
-    color: #3b82f6;
-    font-weight: 500;
+  .logoSvg {
+    height: 36px;
+    width: 36px;
+    display: block;
+    transition: transform 0.8s ease-in-out;
+    
+    // Елементи всередині SVG
+    .reactOrbit {
+      transition: stroke-width 0.3s ease;
+    }
+    
+    .reactCore {
+      transition: r 0.3s ease;
+    }
+  }
+
+  &:hover {
+    // Ефект обертання для React лого
+    .logoSvg {
+      transform: rotate(180deg);
+      
+      .reactOrbit {
+        stroke-width: 4.5;
+      }
+      .reactCore {
+        r: 8;
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .logoSvg {
+      height: 32px;
+      width: 32px;
+    }
   }
 }
 
+// =============================================
+// Navigation
+// =============================================
 .nav {
   display: flex;
   align-items: center;
@@ -149,6 +189,9 @@
   }
 }
 
+// =============================================
+// Controls (Desktop & Mobile)
+// =============================================
 .desktopControls {
   display: flex;
   align-items: center;
@@ -224,6 +267,9 @@
   user-select: none;
 }
 
+// =============================================
+// Burger Button
+// =============================================
 .burgerBtn {
   display: none;
   flex-direction: column;
@@ -263,6 +309,9 @@
   }
 }
 
+// =============================================
+// Logout Button (Mobile)
+// =============================================
 .logoutBtnMobile {
   background: transparent;
   border: 1px solid #ef4444;
@@ -286,6 +335,9 @@
   }
 }
 
+// =============================================
+// Overlay
+// =============================================
 .overlay {
   position: fixed;
   top: 0;
@@ -304,4 +356,18 @@
 .overlayActive {
   opacity: 1;
   visibility: visible;
+}
+
+// =============================================
+// Accessibility
+// =============================================
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+  
+  .logo:hover .logoSvg {
+    transform: none;
+  }
 }

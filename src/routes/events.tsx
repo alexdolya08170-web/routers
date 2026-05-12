@@ -1,8 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { useState, useEffect, useMemo, useCallback } from 'react';
+import classNames from 'classnames';
 import styles from './events.module.scss';
 
-// --- Types & Constants ---
+// Types & Constants
 
 type Category = 'All' | 'Web Apps' | 'E-commerce' | 'Corporate' | 'Landing';
 
@@ -20,7 +21,6 @@ interface Project {
 }
 
 const PROJECTS: Project[] = [
-  // --- Web Apps ---
   {
     id: 1,
     title: "CRM система для логістики",
@@ -101,8 +101,6 @@ const PROJECTS: Project[] = [
       "Багаторівнева авторизація"
     ],
   },
-
-  // --- E-commerce ---
   {
     id: 2,
     title: "Інтернет-магазин електроніки",
@@ -135,8 +133,6 @@ const PROJECTS: Project[] = [
       "Інтеграція з Новою Поштою"
     ],
   },
-
-  // --- Corporate ---
   {
     id: 3,
     title: "Корпоративний портал IT-компанії",
@@ -185,8 +181,6 @@ const PROJECTS: Project[] = [
       "Підписка на новини через email"
     ],
   },
-
-  // --- Landing ---
   {
     id: 5,
     title: "Лендінг для нерухомості",
@@ -223,7 +217,7 @@ const PROJECTS: Project[] = [
 
 const ITEMS_PER_PAGE = 6;
 
-// --- Helper Functions ---
+// Helper Functions
 
 const getPageNumbers = (currentPage: number, totalPages: number): (number | string)[] => {
   const delta = 1;
@@ -252,7 +246,7 @@ const getPageNumbers = (currentPage: number, totalPages: number): (number | stri
   return rangeWithDots;
 };
 
-// --- Modal Component ---
+// Modal Component
 
 interface ModalProps {
   project: Project;
@@ -307,7 +301,6 @@ function ProjectModal({ project, onClose }: ModalProps) {
         </button>
 
         <div className={styles.modalHeader}>
-          <span className={styles.modalCategory}>{project.category}</span>
           <h2 id="modal-title" className={styles.modalTitle}>{project.title}</h2>
         </div>
 
@@ -318,16 +311,17 @@ function ProjectModal({ project, onClose }: ModalProps) {
 
           {project.features && project.features.length > 0 && (
             <div className={styles.modalSection}>
-              <h3 className={styles.modalSectionTitle}>Ключові можливості:</h3>
+              <h3 className={styles.modalSectionTitle}>Можливості:</h3>
               <ul className={styles.featuresList}>
                 {project.features.map((feature, index) => (
-                  <li key={index} className={styles.featureItem}>● {feature}</li>
+                  <li key={index} className={styles.featureItem}>
+                    {feature}
+                  </li>
                 ))}
               </ul>
             </div>
           )}
 
-          {/* Посилання на проект (замість технологій) */}
           <a 
             href={project.link} 
             target="_blank" 
@@ -352,7 +346,7 @@ function ProjectModal({ project, onClose }: ModalProps) {
   );
 }
 
-// --- Component ---
+// Component
 
 export const Route = createFileRoute('/events')({
   component: PortfolioPage,
@@ -443,18 +437,15 @@ function PortfolioPage() {
         <div className={styles.decor__rectRight}></div>
         
         <div className={styles.decorCubes}>
-          <div className={`${styles.cube} ${styles.cube__1}`}></div>
-          <div className={`${styles.cube} ${styles.cube__2}`}></div>
-          <div className={`${styles.cube} ${styles.cube__3}`}></div>
+          <div className={classNames(styles.cube, styles.cube__1)}></div>
+          <div className={classNames(styles.cube, styles.cube__2)}></div>
+          <div className={classNames(styles.cube, styles.cube__3)}></div>
         </div>
       </div>
 
       <div className={styles.container}>
         <header className={styles.header}>
           <h1 className={styles.title}>Мої роботи</h1>
-          <p className={styles.subtitle}>
-            Від Веб-додатків до UI/UX дизайну
-          </p>
         </header>
 
         <div className={styles.tabsWrapper}>
@@ -466,7 +457,9 @@ function PortfolioPage() {
                 aria-selected={activeCategory === cat}
                 aria-controls="projects-grid"
                 onClick={() => handleCategoryChange(cat)}
-                className={`${styles.tabBtn} ${activeCategory === cat ? styles.tabBtnActive : ''}`}
+                className={classNames(styles.tabBtn, {
+                  [styles.tabBtnActive]: activeCategory === cat
+                })}
               >
                 {cat === 'All' ? 'Всі' : cat}
               </button>
@@ -475,15 +468,15 @@ function PortfolioPage() {
         </div>
 
         <div className={styles.searchWrapper}>
-          <label htmlFor="project-search" className={styles.visuallyHidden}>Пошук проектів</label>
+          <label htmlFor="project-search" className={styles.visuallyHidden}>Пошук робіт за назвою</label>
           <input 
             id="project-search"
             type="text" 
-            placeholder="Пошук проектів" 
+            placeholder="Пошук робіт за назвою" 
             value={searchQuery}
             onChange={handleSearchChange}
             className={styles.searchInput}
-            aria-label="Пошук проектів"
+            aria-label="Пошук робіт за назвою"
           />
           {searchQuery && (
              <button 
@@ -504,8 +497,12 @@ function PortfolioPage() {
         ) : (
           <>
             <div className={styles.grid} id="projects-grid">
-              {currentProjects.map((project) => (
-                <article key={project.id} className={styles.card}>
+              {currentProjects.map((project, index) => (
+                <article 
+                  key={project.id} 
+                  className={styles.card}
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
                   <div className={styles.cardHeader}>
                     <span className={styles.cardCategory}>{project.category}</span>
                   </div>
@@ -539,7 +536,9 @@ function PortfolioPage() {
                 <button 
                   onClick={() => handlePageChange(currentPage - 1)} 
                   disabled={currentPage === 1}
-                  className={styles.paginationArrow}
+                  className={classNames(styles.paginationArrow, {
+                    [styles.paginationArrowDisabled]: currentPage === 1
+                  })}
                   aria-label="Попередня сторінка"
                 >
                   ←
@@ -557,7 +556,9 @@ function PortfolioPage() {
                     <button
                       key={page}
                       onClick={() => handlePageChange(page)}
-                      className={`${styles.pageNumber} ${currentPage === page ? styles.active : ''}`}
+                      className={classNames(styles.pageNumber, {
+                        [styles.active]: currentPage === page
+                      })}
                       aria-current={currentPage === page ? 'page' : undefined}
                     >
                       {page}
@@ -568,7 +569,9 @@ function PortfolioPage() {
                 <button 
                   onClick={() => handlePageChange(currentPage + 1)} 
                   disabled={currentPage === totalPages}
-                  className={styles.paginationArrow}
+                  className={classNames(styles.paginationArrow, {
+                    [styles.paginationArrowDisabled]: currentPage === totalPages
+                  })}
                   aria-label="Наступна сторінка"
                 >
                   →

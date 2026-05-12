@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { createFileRoute } from '@tanstack/react-router';
+import classNames from 'classnames';
 import styles from './about.module.scss';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
@@ -27,26 +28,26 @@ const SERVICES_DATA: ServiceItem[] = [
   {
     id: 1,
     title: "Розробка",
-    description: "Створення масштабованих SPA/SSR додатків на React та Next",
+    description: "Створення масштабованих SPA/SSR додатків на React та Next.",
     features: ["Feature-Sliced Design архітектура", "TypeScript зі строгою типізацією", "Оптимізація Core Web Vitals", "Code splitting та lazy loading"]
   },
   {
     id: 2,
     title: "Інтеграція та робота з даними",
-    description: "Ефективна робота з REST/GraphQL API, WebSockets та великими обсягами даних",
+    description: "Робота з REST/GraphQL, та даних.",
     features: ["REST API / GraphQL інтеграції", "Оптимістичні оновлення та кешування", "Обробка race conditions", "TanStack Query для управління серверним станом"]
   },
   {
     id: 3,
     title: "Реалізація та дизайн-системи",
-    description: "Створення адаптивних інтерфейсів згідно дизайн-макетів",
-    features: ["Адаптивна та кросбраузерна верстка", "Tailwind CSS / SCSS Modules", "Доступність (a11y) та семантична розмітка", "Анімації з Framer Motion"]
+    description: "Створення адаптивних інтерфейсів згідно дизайн-макетів.",
+    features: ["Адаптивна та кросбраузерна верстка", "Tailwind CSS / SCSS Modules", "Доступність (a11y) та семантична розмітка", "Анімації"]
   },
   {
     id: 4,
     title: "SEO та продуктивність",
-    description: "Впровадження SEO-стратегій та оптимізація швидкодії для покращення позицій у пошуку",
-    features: ["SSR/SSG/ISR стратегії в Next.js", "Structured data та meta-теги", "Оптимізація зображень та CDN", "Моніторинг FCP, LCP, CLS"]
+    description: "Впровадження SEO-стратегій та оптимізація швидкодії для покращення позицій у пошуку.",
+    features: ["SSR/SSG/ISR стратегії в Next", "Structured data та meta-теги", "Оптимізація зображень та CDN", "Моніторинг FCP, LCP, CLS"]
   },
   {
     id: 5,
@@ -68,7 +69,7 @@ const EXPERIENCE_DATA: ExperienceItem[] = [
     role: "Front-end Engineer",
     company: "FinTech Solutions Group (Kyiv / EU)",
     period: "2023 – 2026",
-    description: ["Розробка front-end на Next.js (SSR/SSG/ISR)", "Інтеграція REST API та WebSockets", "Робота з великими обсягами даних та оптимізація кешування", "Впровадження SEO-стратегій (meta, structured data)", "Оптимізація Core Web Vitals та client-side rendering"]
+    description: ["Розробка front-end на Next (SSR/SSG/ISR)", "Інтеграція REST API та WebSockets", "Робота з великими обсягами даних та оптимізація кешування", "Впровадження SEO-стратегій (meta, structured data)", "Оптимізація Core Web Vitals та client-side rendering"]
   },
   {
     id: 2,
@@ -87,30 +88,23 @@ const EXPERIENCE_DATA: ExperienceItem[] = [
   {
     id: 4,
     role: "Front-end Engineer",
-    company: "Bright Studio (Kyiv)",
-    period: "2017 – 2019",
-    description: ["Розробка інтерфейсів для логістичних систем", "Інтеграція frontend із backend API", "Адаптивна та кросбраузерна верстка", "Оптимізація продуктивності та роботи з великими даними"]
-  },
-  {
-    id: 5,
-    role: "Front-end Engineer",
     company: "CodeVision (Kyiv)",
-    period: "2016 – 2017",
+    period: "2016 – 2018",
     description: ["Верстка сайтів та landing pages", "Робота з JavaScript функціоналом", "Інтеграція frontend компонентів", "Підтримка та оновлення існуючих проєктів"]
   }
 ];
 
 const SKILLS_LIST = [
-  "React", "Next.js", "TypeScript", "JavaScript (ES6+)",
+  "React", "Next", "TypeScript", "JavaScript (ES6+)",
   "Redux Toolkit", "Zustand", "TanStack Query", "Context API",
   "Tailwind CSS", "SCSS Modules", "CSS-in-JS", "Framer Motion", "Shadcn/UI",
   "React Testing Library", "Cypress", "Playwright", "Storybook",
   "Feature-Sliced Design", "Clean Code", "SOLID", "Design Patterns",
   "Vite", "Webpack", "Turbopack", "Docker", "CI/CD (GitHub Actions)", "Git",
-  "Node.js", "Express", "GraphQL", "REST API", "WebSocket",
+  "Node", "Express", "Go (Golang)", "GraphQL", "REST API",
   "PostgreSQL", "MySQL", "MongoDB", "Redis", "Prisma",
   "SSR/SSG/ISR", "Core Web Vitals", "Structured Data", "Image Optimization",
-  "PWA", "Web Accessibility (a11y)", "Linux", "Figma"
+  "PWA", "Web Accessibility (a11y)", "Figma"
 ];
 
 // --- Component ---
@@ -133,13 +127,15 @@ function AboutPage() {
           <h1 className={styles['hero__title']}>Долинський Олександр Сергійович</h1>
           <p className={styles['hero__subtitle']}>Веб-розробник</p>          
           <div className={styles['hero__actions']}>
-            <a href="/cv.pdf" download className={styles['hero__btn']} aria-label="Завантажити резюме">Завантажити резюме</a>
+            <a href="/cv.pdf" download className={styles['hero__btn']} aria-label="Завантажити резюме">
+              Завантажити резюме
+            </a>
           </div>
         </div>
       </section>
 
       {/* Services Slider Section */}
-      <section className={`${styles.section} ${styles['section--services']}`}>
+      <section className={classNames(styles.section, styles['section--services'])}>
         <div className={styles.container}>
           <h2 className={styles['section-title']}>Мої послуги</h2>
           <div className={styles['services-slider']}>
@@ -178,34 +174,48 @@ function AboutPage() {
         <div className={styles.container}>
           <h2 className={styles['section-title']}>Про мене</h2>
           <div className={styles['about-content']}>
-            <p className={styles.text}>Основний фокус — <strong>React, Next (SSR/SSG/ISR)</strong></p>
+            <p className={styles.text}>
+             Розробляю на React та Next, оптимізуючи архітектуру.
+            </p>
             <article className={styles['about-block']}>
               <h3>Архітектура та підходи</h3>
-              <p className={styles.text}>Моя філософія розробки базується на <strong>Feature-Sliced Design</strong>. Ціную код, дотримуюсь принципів SOLID та використовую перевірені патерни проєктування.</p>
+              <p className={styles.text}>
+                Моя філософія розробки базується на <strong>Feature-Sliced Design</strong>. 
+              </p>
             </article>
             <article className={styles['about-block']}>
               <h3>Робота з даними</h3>
-              <p className={styles.text}>Маю досвід інтеграції REST/GraphQL API, роботи з WebSockets та обробки великих обсягів даних. Реалізую оптимістичні оновлення, кешування та запобігаю race conditions.</p>
+              <p className={styles.text}>
+                Маю досвід інтеграції REST/GraphQL API, роботи з WebSockets та обробки великих обсягів даних. 
+                Реалізую оптимістичні оновлення, кешування та запобігаю race conditions.
+              </p>
             </article>
             <article className={styles['about-block']}>
               <h3>Продуктивність</h3>
-              <p className={styles.text}>Глибоко розумію механізми рендерингу React. Застосовую <code>React.memo</code>, <code>useMemo</code>, <code>useCallback</code>, code splitting та слідкую за показниками Core Web Vitals.</p>
+              <p className={styles.text}>
+                Глибоко розумію механізми рендерингу React. Застосовую <code>React.memo</code>, <code>useMemo</code>, 
+                <code>useCallback</code>, code splitting та слідкую за показниками Core Web Vitals.
+              </p>
             </article>
             <article className={styles['about-block']}>
               <h3>Developer Experience</h3>
-              <p className={styles.text}>Ціную TypeScript зі строгою типізацією, ESLint, Prettier, Husky та автоматизоване тестування (RTL, Cypress).</p>
+              <p className={styles.text}>
+                Ціную TypeScript зі строгою типізацією, ESLint, Prettier, Husky.
+              </p>
             </article>
           </div>
         </div>
       </section>
 
       {/* Skills Section */}
-      <section className={`${styles.section} ${styles['section--alt']}`}>
+      <section className={classNames(styles.section, styles['section--alt'])}>
         <div className={styles.container}>
           <h2 className={styles['section-title']}>Технічний стек</h2>
           <div className={styles['skills-grid']} role="list">
             {SKILLS_LIST.map((skill) => (
-              <span key={skill} className={styles['skill-tag']} role="listitem">{skill}</span>
+              <span key={skill} className={styles['skill-tag']} role="listitem">
+                {skill}
+              </span>
             ))}
           </div>
         </div>
@@ -225,7 +235,9 @@ function AboutPage() {
                 <div className={styles['job-company']}>{job.company}</div>
                 <ul className={styles['job-desc-list']}>
                   {job.description.map((item, idx) => (
-                    <li key={idx} className={styles['job-desc-item']}>{item}</li>
+                    <li key={idx} className={styles['job-desc-item']}>
+                      {item}
+                    </li>
                   ))}
                 </ul>
               </li>
@@ -236,7 +248,11 @@ function AboutPage() {
 
       {/* Scroll to Top Button */}
       {showScrollTop && (
-        <button className={styles['scroll-top']} onClick={scrollToTop} aria-label="Прокрутити вгору"></button>
+        <button 
+          className={classNames(styles['scroll-top'])} 
+          onClick={scrollToTop} 
+          aria-label="Прокрутити вгору"
+        />
       )}
     </>
   );

@@ -148,9 +148,9 @@ function HomePage() {
               <h3 className={styles.name}>Долинський О.С.</h3>
               <p className={styles.role}>Веб-розробник</p>
               <p className={styles.description}>
-                Маю глибокі технічні знання в побудові швидких та адаптивних інтерфейсів на React.
+                Розробляю на React та Next, оптимізуючи архітектуру.
               </p>
-              <Link to="/about" className={styles.aboutLink}>Детальніше →</Link>
+              <Link to="/about" className={styles.aboutLink}>Детальніше</Link>
             </div>
             <div className={styles.imageWrapper}>
               <img 
