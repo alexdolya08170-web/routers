@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { useEffect, useRef, ReactNode, useState } from 'react';
+import classNames from 'classnames';
 import styles from './index.module.scss';
 
 // --- Constants ---
@@ -96,14 +97,42 @@ function HomePage() {
 
   return (
     <>
-      <section className={styles.hero} ref={heroRef} aria-label="Hero Section">
-        <div className={`${styles.glowBlob} ${styles.glowBlob__1}`} aria-hidden="true"></div>
-        <div className={`${styles.glowBlob} ${styles.glowBlob__2}`} aria-hidden="true"></div>
+      <section 
+        className={styles.hero} 
+        ref={heroRef} 
+        aria-label="Hero Section"
+      >
+        <div 
+          className={classNames(styles.glowBlob, styles.glowBlob__1)} 
+          aria-hidden="true"
+        />
+        <div 
+          className={classNames(styles.glowBlob, styles.glowBlob__2)} 
+          aria-hidden="true"
+        />
         
-        <div className={`${styles.shape} ${styles.shape__circle1} parallax-shape`} data-speed="0.2" data-depth="30" aria-hidden="true"></div>
-        <div className={`${styles.shape} ${styles.shape__square1} parallax-shape`} data-speed="-0.1" data-depth="-40" aria-hidden="true"></div>
+        <div 
+          className={classNames(
+            styles.shape, 
+            styles.shape__circle1, 
+            'parallax-shape'
+          )} 
+          data-speed="0.2" 
+          data-depth="30" 
+          aria-hidden="true"
+        />
+        <div 
+          className={classNames(
+            styles.shape, 
+            styles.shape__square1, 
+            'parallax-shape'
+          )} 
+          data-speed="-0.1" 
+          data-depth="-40" 
+          aria-hidden="true"
+        />
         
-        <div className={styles.hero__diagonal} aria-hidden="true"></div>
+        <div className={styles.hero__diagonal} aria-hidden="true" />
         
         <div className={styles.hero__content}>
           <h1 className={styles.hero__title}>Долинський Олександр Сергійович</h1>
@@ -124,7 +153,13 @@ function HomePage() {
               <Link to="/about" className={styles.aboutLink}>Детальніше →</Link>
             </div>
             <div className={styles.imageWrapper}>
-              <img src="./../../photo.jpg" alt="Олександр Долинський" className={styles.image} width="400" height="500" />
+              <img 
+                src="./../../photo.jpg" 
+                alt="Олександр Долинський" 
+                className={styles.image} 
+                width="400" 
+                height="500" 
+              />
             </div>
           </div>
         </section>
@@ -138,14 +173,24 @@ function HomePage() {
               {PORTFOLIO_ITEMS.map((item) => (
                 <div key={item.id} className={styles.card}>
                   <div className={styles.imageWrapper}>
-                    <img src={item.image} alt={item.title} loading="lazy" width="400" height="300" />
-                    <div className={styles.overlay}><span>{item.title}</span></div>
+                    <img 
+                      src={item.image} 
+                      alt={item.title} 
+                      loading="lazy" 
+                      width="400" 
+                      height="300" 
+                    />
+                    <div className={styles.overlay}>
+                      <span>{item.title}</span>
+                    </div>
                   </div>
                 </div>
               ))}
             </div>
             <div className={styles.footerAction}>
-              <Link to="/events" className={styles.btnOutline}>Переглянути всі роботи</Link>
+              <Link to="/events" className={styles.btnOutline}>
+                Переглянути всі роботи
+              </Link>
             </div>
           </div>
         </section>
@@ -153,7 +198,11 @@ function HomePage() {
 
       {/* Scroll to Top Button */}
       {showScrollTop && (
-        <button className={styles['scroll-top']} onClick={scrollToTop} aria-label="Прокрутити вгору"></button>
+        <button 
+          className={classNames(styles['scroll-top'])} 
+          onClick={scrollToTop} 
+          aria-label="Прокрутити вгору"
+        />
       )}
     </>
   );
