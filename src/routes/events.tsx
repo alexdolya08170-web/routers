@@ -1,3 +1,4 @@
+// events.tsx
 import { createFileRoute } from '@tanstack/react-router';
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import classNames from 'classnames';

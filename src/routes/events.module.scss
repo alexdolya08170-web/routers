@@ -169,6 +169,7 @@
   border: 2px solid #e5e7eb;
   border-radius: 12px;
   background: #fff;
+  color: #1a1a1a; // ← Введений текст чорного кольору
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
   &:focus {
