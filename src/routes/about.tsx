@@ -27,7 +27,7 @@ interface ServiceItem {
 const SERVICES_DATA: ServiceItem[] = [
   {
     id: 1,
-    title: 'Розробка SPA та SSR',
+    title: 'Розробка',
     description: 'Розробка SPA та SSR додатків на React або Next.',
     features: [
       'Feature-Sliced Design архітектура',
@@ -38,8 +38,8 @@ const SERVICES_DATA: ServiceItem[] = [
   },
   {
     id: 2,
-    title: 'Backend та API інтеграція',
-    description: 'Розробка та інтеграція backend-рішень на Python.',
+    title: 'API інтеграція',
+    description: 'Розробка та інтеграція backend-рішень.',
     features: [
       'Django та FastAPI',
       'REST API та GraphQL',
@@ -49,7 +49,7 @@ const SERVICES_DATA: ServiceItem[] = [
   },
   {
     id: 3,
-    title: 'UI та адаптивна верстка',
+    title: 'Адаптивна верстка',
     description: 'Створення адаптивних інтерфейсів.',
     features: [
       'SCSS, CSS Modules',
@@ -61,7 +61,7 @@ const SERVICES_DATA: ServiceItem[] = [
   {
     id: 4,
     title: 'Python-розробка',
-    description: 'Розробка Python-скриптів та автоматизація процесів.',
+    description: 'Розробка Python-скриптів',
     features: [
       'Автоматизація рутинних задач',
       'Парсинг даних та web scraping', 
@@ -164,12 +164,12 @@ const EXPERIENCE_DATA: ExperienceItem[] = [
 const SKILLS_LIST = [
   'React', 'Next', 'TypeScript', 'JavaScript', 'Redux Toolkit', 'Zustand',
   'TanStack Query', 'Tailwind CSS', 'SCSS Modules', 'Styled-components',
-  'Framer Motion', 'Bootstrap', 'React Testing Library', 'Cypress', 'Playwright',
+  'Framer Motion', 'GSAP', 'Bootstrap', 'React Testing Library', 'Cypress',
   'Storybook', 'Feature-Sliced Design', 'SOLID', 'Clean Code', 'Vite', 'Webpack',
   'GitHub Actions', 'CI/CD', 'Python', 'Django', 'FastAPI', 'Redis',
-  'SQLAlchemy', 'Alembic', 'Node', 'GraphQL', 'REST API', 'PostgreSQL',
+  'SQLAlchemy', 'Alembic', 'Node', 'GraphQL', 'API', 'PostgreSQL',
   'MySQL', 'MongoDB', 'SSR / SSG / ISR', 'Core Web Vitals', 'SEO',
-  'Structured Data', 'Figma', 'Swagger/OpenAPI',
+  'Structured Data', 'Swagger', 'Figma'
 ];
 
 function AboutPage() {
