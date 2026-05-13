@@ -101,7 +101,6 @@ export function Header() {
             role="img"
             aria-labelledby="logoTitle"
           >
-            <title id="logoTitle">Логотип React</title>
             
             {/* Група по центру для обертання */}
             <g transform="translate(50, 50)">

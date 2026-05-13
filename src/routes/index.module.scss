@@ -1,6 +1,3 @@
-// =============================================
-// 🎬 Keyframes
-// =============================================
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(2rem); }
   to { opacity: 1; transform: translateY(0); }
@@ -27,9 +24,6 @@
   100% { transform: translate(-20px, 20px) scale(0.95); }
 }
 
-// =============================================
-// 🔧 Міксини (з вбудованими значеннями)
-// =============================================
 @mixin fade-in-section($delay: 0s, $offset: 30px) {
   opacity: 0;
   transform: translateY($offset);
@@ -138,7 +132,6 @@
   transform: rotate(-45deg) translateY(-2px);
 }
 
-// Заголовок секції — центрований (для "Мої роботи")
 @mixin section-title {
   font-family: 'Inter', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
   font-size: 2rem;
@@ -162,7 +155,6 @@
   }
 }
 
-// Заголовок секції — лівий (для "Про мене")
 @mixin section-title-left {
   font-family: 'Inter', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
   font-size: 2rem;
@@ -181,7 +173,7 @@
     width: 48px;
     height: 3px;
     background: #0055ff;
-    margin: 12px 0 0; // 
+    margin: 12px 0 0;
     border-radius: 2px;
   }
 }
@@ -473,13 +465,23 @@ body {
     @include text-body('sm');
     margin-top: 0.5rem;
     letter-spacing: 0.025em;
-    color:  #0066ff;
+    color: #0066ff;
+    position: relative;
     
     &::after {
       content: '→';
       margin-left: 0.5rem;
       transition: transform 0.2s ease;
       font-weight: 700;
+      width: auto;
+      height: auto;
+      bottom: auto;
+      left: 90px;
+      top: 0px;
+      background: none;
+      border: none;
+      transform: none;
+      transform-origin: initial;
     }
     
     &:hover {
@@ -765,10 +767,6 @@ body {
     min-width: 44px;
   }
 }
-
-// =============================================
-// ♿ Доступність
-// =============================================
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

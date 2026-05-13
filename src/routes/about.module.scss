@@ -1,19 +1,3 @@
-// =============================================
-// Mixins
-// =============================================
-@mixin hover-lift($offset: -2px, $shadow-strength: 0.3) {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  
-  &:hover {
-    transform: translateY($offset);
-    box-shadow: 0 6px 20px rgba(0, 85, 255, $shadow-strength);
-  }
-  
-  &:active {
-    transform: translateY(0);
-  }
-}
-
 @mixin fade-in-up($delay: 0s, $distance: 30px) {
   opacity: 0;
   transform: translateY($distance);
@@ -28,19 +12,6 @@
   }
 }
 
-@mixin card-hover($border-color: #0055ff, $shadow-color: rgba(0, 85, 255, 0.12)) {
-  transition: all 0.3s ease;
-  
-  &:hover {
-    border-color: $border-color;
-    box-shadow: 0 8px 24px $shadow-color;
-    transform: translateY(-4px);
-  }
-}
-
-// =============================================
-// Animations
-// =============================================
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(30px); }
   to { opacity: 1; transform: translateY(0); }
@@ -51,25 +22,6 @@
   to { opacity: 1; } 
 }
 
-@keyframes floatDecor {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(2deg); }
-}
-
-@keyframes pulseGlow {
-  0%, 100% { opacity: 0.4; transform: scale(1); }
-  50% { opacity: 0.7; transform: scale(1.1); }
-}
-
-@keyframes gradientShift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-// =============================================
-// Utility
-// =============================================
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -82,11 +34,7 @@
   border: 0;
 }
 
-// =============================================
-// Hero Section with Decorative Elements
-// =============================================
 .hero {
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -94,126 +42,12 @@
   padding: 6rem 5%;
   background: #ffffff;
   color: #1a1a1a;
-  overflow: hidden;
   animation: fadeIn 0.8s ease-out;
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(
-      ellipse at center,
-      rgba(0, 85, 255, 0.03) 0%,
-      transparent 70%
-    );
-    pointer-events: none;
-    z-index: 0;
-    animation: gradientShift 20s ease infinite;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-      linear-gradient(rgba(0, 85, 255, 0.02) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 85, 255, 0.02) 1px, transparent 1px);
-    background-size: 60px 60px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .glowBlob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    pointer-events: none;
-    z-index: 0;
-    animation: pulseGlow 8s ease-in-out infinite;
-  }
-
-  .glowBlob__1 {
-    top: 10%;
-    right: 10%;
-    width: 300px;
-    height: 300px;
-    background: rgba(0, 85, 255, 0.15);
-    animation-delay: 0s;
-  }
-
-  .glowBlob__2 {
-    bottom: 20%;
-    left: 5%;
-    width: 250px;
-    height: 250px;
-    background: rgba(59, 130, 246, 0.1);
-    animation-delay: -4s;
-  }
-
-  .decorShape {
-    position: absolute;
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.5;
-    animation: floatDecor 12s ease-in-out infinite;
-  }
-
-  .decorShape__circle {
-    top: 15%;
-    left: 8%;
-    width: 120px;
-    height: 120px;
-    border: 2px solid rgba(0, 85, 255, 0.2);
-    border-radius: 50%;
-    animation-delay: 0s;
-  }
-
-  .decorShape__square {
-    bottom: 25%;
-    right: 12%;
-    width: 80px;
-    height: 80px;
-    border: 2px solid rgba(0, 85, 255, 0.15);
-    border-radius: 12px;
-    transform: rotate(45deg);
-    animation-delay: -6s;
-  }
-
-  .decorShape__triangle {
-    top: 60%;
-    left: 15%;
-    width: 0;
-    height: 0;
-    border-left: 40px solid transparent;
-    border-right: 40px solid transparent;
-    border-bottom: 70px solid rgba(0, 85, 255, 0.1);
-    animation-delay: -3s;
-  }
-
-  .diagonalAccent {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 50%;
-    height: 30%;
-    background: linear-gradient(135deg, rgba(0, 85, 255, 0.05) 0%, transparent 100%);
-    clip-path: polygon(100% 0, 100% 100%, 0 100%);
-    pointer-events: none;
-    z-index: 0;
-  }
 
   &__content {
     width: 100%;
     max-width: 800px;
     text-align: center;
-    position: relative;
-    z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -250,17 +84,6 @@
     overflow-wrap: break-word;
   }
   
-  &__contacts {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 2rem;
-    animation-delay: 0.3s;
-    width: 100%;
-    max-width: 100%;
-  }
-  
   &__actions {
     margin-bottom: 0;
     animation-delay: 0.4s;
@@ -294,25 +117,6 @@
   }
 }
 
-.contact-link {
-  color: #0055ff;
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 0.95rem;
-  transition: color 0.2s;
-  display: inline-block;
-  max-width: 100%;
-  overflow-wrap: break-word;
-  
-  &:hover {
-    color: #0044cc;
-    text-decoration: underline;
-  }
-}
-
-// =============================================
-// Layout
-// =============================================
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -330,52 +134,14 @@
   overflow-x: hidden;
   width: 100%;
   box-sizing: border-box;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(
-      circle at 80% 20%,
-      rgba(0, 85, 255, 0.02) 0%,
-      transparent 50%
-    );
-    pointer-events: none;
-    z-index: 0;
-  }
 }
 
 .section--alt {
   background: #f9fafb;
-  
-  &::before {
-    background: radial-gradient(
-      circle at 20% 80%,
-      rgba(59, 130, 246, 0.03) 0%,
-      transparent 50%
-    );
-  }
 }
 
 .section--services {
   background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
-  
-  &::after {
-    content: '';
-    position: absolute;
-    top: -100px;
-    right: -100px;
-    width: 300px;
-    height: 300px;
-    border: 1px solid rgba(0, 85, 255, 0.08);
-    border-radius: 50%;
-    pointer-events: none;
-    z-index: 0;
-    overflow: hidden;
-  }
 }
 
 .section-title {
@@ -404,94 +170,6 @@
   }
 }
 
-// =============================================
-// Text & About
-// =============================================
-.text {
-  font-size: 1.125rem;
-  line-height: 1.8;
-  color: #4b5563;
-  max-width: 800px;
-  margin: 0 auto 1.5rem;
-  text-align: center;
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  box-sizing: border-box;
-  overflow-wrap: break-word;
-  
-  strong {
-    color: #1a1a1a;
-    font-weight: 600;
-  }
-  
-  code {
-    background: rgba(0, 85, 255, 0.1);
-    color: #0055ff;
-    padding: 2px 6px;
-    border-radius: 4px;
-    font-family: 'Fira Code', monospace;
-    font-size: 0.9em;
-    display: inline-block;
-    max-width: 100%;
-    overflow-wrap: break-word;
-    white-space: pre-wrap;
-  }
-}
-
-.about-content {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-  align-items: center;
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-.about-block {
-  width: 100%;
-  max-width: 800px;
-  opacity: 0;
-  animation: fadeInUp 0.8s ease-out forwards;
-  position: relative;
-  z-index: 1;
-  box-sizing: border-box;
-  padding: 0 1rem;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    left: -20px;
-    top: 10%;
-    bottom: 10%;
-    width: 2px;
-    background: linear-gradient(to bottom, #0055ff, transparent);
-    opacity: 0.3;
-    pointer-events: none;
-  }
-  
-  &:nth-child(2) { animation-delay: 0.1s; }
-  &:nth-child(3) { animation-delay: 0.2s; }
-  &:nth-child(4) { animation-delay: 0.3s; }
-  &:nth-child(5) { animation-delay: 0.4s; }
-  
-  h3 {
-    font-size: 1.5rem;
-    color: #1a1a1a;
-    margin-bottom: 1rem;
-    text-align: center;
-    font-weight: 700;
-    position: relative;
-    overflow-wrap: break-word;
-  }
-}
-
-// =============================================
-// Skills with Decorative Background
-// =============================================
 .skills-grid {
   display: flex;
   flex-wrap: wrap;
@@ -502,21 +180,6 @@
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: -20px;
-    left: -20px;
-    right: -20px;
-    bottom: -20px;
-    background-image: 
-      radial-gradient(circle, rgba(0, 85, 255, 0.03) 1px, transparent 1px);
-    background-size: 30px 30px;
-    border-radius: 20px;
-    pointer-events: none;
-    z-index: -1;
-  }
 }
 
 .skill-tag {
@@ -537,33 +200,14 @@
   max-width: 100%;
   overflow-wrap: break-word;
   
-  &::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    border-radius: 10px;
-    background: linear-gradient(135deg, #0055ff, #3b82f6);
-    opacity: 0;
-    transition: opacity 0.2s ease;
-    z-index: -1;
-    filter: blur(8px);
-  }
-  
   &:hover {
     border-color: #0055ff;
     color: #0055ff;
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 85, 255, 0.1);
-    
-    &::before {
-      opacity: 0.3;
-    }
   }
 }
 
-// =============================================
-// Services Slider
-// =============================================
 .services-slider {
   position: relative;
   max-width: 1400px;
@@ -597,28 +241,12 @@
   overflow: hidden;
   width: 100%;
   box-sizing: border-box;
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, rgba(0, 85, 255, 0.1) 0%, transparent 100%);
-    pointer-events: none;
-    transition: opacity 0.3s ease;
-    opacity: 0;
-  }
+  cursor: pointer;
   
   &:hover {
     border-color: #0055ff;
     box-shadow: 0 8px 24px rgba(0, 85, 255, 0.12);
     transform: translateY(-4px);
-    
-    &::before {
-      opacity: 1;
-    }
   }
 }
 
@@ -675,7 +303,6 @@
   box-shadow: 0 0 0 3px rgba(0, 85, 255, 0.1);
 }
 
-// Pagination (Swiper global styles)
 :global(.swiper-pagination) {
   position: relative !important;
   margin-top: 2rem;
@@ -692,27 +319,14 @@
   opacity: 1;
   margin: 0 !important;
   transition: all 0.3s ease;
-  position: relative;
 }
 
 :global(.swiper-pagination-bullet-active) {
   background: #0055ff;
   width: 28px;
   border-radius: 6px;
-  
-  &::after {
-    content: '';
-    position: absolute;
-    inset: -4px;
-    border-radius: 10px;
-    background: rgba(0, 85, 255, 0.2);
-    animation: pulseGlow 2s ease-in-out infinite;
-  }
 }
 
-// =============================================
-// Timeline with Decorative Elements
-// =============================================
 .timeline {
   position: relative;
   max-width: 900px;
@@ -749,7 +363,6 @@
   &:nth-child(2) { animation-delay: 0.2s; }
   &:nth-child(3) { animation-delay: 0.3s; }
   &:nth-child(4) { animation-delay: 0.4s; }
-  &:nth-child(5) { animation-delay: 0.5s; }
   
   &:nth-child(odd) {
     padding-right: 40px;
@@ -873,9 +486,6 @@
   }
 }
 
-// =============================================
-// Scroll to Top Button (Bottom Right)
-// =============================================
 .scroll-top {
   position: fixed;
   bottom: 2rem;
@@ -895,25 +505,9 @@
   z-index: 999;
   box-sizing: border-box;
   
-  &::before {
-    content: '';
-    position: absolute;
-    inset: -4px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(0, 85, 255, 0.4) 0%, transparent 70%);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-    animation: pulseGlow 3s ease-in-out infinite;
-  }
-  
   &:hover {
     background: #0044cc;
     transform: translateY(-3px);
-    
-    &::before {
-      opacity: 1;
-    }
   }
   
   &::after {
@@ -927,9 +521,6 @@
   }
 }
 
-// =============================================
-// Responsive
-// =============================================
 @media (max-width: 1024px) {
   .hero {
     padding: 5rem 5%;
@@ -943,14 +534,8 @@
 }
 
 @media (max-width: 768px) {
-  .hero {
-    .decorShape__triangle {
-      display: none;
-    }
-    
-    &__content {
-      padding: 0;
-    }
+  .hero__content {
+    padding: 0;
   }
   
   .timeline {
@@ -998,15 +583,6 @@
     font-size: 2rem;
   }
   
-  .text {
-    font-size: 1rem;
-    text-align: center;
-  }
-  
-  .about-block h3 {
-    text-align: center;
-  }
-  
   .scroll-top {
     bottom: 1.5rem;
     right: 1.5rem;
@@ -1032,11 +608,6 @@
       font-size: 1.1rem;
     }
     
-    &__contacts {
-      flex-direction: column;
-      gap: 0.5rem;
-    }
-    
     &__btn {
       padding: 0.8rem 1.5rem;
       font-size: 0.95rem;
@@ -1044,10 +615,6 @@
       max-width: 300px;
       text-align: center;
       justify-content: center;
-    }
-    
-    .glowBlob {
-      display: none;
     }
   }
   
@@ -1097,17 +664,8 @@
   .swiper {
     transition: none !important;
   }
-  
-  .glowBlob,
-  .decorShape,
-  .scroll-top::before {
-    animation: none !important;
-  }
 }
 
-// =============================================
-// Global Fixes for Overflow
-// =============================================
 html, body {
   overflow-x: hidden;
   max-width: 100vw;
