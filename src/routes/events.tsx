@@ -5,15 +5,15 @@ import styles from './events.module.scss';
 
 // Types & Constants
 
-type Category = 'All' | 'Web Apps' | 'E-commerce' | 'Corporate' | 'Landing';
+type Category = 'All' | 'Web Apps' | 'SaaS/B2B' | 'Fintech' | 'SPA';
 
-const CATEGORIES: Category[] = ['All', 'Web Apps', 'E-commerce', 'Corporate', 'Landing'];
+const CATEGORIES: Category[] = ['All', 'Web Apps', 'SaaS/B2B', 'Fintech', 'SPA'];
 
 interface Project {
   id: number;
   title: string;
   description: string;
-  category: Category;
+  category: Exclude<Category, 'All'>;
   techStack: string[];
   link: string;
   fullDescription?: string;
@@ -105,7 +105,7 @@ const PROJECTS: Project[] = [
     id: 2,
     title: "Інтернет-магазин електроніки",
     description: "Високонавантажений магазин з фільтрацією товарів та інтеграцією платіжних систем.",
-    category: "E-commerce",
+    category: "Web Apps",
     techStack: ["Next", "Redux Toolkit", "Strapi", "MySQL"],
     link: "https://example.com/electronics-store",
     fullDescription: "Високонавантажений e-commerce проект з розумною фільтрацією, швидким пошуком та безпечними платежами.",
@@ -121,7 +121,7 @@ const PROJECTS: Project[] = [
     id: 6,
     title: "Маркетплейс рукоділля",
     description: "Платформа для продажу хендмейд виробів. Акцент на мобільну версію та швидкість.",
-    category: "E-commerce",
+    category: "SaaS/B2B",
     techStack: ["Next", "PostgreSQL", "Prisma", "AWS S3"],
     link: "https://example.com/handmade-marketplace",
     fullDescription: "Маркетплейс для продажу унікальних хендмейд товарів з акцентом на мобільний досвід.",
@@ -137,7 +137,7 @@ const PROJECTS: Project[] = [
     id: 3,
     title: "Корпоративний портал IT-компанії",
     description: "Багатомовний сайт з блогом, кейсами та особистим кабінетом клієнта.",
-    category: "Corporate",
+    category: "SaaS/B2B",
     techStack: ["Next", "GraphQL", "Tailwind", "Vercel"],
     link: "https://example.com/it-corporate",
     fullDescription: "Корпоративний сайт з підтримкою кількох мов, блогом, портфоліо та особистим кабінетом для клієнтів.",
@@ -153,7 +153,7 @@ const PROJECTS: Project[] = [
     id: 8,
     title: "Сайт будівельної компанії",
     description: "Каталог об'єктів, форма зворотного зв'язку, галерея реалізованих проектів.",
-    category: "Corporate",
+    category: "SaaS/B2B",
     techStack: ["WordPress", "PHP", "ACF", "JS"],
     link: "https://example.com/construction-site",
     fullDescription: "Корпоративний сайт будівельної компанії з каталогом об'єктів та галереєю робіт.",
@@ -169,7 +169,7 @@ const PROJECTS: Project[] = [
     id: 12,
     title: "Блог подорожей",
     description: "Швидкий статичний блог з CMS. Інтеграція Instagram стрічки.",
-    category: "Corporate",
+    category: "SaaS/B2B",
     techStack: ["Next", "Contentful", "Styled Components"],
     link: "https://example.com/travel-blog",
     fullDescription: "Швидкий статичний блог про подорожі з інтеграцією соціальних мереж та CMS.",
@@ -182,13 +182,45 @@ const PROJECTS: Project[] = [
     ],
   },
   {
+    id: 13,
+    title: "Крипто-трекер портфеля",
+    description: "Додаток для відстеження криптовалютних активів з графіками в реальному часі.",
+    category: "Fintech",
+    techStack: ["React", "TypeScript", "WebSocket", "Chart.js"],
+    link: "https://example.com/crypto-tracker",
+    fullDescription: "SPA для моніторингу криптовалютного портфеля з підтримкою бірж через API.",
+    features: [
+      "Realtime-ціни через WebSocket",
+      "Інтерактивні графіки на Chart.js",
+      "Підтримка 50+ бірж",
+      "Експорт транзакцій у CSV",
+      "Двофакторна аутентифікація"
+    ],
+  },
+  {
+    id: 14,
+    title: "Платформа для інвестицій",
+    description: "B2B-рішення для управління інвестиційними портфелями клієнтів.",
+    category: "Fintech",
+    techStack: ["Next.js", "GraphQL", "PostgreSQL", "Redis"],
+    link: "https://example.com/investment-platform",
+    fullDescription: "Корпоративна платформа для фінансових радників з аналітикою та звітністю.",
+    features: [
+      "Автоматична ребалансировка портфелів",
+      "Інтеграція з банківськими API",
+      "Генерация PDF-звітів",
+      "Рольова модель з RBAC",
+      "Аудит дій користувачів"
+    ],
+  },
+  {
     id: 5,
     title: "Лендінг для нерухомості",
     description: "Продаючий лендінг з 3D-туром квартир та калькулятором іпотеки.",
-    category: "Landing",
-    techStack: ["HTML/SCSS", "Vanilla JS", "GSAP"],
+    category: "SPA",
+    techStack: ["React", "TypeScript", "GSAP", "Three.js"],
     link: "https://example.com/real-estate-landing",
-    fullDescription: "Продаючий лендінг для ЖК з інтерактивними елементами та інструментами для клієнтів.",
+    fullDescription: "Продаючий SPA-додаток для ЖК з інтерактивними елементами та інструментами для клієнтів.",
     features: [
       "3D-тур по квартирах через Three.js",
       "Калькулятор іпотеки з реальними ставками",
@@ -201,10 +233,10 @@ const PROJECTS: Project[] = [
     id: 10,
     title: "Promo-сайт гаджету",
     description: "Презентаційний сайт з складними скрол-ефектами та відео-фоном.",
-    category: "Landing",
-    techStack: ["Next", "Framer Motion", "SCSS"],
+    category: "SPA",
+    techStack: ["React", "Framer Motion", "SCSS"],
     link: "https://example.com/gadget-promo",
-    fullDescription: "Презентаційний сайт для нового гаджету з іммерсивними анімаціями та відео-контентом.",
+    fullDescription: "Презентаційний SPA для нового гаджету з іммерсивними анімаціями та відео-контентом.",
     features: [
       "Parallax-ефекти при скролі",
       "Відео-фон з оптимізацією завантаження",
@@ -220,30 +252,29 @@ const ITEMS_PER_PAGE = 6;
 // Helper Functions
 
 const getPageNumbers = (currentPage: number, totalPages: number): (number | string)[] => {
-  const delta = 1;
-  const range: number[] = [];
-  const rangeWithDots: (number | string)[] = [];
-  let l: number | undefined;
-
-  for (let i = 1; i <= totalPages; i++) {
-    if (i === 1 || i === totalPages || (i >= currentPage - delta && i <= currentPage + delta)) {
-      range.push(i);
-    }
+  if (totalPages <= 7) {
+    return Array.from({ length: totalPages }, (_, i) => i + 1);
   }
 
-  for (const i of range) {
-    if (l !== undefined) {
-      if (typeof i === 'number' && i - l === 2) {
-        rangeWithDots.push(l + 1);
-      } else if (typeof i === 'number' && i - l !== 1) {
-        rangeWithDots.push('...');
-      }
-    }
-    rangeWithDots.push(i);
-    l = i;
+  const pages: (number | string)[] = [];
+  
+  if (currentPage <= 4) {
+    for (let i = 1; i <= 5; i++) pages.push(i);
+    pages.push('...');
+    pages.push(totalPages);
+  } else if (currentPage >= totalPages - 3) {
+    pages.push(1);
+    pages.push('...');
+    for (let i = totalPages - 4; i <= totalPages; i++) pages.push(i);
+  } else {
+    pages.push(1);
+    pages.push('...');
+    for (let i = currentPage - 1; i <= currentPage + 1; i++) pages.push(i);
+    pages.push('...');
+    pages.push(totalPages);
   }
 
-  return rangeWithDots;
+  return pages;
 };
 
 // Modal Component
@@ -256,18 +287,30 @@ interface ModalProps {
 function ProjectModal({ project, onClose }: ModalProps) {
   useEffect(() => {
     const originalOverflow = document.body.style.overflow;
+    const originalTabindex = document.body.getAttribute('tabindex');
+    
     document.body.style.overflow = 'hidden';
+    document.body.setAttribute('tabindex', '-1');
     
     const modalContent = document.getElementById('modal-content');
     modalContent?.focus();
 
     const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        onClose();
+      }
     };
+    
     document.addEventListener('keydown', handleEscape);
 
     return () => {
       document.body.style.overflow = originalOverflow;
+      if (originalTabindex !== null) {
+        document.body.setAttribute('tabindex', originalTabindex);
+      } else {
+        document.body.removeAttribute('tabindex');
+      }
       document.removeEventListener('keydown', handleEscape);
     };
   }, [onClose]);
@@ -385,18 +428,16 @@ function PortfolioPage() {
     }
   }, [totalPages, currentPage]);
 
-  useEffect(() => {
-    if (selectedProject) {
-      document.body.style.overflow = 'hidden';
-    }
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [selectedProject]);
-
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const currentProjects = filteredProjects.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-  const pageNumbers = getPageNumbers(currentPage, totalPages);
+  const currentProjects = useMemo(() => 
+    filteredProjects.slice(startIndex, startIndex + ITEMS_PER_PAGE),
+    [filteredProjects, startIndex]
+  );
+  
+  const pageNumbers = useMemo(() => 
+    getPageNumbers(currentPage, totalPages),
+    [currentPage, totalPages]
+  );
 
   const handlePageChange = useCallback((page: number) => {
     if (page >= 1 && page <= totalPages) {
@@ -405,26 +446,26 @@ function PortfolioPage() {
     }
   }, [totalPages]);
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
     setCurrentPage(1);
-  };
+  }, []);
 
-  const clearSearch = () => {
+  const clearSearch = useCallback(() => {
     setSearchQuery('');
     setCurrentPage(1);
-  };
+  }, []);
 
-  const handleCategoryChange = (category: Category) => {
+  const handleCategoryChange = useCallback((category: Category) => {
     setActiveCategory(category);
     setSearchQuery('');
     setCurrentPage(1);
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  }, []);
 
-  const openModal = (project: Project) => {
+  const openModal = useCallback((project: Project) => {
     setSelectedProject(project);
-  };
+  }, []);
 
   const closeModal = useCallback(() => {
     setSelectedProject(null);
@@ -491,7 +532,7 @@ function PortfolioPage() {
         </div>
 
         {filteredProjects.length === 0 ? (
-          <div className={styles.noResults} role="status">
+          <div className={styles.noResults} role="status" aria-live="polite">
             Проекти не знайдено
           </div>
         ) : (

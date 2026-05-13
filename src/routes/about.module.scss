@@ -733,8 +733,6 @@
     background: linear-gradient(to bottom, #0055ff, #e5e7eb, #0055ff);
     z-index: 0;
   }
-  
-  // ✅ Видалено &::after (дублююча верхня точка)
 }
 
 .timeline-item {
@@ -827,7 +825,6 @@
   border-radius: 6px;
   position: relative;
   white-space: nowrap;
-  // ✅ Видалено &::after (підкреслення дати)
 }
 
 .job-company {

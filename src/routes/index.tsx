@@ -136,7 +136,7 @@ function HomePage() {
         
         <div className={styles.hero__content}>
           <h1 className={styles.hero__title}>Долинський Олександр Сергійович</h1>
-          <p className={styles.hero__subtitle}>Веб-розробник</p>
+          <p className={styles.hero__subtitle}>React developer</p>
         </div>
       </section>
 
@@ -146,7 +146,7 @@ function HomePage() {
             <div className={styles.content}>
               <h2 className={styles.title}>Про мене</h2>
               <h3 className={styles.name}>Долинський О.С.</h3>
-              <p className={styles.role}>Веб-розробник</p>
+              <p className={styles.role}>React developer</p>
               <p className={styles.description}>
                 Розробляю на React та Next, оптимізуючи архітектуру.
               </p>

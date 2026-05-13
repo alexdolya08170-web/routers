@@ -97,14 +97,13 @@ const EXPERIENCE_DATA: ExperienceItem[] = [
 const SKILLS_LIST = [
   "React", "Next", "TypeScript", "JavaScript (ES6+)",
   "Redux Toolkit", "Zustand", "TanStack Query", "Context API",
-  "Tailwind CSS", "SCSS Modules", "CSS-in-JS", "Framer Motion", "Shadcn/UI",
-  "React Testing Library", "Cypress", "Playwright", "Storybook",
-  "Feature-Sliced Design", "Clean Code", "SOLID", "Design Patterns",
-  "Vite", "Webpack", "Turbopack", "Docker", "CI/CD (GitHub Actions)", "Git",
-  "Node", "Express", "Go (Golang)", "GraphQL", "REST API",
-  "PostgreSQL", "MySQL", "MongoDB", "Redis", "Prisma",
+  "Tailwind CSS", "SCSS Modules", "CSS-in-JS", "Animations", "Shadcn/UI",
+  "React Testing Library", "Cypress", "Storybook",
+  "Feature-Sliced Design (FSD)", "Clean Code", "SOLID", "Design Patterns",
+  "Vite", "Webpack", "Turbopack", "CI/CD (GitHub Actions)", "Git",
+  "Node", "Go (Golang)", "GraphQL", "REST API", "PostgreSQL", "MySQL", "MongoDB", "Redis", "Prisma",
   "SSR/SSG/ISR", "Core Web Vitals", "Structured Data", "Image Optimization",
-  "PWA", "Web Accessibility (a11y)", "Figma"
+  "SPA", "Web Accessibility (a11y)", "Figma", "Postman"
 ];
 
 // --- Component ---
@@ -125,7 +124,7 @@ function AboutPage() {
       <section className={styles.hero} aria-label="Introduction">
         <div className={styles['hero__content']}>
           <h1 className={styles['hero__title']}>Долинський Олександр Сергійович</h1>
-          <p className={styles['hero__subtitle']}>Веб-розробник</p>          
+          <p className={styles['hero__subtitle']}>React developer</p>          
           <div className={styles['hero__actions']}>
             <a href="/cv.pdf" download className={styles['hero__btn']} aria-label="Завантажити резюме">
               Завантажити резюме
@@ -186,14 +185,14 @@ function AboutPage() {
             <article className={styles['about-block']}>
               <h3>Робота з даними</h3>
               <p className={styles.text}>
-                Маю досвід інтеграції REST/GraphQL API, роботи з WebSockets та обробки великих обсягів даних. 
-                Реалізую оптимістичні оновлення, кешування та запобігаю race conditions.
+                Маю досвід інтеграції REST/GraphQL. Робота з обробки великих обсягів даних. 
+                Реалізую оптимістичні оновлення, кешування.
               </p>
             </article>
             <article className={styles['about-block']}>
               <h3>Продуктивність</h3>
               <p className={styles.text}>
-                Глибоко розумію механізми рендерингу React. Застосовую <code>React.memo</code>, <code>useMemo</code>, 
+                Розумію механізми рендерингу React. Застосовую <code>React.memo</code>, <code>useMemo</code>, 
                 <code>useCallback</code>, code splitting та слідкую за показниками Core Web Vitals.
               </p>
             </article>

@@ -192,8 +192,7 @@
   line-height: 1.1;
   letter-spacing: -0.025em;
   color: inherit;
-  text-wrap: balance;
-  
+
   @if $size == '5xl' {
     font-size: clamp(2.5rem, 8vw, 4.5rem);
   } @else if $size == '4xl' {
@@ -349,7 +348,7 @@ body {
   &__title {
     @include text-heading('5xl');
     margin-bottom: 1rem;
-    color: white;
+    color: #fff;
     text-shadow: 0 10px 30px rgba(0,0,0,0.2);
     animation-delay: 0.1s;
     word-break: break-word;
@@ -358,13 +357,13 @@ body {
   
   &__subtitle {
     @include text-body('lg');
+    font-size: 14px;
     font-weight: 500;
     margin-bottom: 3rem;
     color: rgba(255,255,255,0.95);
     max-width: 600px;
     animation-delay: 0.2s;
     letter-spacing: 0.025em;
-    text-transform: uppercase;
     font-size: clamp(0.875rem, 2.5vw, 1.25rem);
   }
 
