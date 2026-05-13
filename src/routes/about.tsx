@@ -28,8 +28,7 @@ const SERVICES_DATA: ServiceItem[] = [
   {
     id: 1,
     title: 'Розробка SPA та SSR',
-    description:
-      'Розробка SPA та SSR додатків на React або Next.',
+    description: 'Розробка SPA та SSR додатків на React або Next.',
     features: [
       'Feature-Sliced Design архітектура',
       'TypeScript та масштабована структура проєкту',
@@ -40,8 +39,7 @@ const SERVICES_DATA: ServiceItem[] = [
   {
     id: 2,
     title: 'Backend та API інтеграція',
-    description:
-      'Розробка та інтеграція backend-рішень на Python.',
+    description: 'Розробка та інтеграція backend-рішень на Python.',
     features: [
       'Django та FastAPI',
       'REST API та GraphQL',
@@ -52,10 +50,9 @@ const SERVICES_DATA: ServiceItem[] = [
   {
     id: 3,
     title: 'UI та адаптивна верстка',
-    description:
-      'Створення адаптивних інтерфейсів.',
+    description: 'Створення адаптивних інтерфейсів.',
     features: [
-      'Tailwind CSS, SCSS, CSS Modules',
+      'SCSS, CSS Modules',
       'Pixel Perfect верстка',
       'Responsive та cross-browser дизайн',
       'Accessibility (a11y)',
@@ -64,20 +61,17 @@ const SERVICES_DATA: ServiceItem[] = [
   {
     id: 4,
     title: 'Python-розробка',
-    description:
-      'Розробка Python-скриптів та автоматизація процесів.',
+    description: 'Розробка Python-скриптів та автоматизація процесів.',
     features: [
       'Автоматизація рутинних задач',
-      'Парсинг даних та web scraping',
-      'Скрипти та cron-задачі',
+      'Парсинг даних та web scraping', 
       'Інтеграція API та data processing',
     ],
   },
   {
     id: 5,
     title: 'SEO та продуктивність',
-    description:
-      'Оптимізація сайтів для пошукових систем та швидкодії.',
+    description: 'Оптимізація сайтів для пошукових систем та швидкодії.',
     features: [
       'SSR / SSG / ISR',
       'Structured data та meta tags',
@@ -88,8 +82,7 @@ const SERVICES_DATA: ServiceItem[] = [
   {
     id: 6,
     title: 'Тестування',
-    description:
-      'Налаштування тестування та контроль стабільності проєкту.',
+    description: 'Налаштування тестування та контроль стабільності проєкту.',
     features: [
       'React Testing Library',
       'Cypress та E2E тести',
@@ -100,8 +93,7 @@ const SERVICES_DATA: ServiceItem[] = [
   {
     id: 7,
     title: 'Архітектура та консалтинг',
-    description:
-      'Технічні консультації та побудова масштабованих рішень.',
+    description: 'Технічні консультації та побудова масштабованих рішень.',
     features: [
       'Code review та best practices',
       'Feature-Sliced Design',
@@ -170,48 +162,14 @@ const EXPERIENCE_DATA: ExperienceItem[] = [
 ];
 
 const SKILLS_LIST = [
-  'React',
-  'Next',
-  'TypeScript',
-  'JavaScript',
-  'Redux Toolkit',
-  'Zustand',
-  'TanStack Query',
-  'Tailwind CSS',
-  'SCSS Modules',
-  'Styled-components',
-  'Framer Motion',
-  'Shadcn/UI',
-  'React Testing Library',
-  'Cypress',
-  'Playwright',
-  'Storybook',
-  'Feature-Sliced Design',
-  'SOLID',
-  'Clean Code',
-  'Vite',
-  'Webpack',
-  'GitHub Actions',
-  'CI/CD',
-  'Python',
-  'Django',
-  'FastAPI',
-  'Celery',
-  'Redis',
-  'SQLAlchemy',
-  'Alembic',
-  'Node.js',
-  'GraphQL',
-  'REST API',
-  'PostgreSQL',
-  'MySQL',
-  'MongoDB',
-  'SSR / SSG / ISR',
-  'Core Web Vitals',
-  'SEO',
-  'Structured Data',
-  'Figma',
-  'Swagger/OpenAPI',
+  'React', 'Next', 'TypeScript', 'JavaScript', 'Redux Toolkit', 'Zustand',
+  'TanStack Query', 'Tailwind CSS', 'SCSS Modules', 'Styled-components',
+  'Framer Motion', 'Bootstrap', 'React Testing Library', 'Cypress', 'Playwright',
+  'Storybook', 'Feature-Sliced Design', 'SOLID', 'Clean Code', 'Vite', 'Webpack',
+  'GitHub Actions', 'CI/CD', 'Python', 'Django', 'FastAPI', 'Redis',
+  'SQLAlchemy', 'Alembic', 'Node', 'GraphQL', 'REST API', 'PostgreSQL',
+  'MySQL', 'MongoDB', 'SSR / SSG / ISR', 'Core Web Vitals', 'SEO',
+  'Structured Data', 'Figma', 'Swagger/OpenAPI',
 ];
 
 function AboutPage() {
@@ -222,7 +180,8 @@ function AboutPage() {
       setShowScrollTop(window.scrollY > 400);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    // Добавлено { passive: true } для оптимизации производительности скролла
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -230,27 +189,19 @@ function AboutPage() {
   }, []);
 
   const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <>
-      <section
-        className={styles.hero}
-        aria-label="Introduction"
-      >
+      <section className={styles.hero} aria-label="Introduction">
         <div className={styles['hero__content']}>
           <h1 className={styles['hero__title']}>
             Долинський Олександр Сергійович
           </h1>
-
           <p className={styles['hero__subtitle']}>
             Front-end / Full-stack Developer
           </p>
-
           <div className={styles['hero__actions']}>
             <a
               href="/cv.pdf"
@@ -264,28 +215,16 @@ function AboutPage() {
         </div>
       </section>
 
-      <section
-        className={classNames(
-          styles.section,
-          styles['section--services']
-        )}
-      >
+      <section className={classNames(styles.section, styles['section--services'])}>
         <div className={styles.container}>
-          <h2 className={styles['section-title']}>
-            Мої послуги
-          </h2>
-
+          <h2 className={styles['section-title']}>Мої послуги</h2>
           <div className={styles['services-slider']}>
             <Swiper
               modules={[Pagination, Autoplay]}
               spaceBetween={24}
               slidesPerView={1}
               pagination={{ clickable: true }}
-              autoplay={{
-                delay: 5000,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true,
-              }}
+              autoplay={{ delay: 5000, disableOnInteraction: false, pauseOnMouseEnter: true }}
               breakpoints={{
                 640: { slidesPerView: 1 },
                 768: { slidesPerView: 2 },
@@ -296,26 +235,12 @@ function AboutPage() {
               {SERVICES_DATA.map((service) => (
                 <SwiperSlide key={service.id}>
                   <article className={styles['service-card']}>
-                    <h3 className={styles['service-title']}>
-                      {service.title}
-                    </h3>
-
-                    <p className={styles['service-desc']}>
-                      {service.description}
-                    </p>
-
+                    <h3 className={styles['service-title']}>{service.title}</h3>
+                    <p className={styles['service-desc']}>{service.description}</p>
                     <ul className={styles['service-features']}>
                       {service.features.map((feature, idx) => (
-                        <li
-                          key={idx}
-                          className={styles['service-feature']}
-                        >
-                          <span
-                            className={
-                              styles['feature-indicator']
-                            }
-                          />
-
+                        <li key={idx} className={styles['service-feature']}>
+                          <span className={styles['feature-indicator']} />
                           {feature}
                         </li>
                       ))}
@@ -328,27 +253,12 @@ function AboutPage() {
         </div>
       </section>
 
-      <section
-        className={classNames(
-          styles.section,
-          styles['section--alt']
-        )}
-      >
+      <section className={classNames(styles.section, styles['section--alt'])}>
         <div className={styles.container}>
-          <h2 className={styles['section-title']}>
-            Технічний стек
-          </h2>
-
-          <div
-            className={styles['skills-grid']}
-            role="list"
-          >
+          <h2 className={styles['section-title']}>Технічний стек</h2>
+          <div className={styles['skills-grid']} role="list">
             {SKILLS_LIST.map((skill) => (
-              <span
-                key={skill}
-                className={styles['skill-tag']}
-                role="listitem"
-              >
+              <span key={skill} className={styles['skill-tag']} role="listitem">
                 {skill}
               </span>
             ))}
@@ -358,36 +268,18 @@ function AboutPage() {
 
       <section className={styles.section}>
         <div className={styles.container}>
-          <h2 className={styles['section-title']}>
-            Досвід роботи
-          </h2>
-
+          <h2 className={styles['section-title']}>Досвід роботи</h2>
           <ul className={styles.timeline}>
             {EXPERIENCE_DATA.map((job) => (
-              <li
-                key={job.id}
-                className={styles['timeline-item']}
-              >
+              <li key={job.id} className={styles['timeline-item']}>
                 <div className={styles['timeline-header']}>
-                  <h3 className={styles['job-role']}>
-                    {job.role}
-                  </h3>
-
-                  <time className={styles['job-period']}>
-                    {job.period}
-                  </time>
+                  <h3 className={styles['job-role']}>{job.role}</h3>
+                  <time className={styles['job-period']}>{job.period}</time>
                 </div>
-
-                <div className={styles['job-company']}>
-                  {job.company}
-                </div>
-
+                <div className={styles['job-company']}>{job.company}</div>
                 <ul className={styles['job-desc-list']}>
                   {job.description.map((item, idx) => (
-                    <li
-                      key={idx}
-                      className={styles['job-desc-item']}
-                    >
+                    <li key={idx} className={styles['job-desc-item']}>
                       {item}
                     </li>
                   ))}
