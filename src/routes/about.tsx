@@ -107,7 +107,7 @@ const EXPERIENCE_DATA: ExperienceItem[] = [
   {
     id: 1,
     role: 'Front-end Engineer',
-    company: 'FinTech Solutions Group (Kyiv / EU)',
+    company: 'FinTech (Kyiv / EU)',
     period: '2023 – 2026',
     description: [
       'Розробка front-end на Next (SSR/SSG/ISR)',
@@ -120,8 +120,8 @@ const EXPERIENCE_DATA: ExperienceItem[] = [
   },
   {
     id: 2,
-    role: 'Front-end Engineer',
-    company: 'TechBridge Solutions (Cyprus / EU)',
+    role: 'Full-stack Developer',
+    company: 'TechBridge (Cyprus / EU)',
     period: '2021 – 2023',
     description: [
       'Розробка CRM системи на React + TypeScript',
@@ -135,7 +135,7 @@ const EXPERIENCE_DATA: ExperienceItem[] = [
   {
     id: 3,
     role: 'Front-end Engineer',
-    company: 'Digital Core Systems (SaaS / B2B, Kyiv)',
+    company: 'Digital Core (SaaS / B2B, Kyiv)',
     period: '2019 – 2021',
     description: [
       'Розробка SaaS/B2B платформ',
@@ -180,7 +180,6 @@ function AboutPage() {
       setShowScrollTop(window.scrollY > 400);
     };
 
-    // Добавлено { passive: true } для оптимизации производительности скролла
     window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
@@ -200,7 +199,7 @@ function AboutPage() {
             Долинський Олександр Сергійович
           </h1>
           <p className={styles['hero__subtitle']}>
-            Front-end / Full-stack Developer
+            Front-end Engineer (Fullstack) 
           </p>
           <div className={styles['hero__actions']}>
             <a
@@ -211,6 +210,32 @@ function AboutPage() {
             >
               Завантажити резюме
             </a>
+          </div>
+        </div>
+      </section>
+
+      <section className={classNames(styles.section, styles['section--about'])}>
+        <div className={styles.container}>
+          <h2 className={styles['section-title']}>Про мене</h2>
+          <div className={styles['about-grid']}>
+            <div className={styles['about-main']}>
+              <p className={styles['about-text']}>
+                Я Front-end Engineer (Fullstack) з Києва, який створює зручні Веб-інтерфейси. 
+              </p>
+              <p className={styles['about-text']}>
+                Працюю з стеком: React, Next, TypeScript, Python. 
+              </p>
+              <p className={styles['about-text']}>
+              Маю досвід з FinTech, SaaS/B2B, CRM-систем та оптимізації рішень. 
+              </p>
+              <p className={styles['about-text']}>
+              Вірю, що якісний код — це інвестиція в майбутнє проєкту.
+              </p>
+              <div className={styles['about-meta']}>
+                <span className={styles['meta-item']}>Віта-Поштова, Україна</span>
+                <span className={styles['meta-item']}>Доступний до співпраці</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>

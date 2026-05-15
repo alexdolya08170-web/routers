@@ -3,7 +3,6 @@ import { useEffect, useRef, ReactNode, useState } from 'react';
 import classNames from 'classnames';
 import styles from './index.module.scss';
 
-// --- Constants ---
 const PORTFOLIO_ITEMS = [
   { id: 1, title: "Dashboard UI", image: "https://kamil-abzalov.com/wp-content/uploads/2022/07/dashboard.png" },
   { id: 2, title: "Test Task Main Page", image: "https://kamil-abzalov.com/wp-content/uploads/2022/07/test-task-main-page.png" },
@@ -11,7 +10,6 @@ const PORTFOLIO_ITEMS = [
   { id: 4, title: "Dashboard View", image: "https://kamil-abzalov.com/wp-content/uploads/2022/07/dashboard.png" }
 ] as const;
 
-// --- Helper Components ---
 const FadeInSection = ({ children }: { children: ReactNode }) => {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -33,7 +31,6 @@ const FadeInSection = ({ children }: { children: ReactNode }) => {
   return <div ref={ref} className={styles['fade-in-section']}>{children}</div>;
 };
 
-// --- Main Route Component ---
 export const Route = createFileRoute('/')({
   component: HomePage,
 });
@@ -42,7 +39,14 @@ function HomePage() {
   const heroRef = useRef<HTMLElement>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
 
-  // Parallax Effect
+  // Ефект для ініціалізації плавного скролу
+  useEffect(() => {
+    document.documentElement.style.scrollBehavior = 'smooth';
+    return () => {
+      document.documentElement.style.scrollBehavior = 'auto';
+    };
+  }, []);
+
   useEffect(() => {
     let scrollRafId: number;
     let mouseRafId: number;
@@ -86,7 +90,6 @@ function HomePage() {
     };
   }, []);
 
-  // Scroll to top visibility
   useEffect(() => {
     const handleScroll = () => setShowScrollTop(window.scrollY > 400);
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -97,38 +100,20 @@ function HomePage() {
 
   return (
     <>
-      <section 
-        className={styles.hero} 
-        ref={heroRef} 
-        aria-label="Hero Section"
-      >
-        <div 
-          className={classNames(styles.glowBlob, styles.glowBlob__1)} 
-          aria-hidden="true"
-        />
-        <div 
-          className={classNames(styles.glowBlob, styles.glowBlob__2)} 
-          aria-hidden="true"
-        />
+      <section className={styles.hero} ref={heroRef} aria-label="Hero Section">
+        <div className={classNames(styles.glowBlob, styles.glowBlob__1)} aria-hidden="true" />
+        <div className={classNames(styles.glowBlob, styles.glowBlob__2)} aria-hidden="true" />
         
         <div 
-          className={classNames(
-            styles.shape, 
-            styles.shape__circle1, 
-            'parallax-shape'
-          )} 
-          data-speed="0.2" 
-          data-depth="30" 
+          className={classNames(styles.shape, styles.shape__circle1, 'parallax-shape')} 
+          data-speed="0.8" 
+          data-depth="60" 
           aria-hidden="true"
         />
         <div 
-          className={classNames(
-            styles.shape, 
-            styles.shape__square1, 
-            'parallax-shape'
-          )} 
-          data-speed="-0.1" 
-          data-depth="-40" 
+          className={classNames(styles.shape, styles.shape__square1, 'parallax-shape')} 
+          data-speed="-0.4" 
+          data-depth="-80" 
           aria-hidden="true"
         />
         
@@ -136,7 +121,7 @@ function HomePage() {
         
         <div className={styles.hero__content}>
           <h1 className={styles.hero__title}>Долинський Олександр Сергійович</h1>
-          <p className={styles.hero__subtitle}>Front-end / Full-stack Developer</p>
+          <p className={styles.hero__subtitle}>Front-end Engineer (Fullstack) </p>
         </div>
       </section>
 
@@ -146,7 +131,7 @@ function HomePage() {
             <div className={styles.content}>
               <h2 className={styles.title}>Про мене</h2>
               <h3 className={styles.name}>Долинський О.С.</h3>
-              <p className={styles.role}>Front-end / Full-stack Developer</p>
+              <p className={styles.role}>Front-end Engineer (Fullstack)</p>
               <p className={styles.description}>
                 Розробляю на TypeScript та Python.
               </p>
@@ -196,7 +181,6 @@ function HomePage() {
         </section>
       </FadeInSection>
 
-      {/* Scroll to Top Button */}
       {showScrollTop && (
         <button 
           className={classNames(styles['scroll-top'])} 

@@ -144,6 +144,11 @@
   background: linear-gradient(135deg, #f8fafc 0%, #eef2ff 100%);
 }
 
+.section--about {
+  background: #fff;
+  padding: 6rem 0;
+}
+
 .section-title {
   font-size: clamp(1.8rem, 4vw, 2.5rem);
   font-weight: 700;
@@ -167,6 +172,76 @@
     background: linear-gradient(90deg, #0055ff, #3b82f6);
     margin: 1rem auto 0;
     border-radius: 2px;
+  }
+}
+
+.about-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.about-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.about-text {
+  font-size: clamp(1.1rem, 2.5vw, 1.25rem);
+  line-height: 1.85;
+  color: #374151;
+  margin: 0;
+  max-width: 65ch;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out forwards;
+  
+  &:first-of-type { animation-delay: 0.1s; }
+  &:nth-of-type(2) { animation-delay: 0.2s; }
+  
+  strong {
+    color: #0a0a0a;
+    font-weight: 700;
+    background: linear-gradient(90deg, rgba(0, 85, 255, 0.1), transparent 60%);
+    padding: 0 0.3rem;
+    border-radius: 4px;
+  }
+}
+
+.about-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+  opacity: 0;
+  animation: fadeInUp 0.8s ease-out 0.3s forwards;
+}
+
+.meta-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: #4b5563;
+  background: #f8fafc;
+  padding: 0.6rem 1.4rem;
+  border-radius: 50px;
+  border: 1px solid #e5e7eb;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: all 0.25s ease;
+  
+  &:hover {
+    border-color: #0055ff;
+    color: #0055ff;
+    background: #f0f5ff;
+    transform: translateY(-1px);
   }
 }
 
@@ -540,22 +615,27 @@
   
   .timeline {
     &::before {
-      left: 20px;
-      transform: none;
+      display: none;
     }
   }
   
   .timeline-item {
     width: 100%;
-    padding-left: 50px;
+    padding-left: 0;
     padding-right: 0;
     text-align: left;
-    margin: 0 !important;
-    padding: 0 1rem;
+    margin: 0 0 2.5rem !important;
     
     &::before {
-      left: 12px;
-      right: auto;
+      display: none;
+    }
+    
+    &:nth-child(odd),
+    &:nth-child(even) {
+      padding: 0;
+      text-align: left;
+      margin-left: 0;
+      margin-right: 0;
     }
     
     &:nth-child(odd) {
@@ -634,6 +714,11 @@
   .container {
     padding: 0 16px;
   }
+  
+  .about-text {
+    font-size: 1.05rem;
+    line-height: 1.75;
+  }
 }
 
 @media (hover: none) and (pointer: coarse) {
@@ -641,12 +726,14 @@
   .skill-tag:hover,
   .timeline-item:hover,
   .service-card:hover,
-  .scroll-top:hover {
+  .scroll-top:hover,
+  .meta-item:hover {
     transform: none;
   }
   
   .hero__btn,
-  .skill-tag {
+  .skill-tag,
+  .meta-item {
     min-height: 44px;
     min-width: 44px;
   }
