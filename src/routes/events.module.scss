@@ -1,102 +1,28 @@
-// Portfolio Page Styles
+@use '../styles/page-decor' as pageDecor;
 
-.blog {
+@include pageDecor.mount-page-decor;
+
+// Events page
+.eventsPage {
   position: relative;
   padding: 4rem 0;
-  background: #fff;
+  background: $color-surface;
   min-height: 100vh;
 }
 
-// Background decorations
-.bgDecor {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 0;
-
-  .decor__rectLeft,
-  .decor__rectRight {
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    border: 1px solid rgba(0, 85, 255, 0.08);
-    border-radius: 20px;
-  }
-
-  .decor__rectLeft {
-    top: -100px;
-    left: -100px;
-    transform: rotate(-15deg);
-  }
-
-  .decor__rectRight {
-    bottom: -100px;
-    right: -100px;
-    transform: rotate(15deg);
-  }
-
-  .decorCubes {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  .cube {
-    position: absolute;
-    width: 60px;
-    height: 60px;
-    border: 2px solid rgba(0, 85, 255, 0.1);
-    border-radius: 8px;
-    animation: float 6s ease-in-out infinite;
-
-    &__1 {
-      top: 20%;
-      left: 10%;
-      animation-delay: 0s;
-    }
-
-    &__2 {
-      top: 60%;
-      right: 15%;
-      animation-delay: 2s;
-    }
-
-    &__3 {
-      bottom: 20%;
-      left: 20%;
-      animation-delay: 4s;
-    }
-  }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(5deg); }
-}
-
-// Container
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
+.siteContainer {
+  @include site-container;
   position: relative;
   z-index: 1;
 }
 
-// Header
-.header {
+.eventsHeader {
   text-align: center;
   margin-bottom: 2rem;
   padding-top: 2rem;
 }
 
-.title {
+.eventsTitle {
   font-family: 'Inter', sans-serif;
   font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 800;
@@ -228,7 +154,7 @@
 }
 
 // Grid
-.grid {
+.eventsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 1.5rem;
@@ -236,7 +162,7 @@
 }
 
 // Card - Плавне поява
-.card {
+.projectCard {
   background: #fff;
   border: 1px solid #e5e7eb;
   border-radius: 16px;
@@ -266,13 +192,13 @@
   }
 }
 
-.cardHeader {
+.projectCardHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.cardCategory {
+.projectCardCategory {
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -283,7 +209,7 @@
   border-radius: 20px;
 }
 
-.cardTitle {
+projectCardTitle {
   margin: 0;
   font-size: 1.25rem;
   font-weight: 700;
@@ -291,7 +217,7 @@
   line-height: 1.3;
 }
 
-.cardTitleBtn {
+projectCardTitleBtn {
   background: none;
   border: none;
   padding: 0;
@@ -312,7 +238,7 @@
   }
 }
 
-.excerpt {
+.projectCardExcerpt {
   font-size: 0.95rem;
   color: #555;
   line-height: 1.6;
@@ -320,7 +246,7 @@
   flex-grow: 1;
 }
 
-.readMoreLink {
+.projectCardLink {
   background: none;
   border: none;
   color: #0055ff;
@@ -662,17 +588,23 @@
 }
 
 // Responsive
-@media (max-width: 768px) {
-  .blog {
+@include media-down(lg) {
+  .eventsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@include media-down(md) {
+  .eventsPage {
     padding: 3rem 0;
   }
 
-  .header {
+  .eventsHeader {
     margin-bottom: 1.5rem;
     padding-top: 1rem;
   }
 
-  .title {
+  .eventsTitle {
     font-size: 2rem;
   }
 
@@ -690,16 +622,16 @@
     margin-bottom: 2rem;
   }
 
-  .grid {
+  .eventsGrid {
     grid-template-columns: 1fr;
     gap: 1.25rem;
   }
 
-  .card {
+  .projectCard {
     padding: 1.25rem;
   }
 
-  .cardTitle {
+  .projectCardTitle {
     font-size: 1.125rem;
   }
 
@@ -724,12 +656,13 @@
   }
 }
 
-@media (max-width: 480px) {
-  .container {
-    padding: 0 16px;
+@include media-down(xs) {
+  .siteContainer {
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
-  .card {
+  .projectCard {
     padding: 1rem;
   }
 
@@ -756,7 +689,7 @@
     border-width: 3px;
   }
 
-  .card {
+  .projectCard {
     border-width: 2px;
   }
 

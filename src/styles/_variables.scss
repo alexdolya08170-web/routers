@@ -1,15 +1,46 @@
-$primary-bg: #0f0c29;
+// Layout
+$site-header-height: 72px;
+$site-container-max: 1200px;
+$site-container-padding: 20px;
+
+// Breakpoints
+$bp-xs: 480px;
+$bp-sm: 576px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1200px;
+
+// Colors (portfolio light theme)
+$color-text: #1a1a1a;
+$color-text-muted: #4b5563;
+$color-text-soft: #6b7280;
+$color-border: #e5e7eb;
+$color-surface: #ffffff;
+$color-surface-muted: #f9fafb;
+$color-primary: #0055ff;
+$color-primary-hover: #0044cc;
+
+$font-main: 'Inter', 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+
+// Legacy aliases (footer dark block)
+$primary-bg: #0f172a;
 $secondary-bg: #1a173d;
 $text-color: #ffffff;
 $accent-orange: #ff8c00;
 $gray-text: #b0b0b0;
-$font-main: 'Inter', sans-serif;
 
 :root {
+  --site-header-height: #{$site-header-height};
+  --site-container-max: #{$site-container-max};
+  --color-text: #{$color-text};
+  --color-text-muted: #{$color-text-muted};
+  --color-border: #{$color-border};
+  --color-surface: #{$color-surface};
+  --color-surface-muted: #{$color-surface-muted};
+  --color-primary: #{$color-primary};
+  --color-primary-hover: #{$color-primary-hover};
   --color-primary-bg: #{$primary-bg};
   --color-secondary-bg: #{$secondary-bg};
-  --color-text: #{$text-color};
   --color-accent: #{$accent-orange};
   --color-gray: #{$gray-text};
 }
-

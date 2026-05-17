@@ -1,0 +1,73 @@
+// Shared background decoration (About, Events)
+@mixin mount-page-decor {
+  .pageDecor {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .pageDecor__frameLeft,
+  .pageDecor__frameRight {
+    position: absolute;
+    width: min(300px, 40vw);
+    height: min(300px, 40vw);
+    border: 1px solid rgba(0, 85, 255, 0.08);
+    border-radius: 20px;
+  }
+
+  .pageDecor__frameLeft {
+    top: -100px;
+    left: -100px;
+    transform: rotate(-15deg);
+  }
+
+  .pageDecor__frameRight {
+    bottom: -100px;
+    right: -100px;
+    transform: rotate(15deg);
+  }
+
+  .pageDecor__cubes {
+    position: absolute;
+    inset: 0;
+  }
+
+  .pageDecor__cube {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    border: 2px solid rgba(0, 85, 255, 0.1);
+    border-radius: 8px;
+    animation: pageDecorFloat 6s ease-in-out infinite;
+  }
+
+  .pageDecor__cube--1 {
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+  }
+
+  .pageDecor__cube--2 {
+    top: 60%;
+    right: 15%;
+    animation-delay: 2s;
+  }
+
+  .pageDecor__cube--3 {
+    bottom: 20%;
+    left: 20%;
+    animation-delay: 4s;
+  }
+}
+
+@keyframes pageDecorFloat {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+}

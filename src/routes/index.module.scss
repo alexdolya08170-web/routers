@@ -66,6 +66,15 @@
   /* =========================================
      FADE IN SECTION
      ========================================= */
+  .homePage {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .parallaxShape {
+    will-change: transform;
+  }
+
   .fade-in-section {
     opacity: 0;
     transform: translateY(30px);

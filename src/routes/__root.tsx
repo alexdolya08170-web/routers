@@ -6,7 +6,7 @@ export const Route = createRootRoute({
   component: () => (
     <>
       <Header />
-      <main style={{ minHeight: 'calc(100vh - 200px)' }}>
+      <main className="site-main">
         <Outlet />
       </main>
       <Footer />

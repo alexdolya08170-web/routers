@@ -1,7 +1,6 @@
 import { Link } from '@tanstack/react-router';
 import { useState, useEffect, useCallback } from 'react';
 import styles from './Header.module.scss';
-import { useAuth } from '../context/AuthContext'; 
 
 interface NavItem {
   to: string;
@@ -11,14 +10,12 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   { to: '/', label: 'Головна' },
   { to: '/about', label: 'Про мене' },
-  { to: '/events', label: 'Мої роботи' }
+  { to: '/events', label: 'Мої роботи' },
 ];
 
 export function Header() {
-  const { isAuthenticated, logout } = useAuth(); 
-  
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
-  const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -31,11 +28,11 @@ export function Header() {
     if (!isMobileMenuOpen) return;
 
     document.body.style.overflow = 'hidden';
-    
+
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setIsMobileMenuOpen(false);
     };
-    
+
     window.addEventListener('keydown', handleEsc);
     return () => {
       document.body.style.overflow = '';
@@ -51,17 +48,12 @@ export function Header() {
     setIsMobileMenuOpen(false);
   }, []);
 
-  const handleLogout = useCallback(() => {
-    logout();
-    closeMobileMenu();
-  }, [logout, closeMobileMenu]);
-
   return (
     <header className={`${styles.header} ${isScrolled ? styles.headerScrolled : ''}`}>
       <div className={styles.container}>
-        <Link 
-          to="/" 
-          className={styles.logo} 
+        <Link
+          to="/"
+          className={styles.logo}
           onClick={closeMobileMenu}
           preload="intent"
           aria-label="Долинський О.С. — головна сторінка"
@@ -86,42 +78,30 @@ export function Header() {
                   className={styles.navLink}
                   onClick={closeMobileMenu}
                   activeProps={{ className: styles.navLinkActive }}
-                  activeOptions={{ exact: false }} 
+                  activeOptions={{ exact: false }}
                   preload="intent"
                 >
                   {label}
                 </Link>
               </li>
             ))}
-            
-            <li className={styles.mobileControls}>
-              {isAuthenticated && (
-                <button 
-                  type="button" 
-                  className={styles.logoutBtnMobile} 
-                  onClick={handleLogout}
-                >
-                  Вийти
-                </button>
-              )}
-            </li>
           </ul>
         </nav>
 
         <button
           type="button"
           className={`${styles.burgerBtn} ${isMobileMenuOpen ? styles.burgerBtnActive : ''}`}
-          aria-label={isMobileMenuOpen ? "Закрити меню" : "Відкрити меню"}
+          aria-label={isMobileMenuOpen ? 'Закрити меню' : 'Відкрити меню'}
           aria-expanded={isMobileMenuOpen}
           onClick={toggleMobileMenu}
         >
-          <span className={styles.burgerLine}></span>
-          <span className={styles.burgerLine}></span>
-          <span className={styles.burgerLine}></span>
+          <span className={styles.burgerLine} />
+          <span className={styles.burgerLine} />
+          <span className={styles.burgerLine} />
         </button>
       </div>
-      
-      <div 
+
+      <div
         className={`${styles.overlay} ${isMobileMenuOpen ? styles.overlayActive : ''}`}
         onClick={closeMobileMenu}
         aria-hidden="true"

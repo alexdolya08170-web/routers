@@ -1,14 +1,9 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { useEffect, useRef, ReactNode, useState } from 'react';
 import classNames from 'classnames';
+import { getPortfolioItems } from '@/api/services';
+import type { PortfolioItem } from '@/api/types';
 import styles from './index.module.scss';
-
-const PORTFOLIO_ITEMS = [
-  { id: 1, title: "Dashboard UI", image: "https://kamil-abzalov.com/wp-content/uploads/2022/07/dashboard.png" },
-  { id: 2, title: "Test Task Main Page", image: "https://kamil-abzalov.com/wp-content/uploads/2022/07/test-task-main-page.png" },
-  { id: 3, title: "Study List App", image: "https://kamil-abzalov.com/wp-content/uploads/2022/07/study-list.png" },
-  { id: 4, title: "Dashboard View", image: "https://kamil-abzalov.com/wp-content/uploads/2022/07/dashboard.png" }
-] as const;
 
 const FadeInSection = ({ children }: { children: ReactNode }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -38,6 +33,19 @@ export const Route = createFileRoute('/')({
 function HomePage() {
   const heroRef = useRef<HTMLElement>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
+  const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    getPortfolioItems()
+      .then((items) => {
+        if (!cancelled) setPortfolioItems(items);
+      })
+      .catch((err) => console.error('Не вдалося завантажити портфоліо:', err));
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   // Ефект для ініціалізації плавного скролу
   useEffect(() => {
@@ -56,7 +64,7 @@ function HomePage() {
       if (scrollRafId) cancelAnimationFrame(scrollRafId);
       scrollRafId = requestAnimationFrame(() => {
         const scrollY = window.scrollY;
-        const shapes = heroRef.current?.querySelectorAll('.parallax-shape');
+        const shapes = heroRef.current?.querySelectorAll(`.${styles.parallaxShape}`);
         shapes?.forEach((shape) => {
           const speed = parseFloat(shape.getAttribute('data-speed') || '0.5');
           (shape as HTMLElement).style.transform = `translate3d(0, ${scrollY * speed}px, 0)`;
@@ -72,7 +80,7 @@ function HomePage() {
         const { innerWidth, innerHeight } = window;
         const x = (clientX - innerWidth / 2) / (innerWidth / 2);
         const y = (clientY - innerHeight / 2) / (innerHeight / 2);
-        const shapes = heroRef.current?.querySelectorAll('.parallax-shape');
+        const shapes = heroRef.current?.querySelectorAll(`.${styles.parallaxShape}`);
         shapes?.forEach((shape) => {
           const depth = parseFloat(shape.getAttribute('data-depth') || '20');
           (shape as HTMLElement).style.transform = `translate3d(${x * depth}px, ${y * depth}px, 0)`;
@@ -99,19 +107,19 @@ function HomePage() {
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
-    <>
+    <div className={styles.homePage}>
       <section className={styles.hero} ref={heroRef} aria-label="Hero Section">
         <div className={classNames(styles.glowBlob, styles.glowBlob__1)} aria-hidden="true" />
         <div className={classNames(styles.glowBlob, styles.glowBlob__2)} aria-hidden="true" />
         
         <div 
-          className={classNames(styles.shape, styles.shape__circle1, 'parallax-shape')} 
+          className={classNames(styles.shape, styles.shape__circle1, styles.parallaxShape)} 
           data-speed="0.8" 
           data-depth="60" 
           aria-hidden="true"
         />
         <div 
-          className={classNames(styles.shape, styles.shape__square1, 'parallax-shape')} 
+          className={classNames(styles.shape, styles.shape__square1, styles.parallaxShape)} 
           data-speed="-0.4" 
           data-depth="-80" 
           aria-hidden="true"
@@ -155,7 +163,7 @@ function HomePage() {
           <div className={styles.container}>
             <h2 className={styles.sectionTitle}>Мої роботи</h2>
             <div className={styles.grid}>
-              {PORTFOLIO_ITEMS.map((item) => (
+              {portfolioItems.map((item) => (
                 <div key={item.id} className={styles.card}>
                   <div className={styles.imageWrapper}>
                     <img 
@@ -188,6 +196,6 @@ function HomePage() {
           aria-label="Прокрутити вгору"
         />
       )}
-    </>
+    </div>
   );
 }

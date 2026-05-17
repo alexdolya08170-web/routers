@@ -1,0 +1,147 @@
+{
+  "services": [
+    {
+      "id": 1,
+      "title": "Розробка",
+      "description": "Розробка SPA та SSR додатків на React або Next.",
+      "features": [
+        "Feature-Sliced Design архітектура",
+        "TypeScript та масштабована структура проєкту",
+        "Оптимізація Core Web Vitals",
+        "Code splitting та lazy loading"
+      ]
+    },
+    {
+      "id": 2,
+      "title": "API інтеграція",
+      "description": "Розробка та інтеграція backend-рішень.",
+      "features": [
+        "Django та FastAPI",
+        "REST API та GraphQL",
+        "Інтеграція сторонніх сервісів",
+        "Кешування та оптимізація запитів"
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Адаптивна верстка",
+      "description": "Створення адаптивних інтерфейсів.",
+      "features": [
+        "SCSS, CSS Modules",
+        "Pixel Perfect верстка",
+        "Responsive та cross-browser дизайн",
+        "Accessibility (a11y)"
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Python-розробка",
+      "description": "Розробка Python-скриптів",
+      "features": [
+        "Автоматизація рутинних задач",
+        "Парсинг даних та web scraping",
+        "Інтеграція API та data processing"
+      ]
+    },
+    {
+      "id": 5,
+      "title": "SEO та продуктивність",
+      "description": "Оптимізація сайтів для пошукових систем та швидкодії.",
+      "features": [
+        "SSR / SSG / ISR",
+        "Structured data та meta tags",
+        "sitemap.xml та robots.txt",
+        "Оптимізація зображень і Lighthouse"
+      ]
+    },
+    {
+      "id": 6,
+      "title": "Тестування",
+      "description": "Налаштування тестування та контроль стабільності проєкту.",
+      "features": [
+        "React Testing Library",
+        "Cypress та E2E тести",
+        "ESLint та Prettier",
+        "CI/CD процеси"
+      ]
+    },
+    {
+      "id": 7,
+      "title": "Архітектура та консалтинг",
+      "description": "Технічні консультації та побудова масштабованих рішень.",
+      "features": [
+        "Code review та best practices",
+        "Feature-Sliced Design",
+        "Масштабована архітектура",
+        "Міграція legacy-проєктів"
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "id": 1,
+      "role": "Front-end Engineer",
+      "company": "FinTech (Kyiv / EU)",
+      "period": "2023 – 2026",
+      "description": [
+        "Розробка front-end на Next (SSR/SSG/ISR)",
+        "Інтеграція REST API та WebSockets",
+        "Робота з великими обсягами даних",
+        "Оптимізація кешування та продуктивності",
+        "SEO-оптимізація та structured data",
+        "Співпраця з backend-командою FastAPI"
+      ]
+    },
+    {
+      "id": 2,
+      "role": "Full-stack Developer",
+      "company": "TechBridge (Cyprus / EU)",
+      "period": "2021 – 2023",
+      "description": [
+        "Розробка CRM системи на React + TypeScript",
+        "Створення компонентної архітектури",
+        "Пошук, фільтрація та сортування даних",
+        "Інтеграція REST API",
+        "Оптимізація UI та бізнес-логіки",
+        "Python-скрипти для автоматизації"
+      ]
+    },
+    {
+      "id": 3,
+      "role": "Front-end Engineer",
+      "company": "Digital Core (SaaS / B2B, Kyiv)",
+      "period": "2019 – 2021",
+      "description": [
+        "Розробка SaaS/B2B платформ",
+        "Побудова dashboard та аналітики",
+        "RBAC та система ролей",
+        "Оптимізація PostgreSQL запитів",
+        "Робота з API Gateway",
+        "FastAPI прототипування backend-рішень"
+      ]
+    },
+    {
+      "id": 4,
+      "role": "Front-end Engineer",
+      "company": "CodeVision (Kyiv)",
+      "period": "2016 – 2018",
+      "description": [
+        "Верстка сайтів та landing pages",
+        "JavaScript функціонал",
+        "Інтеграція UI компонентів",
+        "Підтримка існуючих проєктів",
+        "Python автоматизація рутинних задач"
+      ]
+    }
+  ],
+  "skills": [
+    "React", "Next", "TypeScript", "JavaScript", "Redux Toolkit", "Zustand",
+    "TanStack Query", "Tailwind CSS", "SCSS Modules", "Styled-components",
+    "Framer Motion", "GSAP", "Bootstrap", "React Testing Library", "Cypress",
+    "Storybook", "Feature-Sliced Design", "SOLID", "Clean Code", "Vite", "Webpack",
+    "GitHub Actions", "CI/CD", "Python", "Django", "FastAPI", "Redis",
+    "SQLAlchemy", "Alembic", "Node", "GraphQL", "API", "PostgreSQL",
+    "MySQL", "MongoDB", "SSR / SSG / ISR", "Core Web Vitals", "SEO",
+    "Structured Data", "Swagger", "Figma"
+  ]
+}
