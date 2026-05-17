@@ -141,7 +141,7 @@ function HomePage() {
               <h3 className={styles.name}>Долинський О.С.</h3>
               <p className={styles.role}>Front-end Engineer</p>
               <p className={styles.description}>
-                Розробляю на TypeScript та Python.
+                Розробляю на TypeScript, Python, SQL.
               </p>
               <Link to="/about" className={styles.aboutLink}>Детальніше</Link>
             </div>
