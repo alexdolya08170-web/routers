@@ -2,7 +2,6 @@
 
 @include pageDecor.mount-page-decor;
 
-// Events page
 .eventsPage {
   position: relative;
   padding: 4rem 0;
@@ -31,7 +30,6 @@
   letter-spacing: -0.025em;
 }
 
-// Tabs / Categories
 .tabsWrapper {
   margin-bottom: 2rem;
   overflow-x: auto;
@@ -81,7 +79,6 @@
   }
 }
 
-// Search
 .searchWrapper {
   position: relative;
   max-width: 400px;
@@ -95,7 +92,7 @@
   border: 2px solid #e5e7eb;
   border-radius: 12px;
   background: #fff;
-  color: #1a1a1a; // ← Введений текст чорного кольору
+  color: #1a1a1a;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 
   &:focus {
@@ -142,7 +139,6 @@
   border: 0;
 }
 
-// No results
 .noResults {
   text-align: center;
   padding: 4rem 2rem;
@@ -153,7 +149,6 @@
   border: 1px dashed #e5e7eb;
 }
 
-// Grid
 .eventsGrid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -161,7 +156,6 @@
   margin-bottom: 3rem;
 }
 
-// Card - Плавне поява
 .projectCard {
   background: #fff;
   border: 1px solid #e5e7eb;
@@ -170,8 +164,8 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  text-align: left;
   
-  // Плавне поява карточки
   opacity: 0;
   transform: translateY(20px);
   animation: cardFadeIn 0.5s ease-out forwards;
@@ -209,15 +203,16 @@
   border-radius: 20px;
 }
 
-projectCardTitle {
+.projectCardTitle {
   margin: 0;
   font-size: 1.25rem;
   font-weight: 700;
   color: #1a1a1a;
   line-height: 1.3;
+  text-align: left;
 }
 
-projectCardTitleBtn {
+.projectCardTitleBtn {
   background: none;
   border: none;
   padding: 0;
@@ -244,6 +239,7 @@ projectCardTitleBtn {
   line-height: 1.6;
   margin: 0;
   flex-grow: 1;
+  text-align: left;
 }
 
 .projectCardLink {
@@ -271,7 +267,6 @@ projectCardTitleBtn {
   }
 }
 
-// Pagination
 .pagination {
   display: flex;
   justify-content: center;
@@ -356,7 +351,6 @@ projectCardTitleBtn {
   user-select: none;
 }
 
-// Modal
 .modalOverlay {
   position: fixed;
   top: 0;
@@ -434,7 +428,6 @@ projectCardTitleBtn {
   margin-bottom: 1.5rem;
   padding-right: 2rem;
   padding-bottom: 1.5rem;
-  // Роздільник після заголовка
   border-bottom: 1px solid #e5e7eb;
 }
 
@@ -473,7 +466,6 @@ projectCardTitleBtn {
 .modalSection {
   margin-bottom: 1.5rem;
   padding-bottom: 1.5rem;
-  // Роздільник після секції можливостей
   border-bottom: 1px solid #e5e7eb;
 }
 
@@ -493,7 +485,6 @@ projectCardTitleBtn {
   gap: 0.75rem;
 }
 
-// Простий стиль для елементів списку без анімації
 .featureItem {
   font-size: 0.95rem;
   color: #555;
@@ -513,7 +504,6 @@ projectCardTitleBtn {
   }
 }
 
-// Посилання на проект - роздільник зверху
 .modalProjectLink {
   display: inline-flex;
   align-items: center;
@@ -526,7 +516,6 @@ projectCardTitleBtn {
   border-radius: 12px;
   transition: all 0.2s ease;
   margin-top: 1rem;
-  // Роздільник зверху для візуального відділення
   border-top: 1px solid #e5e7eb;
   padding-top: 1.25rem;
 
@@ -554,7 +543,6 @@ projectCardTitleBtn {
   display: flex;
   justify-content: flex-end;
   padding-top: 1rem;
-  // Нижній роздільник видалено за запитом
 }
 
 .modalCloseBtnPrimary {
@@ -579,7 +567,6 @@ projectCardTitleBtn {
   }
 }
 
-// Універсальний клас для роздільників (опціонально)
 .modalDivider {
   height: 1px;
   background: linear-gradient(to right, transparent, #e5e7eb, transparent);
@@ -587,7 +574,6 @@ projectCardTitleBtn {
   border: none;
 }
 
-// Responsive
 @include media-down(lg) {
   .eventsGrid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -671,7 +657,6 @@ projectCardTitleBtn {
   }
 }
 
-// Accessibility
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -697,7 +682,6 @@ projectCardTitleBtn {
     border: 2px solid #000;
   }
   
-  // Підсилення роздільників для високого контрасту
   .modalHeader,
   .modalSection,
   .modalProjectLink {

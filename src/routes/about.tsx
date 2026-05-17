@@ -77,7 +77,7 @@ function AboutPage() {
             Долинський Олександр Сергійович
           </h1>
           <p className={styles.aboutHero__subtitle}>
-            Front-end Engineer (Fullstack) 
+            Front-end Engineer
           </p>
           <div className={styles.aboutHero__actions}>
             <a
@@ -98,13 +98,13 @@ function AboutPage() {
           <div className={styles['about-grid']}>
             <div className={styles['about-main']}>
               <p className={styles['about-text']}>
-                Я Front-end Engineer (Fullstack) з Києва, який створює зручні Веб-інтерфейси. 
+                Я Front-end Engineer. 
               </p>
               <p className={styles['about-text']}>
-                Працюю з стеком: React, Next, TypeScript, Python. 
+                Працюю зі стеком: React, TypeScript, Python, SQL. 
               </p>
               <p className={styles['about-text']}>
-              Маю досвід з FinTech, SaaS/B2B, CRM-систем та оптимізації рішень. 
+              Маю досвід з FinTech, SaaS/B2B, CRM-систем та Веб-оптимізації рішень. 
               </p>
               <p className={styles['about-text']}>
               Вірю, що якісний код — це інвестиція в майбутнє проєкту.

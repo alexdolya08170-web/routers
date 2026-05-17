@@ -129,7 +129,7 @@ function HomePage() {
         
         <div className={styles.hero__content}>
           <h1 className={styles.hero__title}>Долинський Олександр Сергійович</h1>
-          <p className={styles.hero__subtitle}>Front-end Engineer (Fullstack) </p>
+          <p className={styles.hero__subtitle}>Front-end Engineer</p>
         </div>
       </section>
 
@@ -139,7 +139,7 @@ function HomePage() {
             <div className={styles.content}>
               <h2 className={styles.title}>Про мене</h2>
               <h3 className={styles.name}>Долинський О.С.</h3>
-              <p className={styles.role}>Front-end Engineer (Fullstack)</p>
+              <p className={styles.role}>Front-end Engineer</p>
               <p className={styles.description}>
                 Розробляю на TypeScript та Python.
               </p>
