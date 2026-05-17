@@ -104,7 +104,7 @@ function AboutPage() {
                 Працюю зі стеком: React, TypeScript, Python, SQL. 
               </p>
               <p className={styles['about-text']}>
-              Маю досвід з FinTech, SaaS/B2B, CRM-систем та Веб-оптимізації рішень. 
+              Маю досвід розробки з Web/App, SaaS/B2B, SPA, BOTS. 
               </p>
               <p className={styles['about-text']}>
               Вірю, що якісний код — це інвестиція в майбутнє проєкту.

@@ -243,21 +243,36 @@
 }
 
 .projectCardLink {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0055ff;
   background: none;
   border: none;
-  color: #0055ff;
-  font-weight: 600;
-  font-size: 0.95rem;
   cursor: pointer;
   padding: 0;
   text-align: left;
   transition: color 0.2s ease;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
+  position: relative;
+
+  &::after {
+    content: '→';
+    margin-left: 0.5rem;
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    font-weight: 700;
+    line-height: 1;
+  }
 
   &:hover {
     color: #0044cc;
+
+    &::after {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 
   &:focus-visible {

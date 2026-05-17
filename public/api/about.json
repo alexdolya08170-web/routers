@@ -139,8 +139,7 @@
     "TanStack Query", "Tailwind CSS", "SCSS Modules", "Styled-components",
     "Framer Motion", "GSAP", "Bootstrap", "React Testing Library", "Cypress",
     "Storybook", "Feature-Sliced Design", "SOLID", "Clean Code", "Vite", "Webpack",
-    "GitHub Actions", "CI/CD", "Python", "Django", "FastAPI", "Redis",
-    "SQLAlchemy", "Alembic", "Node", "GraphQL", "API", "PostgreSQL",
+    "GitHub Actions", "CI/CD", "Python", "Django", "FastAPI", "Redis", "Node", "GraphQL", "API", "PostgreSQL",
     "MySQL", "MongoDB", "SSR / SSG / ISR", "Core Web Vitals", "SEO",
     "Structured Data", "Swagger", "Figma"
   ]

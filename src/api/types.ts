@@ -4,7 +4,7 @@ export interface PortfolioItem {
   image: string;
 }
 
-export type EventCategory = 'Web Apps' | 'SaaS/B2B' | 'Fintech' | 'SPA';
+export type EventCategory = 'Web Apps' | 'SaaS/B2B' | 'SPA' | 'BOTS';
 
 export interface EventProject {
   id: number;

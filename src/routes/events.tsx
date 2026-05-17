@@ -6,17 +6,224 @@ import { getEventProjects } from '@/api/services';
 import type { EventProject } from '@/api/types';
 import styles from './events.module.scss';
 
-// Types & Constants
+type Category = 'All' | 'Web Apps' | 'SaaS/B2B' | 'SPA' | 'BOTS';
 
-type Category = 'All' | 'Web Apps' | 'SaaS/B2B' | 'Fintech' | 'SPA';
-
-const CATEGORIES: Category[] = ['All', 'Web Apps', 'SaaS/B2B', 'Fintech', 'SPA'];
+const CATEGORIES: Category[] = ['All', 'Web Apps', 'SaaS/B2B', 'SPA', 'BOTS'];
 
 type Project = EventProject;
 
 const ITEMS_PER_PAGE = 6;
 
-// Helper Functions
+const MOCK_PROJECTS: Project[] = [
+  {
+    id: 1,
+    title: "Система для логістики",
+    description: "Розробка повного циклу внутрішньої CRM для управління автопарком. Realtime-трекінг, ролі, аналітика.",
+    category: "Web Apps",
+    techStack: ["React", "TypeScript", "Node", "PostgreSQL"],
+    link: "https://example.com/crm-logistics",
+    fullDescription: "Комплексна CRM-система для логістичної компанії, що дозволяє керувати автопарком, відстежувати замовлення в реальному часі та аналізувати ефективність роботи водіїв.",
+    features: [
+      "Realtime-трекінг транспорту через WebSocket",
+      "Рольова модель: адмін, менеджер, водій",
+      "Автоматичне формування звітів",
+      "Інтеграція з Google Maps API",
+      "Push-сповіщення про зміни статусів"
+    ]
+  },
+  {
+    id: 7,
+    title: "Платформа для фінансового аналізу",
+    description: "Візуалізація великих масивів даних, графіки D3.js, експорт звітів у Excel/PDF.",
+    category: "Web Apps",
+    techStack: ["React", "TypeScript", "D3.js", "Python API"],
+    link: "https://example.com/finance-dashboard",
+    fullDescription: "Аналітичний дашборд для фінансових фахівців з інтерактивними візуалізаціями та можливістю експорту даних.",
+    features: [
+      "Інтерактивні графіки",
+      "Фільтрація даних за періодами та категоріями",
+      "Експорт у Excel, PDF, CSV",
+      "Кастомні дашборди для кожного користувача",
+      "Realtime-оновлення даних"
+    ]
+  },
+  {
+    id: 9,
+    title: "Сервіс доставки їжі",
+    description: "Додаток для замовлення їжі. Робота офлайн, push-сповіщення, кошик.",
+    category: "Web Apps",
+    techStack: ["React", "Service Workers", "Node", "MongoDB"],
+    link: "https://example.com/food-delivery",
+    fullDescription: "Додаток для замовлення їжі з підтримкою офлайн-режиму та push-сповіщень.",
+    features: [
+      "Робота офлайн через Service Workers",
+      "Push-сповіщення про статус замовлення",
+      "Геолокація для визначення доступності доставки",
+      "Інтеграція з платіжними системами",
+      "Історія замовлень та улюблені страви"
+    ]
+  },
+  {
+    id: 11,
+    title: "Портал постачальника",
+    description: "Особистий кабінет для оптових покупців, історія замовлень, документообіг.",
+    category: "Web Apps",
+    techStack: ["Vue", "Laravel", "MySQL"],
+    link: "https://example.com/b2b-portal",
+    fullDescription: "Портал для оптових покупців з повним циклом документообігу та управління замовленнями.",
+    features: [
+      "Особистий кабінет з історією замовлень",
+      "Електронний документообіг (рахунки, акти)",
+      "Система знижок та бонусів",
+      "API для інтеграції з 1С",
+      "Багаторівнева авторизація"
+    ]
+  },
+  {
+    id: 2,
+    title: "Інтернет-магазин електроніки",
+    description: "Високонавантажений магазин з фільтрацією товарів та інтеграцією платіжних систем.",
+    category: "Web Apps",
+    techStack: ["Next", "Redux Toolkit", "Strapi", "MySQL"],
+    link: "https://example.com/electronics-store",
+    fullDescription: "Високонавантажений e-commerce проект з розумною фільтрацією, швидким пошуком та безпечними платежами.",
+    features: [
+      "Розумна фільтрація з фасетним пошуком",
+      "SSR для покращення SEO",
+      "Інтеграція з LiqPay, WayForPay, Stripe",
+      "Кешування на рівні CDN",
+      "Адмін-панель з управлінням товарами"
+    ]
+  },
+  {
+    id: 6,
+    title: "Маркетплейс рукоділля",
+    description: "Платформа для продажу хендмейд виробів. Акцент на мобільну версію та швидкість.",
+    category: "SaaS/B2B",
+    techStack: ["Next", "PostgreSQL", "Prisma", "AWS S3"],
+    link: "https://example.com/handmade-marketplace",
+    fullDescription: "Маркетплейс для продажу унікальних хендмейд товарів з акцентом на мобільний досвід.",
+    features: [
+      "Mobile-first підхід у дизайні",
+      "Завантаження фото через AWS S3",
+      "Система відгуків та рейтингів",
+      "Чат між покупцем та продавцем",
+      "Інтеграція з Новою Поштою"
+    ]
+  },
+  {
+    id: 3,
+    title: "Корпоративний портал IT-компанії",
+    description: "Багатомовний сайт з блогом, кейсами та особистим кабінетом клієнта.",
+    category: "SaaS/B2B",
+    techStack: ["Next", "GraphQL", "Tailwind", "Vercel"],
+    link: "https://example.com/it-corporate",
+    fullDescription: "Корпоративний сайт з підтримкою кількох мов, блогом, портфоліо та особистим кабінетом для клієнтів.",
+    features: [
+      "Багатомовність (UA/EN/RU) через i18n",
+      "GraphQL API для гнучких запитів",
+      "Особистий кабінет з історією проектів",
+      "Інтеграція з CRM через вебхуки",
+      "SEO-оптимізація на рівні SSR"
+    ]
+  },
+  {
+    id: 8,
+    title: "Сайт будівельної компанії",
+    description: "Каталог об'єктів, форма зворотного зв'язку, галерея реалізованих проектів.",
+    category: "SaaS/B2B",
+    techStack: ["WordPress", "PHP", "ACF", "JS"],
+    link: "https://example.com/construction-site",
+    fullDescription: "Корпоративний сайт будівельної компанії з каталогом об'єктів та галереєю робіт.",
+    features: [
+      "Каталог об'єктів з фільтрацією",
+      "Галерея з lightbox-переглядом",
+      "Форма зворотного зв'язку з валідацією",
+      "Інтеграція з Google Maps",
+      "Адмін-панель на WordPress + ACF"
+    ]
+  },
+  {
+    id: 12,
+    title: "Блог подорожей",
+    description: "Швидкий статичний блог з CMS. Інтеграція Instagram стрічки.",
+    category: "SaaS/B2B",
+    techStack: ["Next", "Contentful", "Styled Components"],
+    link: "https://example.com/travel-blog",
+    fullDescription: "Швидкий статичний блог про подорожі з інтеграцією соціальних мереж та CMS.",
+    features: [
+      "Статична генерація через Next.js",
+      "CMS Contentful для керування контентом",
+      "Інтеграція Instagram стрічки",
+      "Пошук по статтях",
+      "Підписка на новини через email"
+    ]
+  },
+  {
+    id: 13,
+    title: "Telegram-бот для замовлень",
+    description: "Бот для прийому замовлень, інтеграція з CRM, автоматичні сповіщення.",
+    category: "BOTS",
+    techStack: ["Node.js", "Telegraf", "MongoDB", "Redis"],
+    link: "https://example.com/telegram-bot",
+    fullDescription: "Потужний Telegram-бот для автоматизації прийому замовлень з інтеграцією в існуючу CRM-систему.",
+    features: [
+      "Прийом замовлень через інтерактивні меню",
+      "Інтеграція з CRM через REST API",
+      "Автоматичні сповіщення про статус замовлення",
+      "Підтримка багатомовності (UA/EN/RU)",
+      "Адмін-панель для керування ботом"
+    ]
+  },
+  {
+    id: 14,
+    title: "Discord-бот для спільноти",
+    description: "Бот для модерації, розваг та аналітики активності в Discord-сервері.",
+    category: "BOTS",
+    techStack: ["Node.js", "Discord.js", "PostgreSQL", "Docker"],
+    link: "https://example.com/discord-bot",
+    fullDescription: "Універсальний Discord-бот з модульною архітектурою для управління спільнотою та підвищення активності.",
+    features: [
+      "Автомодерація контенту та спаму",
+      "Система рівнів та репутації користувачів",
+      "Музичний плеєр з підтримкою YouTube/Spotify",
+      "Статистика активності сервера",
+      "Гнучка система команд з правами доступу"
+    ]
+  },
+  {
+    id: 5,
+    title: "Лендінг для нерухомості",
+    description: "Продаючий лендінг з 3D-туром квартир та калькулятором іпотеки.",
+    category: "SPA",
+    techStack: ["React", "TypeScript", "GSAP", "Three.js"],
+    link: "https://example.com/real-estate-landing",
+    fullDescription: "Продаючий SPA-додаток для ЖК з інтерактивними елементами та інструментами для клієнтів.",
+    features: [
+      "3D-тур по квартирах через Three.js",
+      "Калькулятор іпотеки з реальними ставками",
+      "Анімації через GSAP при скролі",
+      "Форма заявки з інтеграцією в CRM",
+      "Адаптивний дизайн під всі пристрої"
+    ]
+  },
+  {
+    id: 10,
+    title: "Promo-сайт гаджету",
+    description: "Презентаційний сайт з складними скрол-ефектами та відео-фоном.",
+    category: "SPA",
+    techStack: ["React", "Framer Motion", "SCSS"],
+    link: "https://example.com/gadget-promo",
+    fullDescription: "Презентаційний SPA для нового гаджету з іммерсивними анімаціями та відео-контентом.",
+    features: [
+      "Parallax-ефекти при скролі",
+      "Відео-фон з оптимізацією завантаження",
+      "Інтерактивна 3D-модель продукту",
+      "Анімації через Framer Motion",
+      "Preloader для плавного завантаження"
+    ]
+  }
+];
 
 const getPageNumbers = (currentPage: number, totalPages: number): (number | string)[] => {
   if (totalPages <= 7) {
@@ -43,8 +250,6 @@ const getPageNumbers = (currentPage: number, totalPages: number): (number | stri
 
   return pages;
 };
-
-// Modal Component
 
 interface ModalProps {
   project: Project;
@@ -156,8 +361,6 @@ function ProjectModal({ project, onClose }: ModalProps) {
   );
 }
 
-// Component
-
 export const Route = createFileRoute('/events')({
   component: PortfolioPage,
 });
@@ -167,15 +370,35 @@ function PortfolioPage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState<Category>('All');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [projects, setProjects] = useState<Project[]>([]);
+  const [projects, setProjects] = useState<Project[]>(MOCK_PROJECTS);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
+    setIsLoading(true);
+    
     getEventProjects()
       .then((data) => {
-        if (!cancelled) setProjects(data);
+        if (!cancelled && Array.isArray(data) && data.length > 0) {
+          setProjects(data);
+        }
       })
-      .catch((err) => console.error('Не вдалося завантажити проекти:', err));
+      .catch((err) => {
+        if (!cancelled) {
+          if (err?.response?.status === 404) {
+            console.warn('API endpoint not found, using mock data');
+          } else {
+            console.error('Не вдалося завантажити проекти:', err);
+          }
+          setProjects(MOCK_PROJECTS);
+        }
+      })
+      .finally(() => {
+        if (!cancelled) {
+          setIsLoading(false);
+        }
+      });
+      
     return () => {
       cancelled = true;
     };
@@ -311,7 +534,11 @@ function PortfolioPage() {
           )}
         </div>
 
-        {filteredProjects.length === 0 ? (
+        {isLoading ? (
+          <div className={styles.noResults} role="status" aria-live="polite">
+            Завантаження проектів...
+          </div>
+        ) : filteredProjects.length === 0 ? (
           <div className={styles.noResults} role="status" aria-live="polite">
             Проекти не знайдено
           </div>
@@ -346,7 +573,7 @@ function PortfolioPage() {
                     className={styles.projectCardLink}
                     aria-label={`Детальніше про проект ${project.title}`}
                   >
-                    Детальніше →
+                    Детальніше
                   </button>
                 </article>
               ))}

@@ -59,7 +59,6 @@ export function Header() {
           aria-label="Долинський О.С. — головна сторінка"
         >
           <svg viewBox="0 0 100 100" className={styles.logoSvg} role="img">
-            <title id="logoTitle">Логотип</title>
             <g transform="translate(50, 50)">
               <ellipse cx="0" cy="0" rx="42" ry="14" fill="none" stroke="#0055FF" strokeWidth="3.5" className={styles.reactOrbit} />
               <ellipse cx="0" cy="0" rx="42" ry="14" fill="none" stroke="#0055FF" strokeWidth="3.5" transform="rotate(60)" className={styles.reactOrbit} />

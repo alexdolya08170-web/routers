@@ -1,22 +1,22 @@
 [
-  {
-    "id": 1,
-    "title": "Dashboard UI",
-    "image": "https://kamil-abzalov.com/wp-content/uploads/2022/07/dashboard.png"
-  },
-  {
-    "id": 2,
-    "title": "Test Task Main Page",
-    "image": "https://kamil-abzalov.com/wp-content/uploads/2022/07/test-task-main-page.png"
-  },
-  {
-    "id": 3,
-    "title": "Study List App",
-    "image": "https://kamil-abzalov.com/wp-content/uploads/2022/07/study-list.png"
-  },
-  {
-    "id": 4,
-    "title": "Dashboard View",
-    "image": "https://kamil-abzalov.com/wp-content/uploads/2022/07/dashboard.png"
-  }
-]
+    {
+      "id": 1,
+      "title": "Dashboard UI",
+      "image": "https://kamil-abzalov.com/wp-content/uploads/2022/07/dashboard.png"
+    },
+    {
+      "id": 2,
+      "title": "Test Task Main Page",
+      "image": "https://kamil-abzalov.com/wp-content/uploads/2022/07/test-task-main-page.png"
+    },
+    {
+      "id": 3,
+      "title": "Study List App",
+      "image": "https://kamil-abzalov.com/wp-content/uploads/2022/07/study-list.png"
+    },
+    {
+      "id": 4,
+      "title": "Dashboard View",
+      "image": "https://kamil-abzalov.com/wp-content/uploads/2022/07/dashboard.png"
+    }
+  ]
