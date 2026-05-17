@@ -1,9 +1,6 @@
 @use './variables' as *;
 @use './mixins' as *;
 
-// =============================================
-// 1. Reset & Box Model
-// =============================================
 *,
 *::before,
 *::after {
@@ -15,9 +12,6 @@
   padding: 0;
 }
 
-// =============================================
-// 2. Base HTML & Body
-// =============================================
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
@@ -54,9 +48,6 @@ body {
   }
 }
 
-// =============================================
-// 3. Typography
-// =============================================
 h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   line-height: 1.2;
@@ -100,9 +91,6 @@ sub, sup {
 sub { bottom: -0.25em; }
 sup { top: -0.5em; }
 
-// =============================================
-// 4. Links & Focus States (Accessibility First)
-// =============================================
 a {
   text-decoration: none;
   font-weight: 600;
@@ -132,7 +120,6 @@ a:hover::after {
   transform-origin: bottom left;
 }
 
-// Focus-visible для доступності (не ламає мишний UX)
 :focus-visible {
   outline: 2px solid #0055ff;
   outline-offset: 2px;
@@ -143,9 +130,6 @@ a:hover::after {
   outline: none;
 }
 
-// =============================================
-// 5. Media & Embeds
-// =============================================
 img, svg, video, canvas, audio, iframe, embed, object {
   display: block;
   max-width: 100%;
@@ -156,16 +140,10 @@ img {
   shape-rendering: geometricPrecision;
 }
 
-// =============================================
-// 6. Lists
-// =============================================
 ul, ol {
   list-style: none;
 }
 
-// =============================================
-// 7. Forms & Controls (Cross-browser consistency)
-// =============================================
 button, input, optgroup, select, textarea {
   font-family: inherit;
   font-size: 100%;
@@ -245,7 +223,6 @@ progress {
   font: inherit;
 }
 
-// Сучасний акцент для радіо/чекбоксів
 input[type="radio"],
 input[type="checkbox"] {
   accent-color: #0055ff;
@@ -255,9 +232,6 @@ input[type="checkbox"] {
   cursor: pointer;
 }
 
-// =============================================
-// 8. Tables
-// =============================================
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -270,9 +244,6 @@ th, td {
   padding: 0.5rem;
 }
 
-// =============================================
-// 9. HTML5 Semantics & Dialog
-// =============================================
 details {
   display: block;
 }
@@ -289,9 +260,6 @@ dialog {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-// =============================================
-// 10. Utilities & Accessibility
-// =============================================
 [hidden] {
   display: none !important;
 }
@@ -308,9 +276,6 @@ dialog {
   border: 0;
 }
 
-// =============================================
-// 11. Custom Scrollbars (Optional but recommended)
-// =============================================
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -330,15 +295,11 @@ dialog {
   }
 }
 
-// Firefox scrollbar
 * {
   scrollbar-width: thin;
   scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
 }
 
-// =============================================
-// 12. Print Styles (Clean output)
-// =============================================
 @media print {
   *,
   *::before,

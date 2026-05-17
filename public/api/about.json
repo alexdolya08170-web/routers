@@ -13,7 +13,7 @@
     },
     {
       "id": 2,
-      "title": "API інтеграція",
+      "title": "Інтеграції",
       "description": "Розробка та інтеграція backend-рішень.",
       "features": [
         "Django та FastAPI",
@@ -35,7 +35,7 @@
     },
     {
       "id": 4,
-      "title": "Python-розробка",
+      "title": "Розробка",
       "description": "Розробка Python-скриптів",
       "features": [
         "Автоматизація рутинних задач",
