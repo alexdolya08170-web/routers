@@ -2,76 +2,79 @@
   "services": [
     {
       "id": 1,
-      "title": "Розробка",
-      "description": "Розробка SPA та SSR додатків на React або Next.",
+      "title": "Frontend розробка",
+      "description": "Створення масштабованих SPA/SSR додатків з акцентом на архітектуру, продуктивність та підтримуваність.",
       "features": [
-        "Feature-Sliced Design архітектура",
-        "TypeScript та масштабована структура проєкту",
-        "Оптимізація Core Web Vitals",
-        "Code splitting та lazy loading"
+        "React, Next (SSR/SSG), TypeScript strict",
+        "Feature-Sliced Design та модульна архітектура",
+        "Оптимізація Core Web Vitals, code splitting, bundle analysis",
+        "State management (Redux Toolkit, Zustand, React Query)"
       ]
     },
     {
       "id": 2,
-      "title": "Інтеграції",
-      "description": "Розробка та інтеграція backend-рішень.",
+      "title": "API та Backend-інтеграції",
+      "description": "Проєктування та інтеграція backend-рішень і зовнішніх сервісів.",
       "features": [
-        "Django та FastAPI",
-        "REST API та GraphQL",
-        "Інтеграція сторонніх сервісів",
-        "Кешування та оптимізація запитів"
+        "FastAPI, Node",
+        "REST API, GraphQL, WebSockets",
+        "Інтеграція платежів, авторизація та безпека",
+        "Кешування, rate limiting та оптимізація запитів"
       ]
     },
     {
       "id": 3,
-      "title": "Адаптивна верстка",
-      "description": "Створення адаптивних інтерфейсів.",
+      "title": "UI/UX та Адаптивна Верстка",
+      "description": "Pixel Perfect реалізація дизайну з урахуванням accessibility та кросбраузерності.",
       "features": [
-        "SCSS, CSS Modules",
-        "Pixel Perfect верстка",
-        "Responsive та cross-browser дизайн",
-        "Accessibility (a11y)"
+        "SCSS Modules, Tailwind CSS, Styled-components",
+        "Responsive, mobile-first та cross-browser підхід",
+        "WCAG 2.1+ стандартів (a11y)",
+        "Анімації та мікровзаємодії (Framer Motion, GSAP)"
       ]
     },
     {
       "id": 4,
-      "title": "Розробка",
-      "description": "Розробка скриптів.",
+      "title": "Автоматизація та DevOps",
+      "description": "Оптимізація розробки, деплою та бізнес-процесів через інструменти автоматизації.",
       "features": [
-        "Автоматизація рутинних задач",
-        "Парсинг даних та web scraping",
-        "Розробка ботов"
+        "CI/CD pipelines (GitHub Actions, Vercel)",
+        "Python-скрипти, парсинг, ETL та автоматизація задач",
+        "Розробка ботів та інтеграція з CRM/ERP",
+        "Моніторинг, логування та error tracking"
       ]
     },
     {
       "id": 5,
-      "title": "SEO та продуктивність",
-      "description": "Оптимізація сайтів для пошукових систем та швидкодії.",
+      "title": "SEO та Технічна Оптимізація",
+      "description": "Комплексне підвищення видимості, швидкодії та конверсії веб-проєктів.",
       "features": [
-        "SSR / SSG / ISR",
-        "Structured data та meta tags",
-        "sitemap.xml та robots.txt",
-        "Оптимізація зображень і Lighthouse"
+        "SSR/SSG/ISR, dynamic rendering, prefetching",
+        "Structured Data, meta-теги, sitemap/robots",
+        "Оптимізація зображень, шрифтів та asset delivery",
+        "Lighthouse аудит, Core Web Vitals покращення"
       ]
     },
     {
       "id": 6,
-      "title": "Тестування",
-      "description": "Налаштування тестування та контроль стабільності проєкту.",
+      "title": "Тестування та Якість Коду",
+      "description": "Побудова надійного процесу QA, автоматизація тестів та контроль стабільності.",
       "features": [
-        "React Testing Library",
-        "Cypress та E2E тести",
-        "ESLint та Prettier",
-        "CI/CD процеси"
+        "Unit/Integration тести (Jest, React Testing Library)",
+        "E2E тести (Cypress, Playwright)",
+        "Статичний аналіз (ESLint, TypeScript strict)",
+        "Code Review, пресети Prettier, Git hooks"
       ]
     },
     {
       "id": 7,
-      "title": "Архітектура та консалтинг",
-      "description": "Технічні консультації та побудова рішень.",
+      "title": "Архітектура та Технічний Консалтинг",
+      "description": "Аудит кодової бази, побудова архітектури та технічне лідерство.",
       "features": [
-        "Feature-Sliced Design",
-        "Міграція legacy-проєктів"
+        "Feature-Sliced Design, SOLID, Clean Architecture",
+        "Міграція legacy-проєктів на сучасний стек",
+        "Технічне менторство, налаштування онбордингу",
+        "Оцінка ризиків, технічний аудит, дорожня карта"
       ]
     }
   ],
@@ -79,88 +82,59 @@
     {
       "id": 1,
       "role": "Front-end Engineer",
-      "company": "FinTech (Kyiv / EU)",
+      "company": "brainlab.com.ua",
       "period": "2023 – 2026",
       "description": [
-        "Розробка front-end на Next (SSR/SSG/ISR)",
-        "Інтеграція REST API та WebSockets",
-        "Робота з великими обсягами даних",
-        "Оптимізація кешування та продуктивності",
-        "SEO-оптимізація та structured data",
-        "Співпраця з backend-командою FastAPI"
+        "Розробка платформи відстеження логістичних маршрутів: агрегація GPS/telematics API, SSR для SEO, адаптивний UI, CDN-кешування картографічних даних",
+        "Створення платформи відстеження інвест-портфелів: інтеграція фінансових API, SSR для публічних сторінок, кешування ринкових даних",
+        "Frontend-розробка на Next.js (SSR/SSG), TypeScript strict mode",
+        "Інтеграція REST API та WebSockets для real-time оновлень статусів",
+        "Робота з великими обсягами даних: віртуалізація, пагінація, оптимізація рендерингу",
+        "Впровадження SEO-стратегії: SSR, meta-теги, structured data, sitemap",
+        "Оптимізація клієнтського рендерингу: code splitting, lazy loading, CDN-кешування"
       ]
     },
     {
       "id": 2,
       "role": "Full-stack Developer",
-      "company": "TechBridge (Cyprus / EU)",
+      "company": "cyprusweb.eu/ru",
       "period": "2021 – 2023",
       "description": [
-        "Розробка CRM системи на React + TypeScript",
-        "Створення компонентної архітектури",
-        "Пошук, фільтрація та сортування даних",
-        "Інтеграція REST API",
-        "Оптимізація UI та бізнес-логіки",
-        "Python-скрипти для автоматизації"
+        "Розробка системи автоматизації для автосалону: панель керування, робота з угодами та клієнтською базою",
+        "Побудова компонентної архітектури React-додатку з перевикористовуваними UI-компонентами",
+        "Реалізація бізнес-логіки для автоматизації щоденних процесів та сценаріїв взаємодії",
+        "Інтеграція REST API із зовнішніми сервісами, налаштування кешування та обробки помилок",
+        "Адаптивна верстка та підтримка дизайн-системи (mobile-first, cross-browser)",
+        "Реалізація багаторівневої фільтрації, динамічного сортування та повнотекстового пошуку по CRM",
+        "Побудова рольової моделі доступу (RBAC) та трекінгу статусів угод/клієнтів",
+        "Налаштування тригерних сповіщень та автоматизація user flows",
+        "Оптимізація продуктивності front-end: memoization, virtualization, bundle analysis"
       ]
     },
     {
       "id": 3,
-      "role": "Front-end Engineer",
-      "company": "Digital Core (SaaS / B2B, Kyiv)",
-      "period": "2019 – 2021",
+      "role": "Front-end Developer",
+      "company": "hover.com.ua",
+      "period": "2016 – 2020",
       "description": [
-        "Розробка SaaS/B2B платформ",
-        "Побудова dashboard та аналітики",
-        "RBAC та система ролей",
-        "Оптимізація PostgreSQL запитів",
-        "Робота з API Gateway",
-        "FastAPI прототипування backend-рішень"
-      ]
-    },
-    {
-      "id": 4,
-      "role": "Front-end Engineer",
-      "company": "CodeVision (Kyiv)",
-      "period": "2016 – 2018",
-      "description": [
-        "Верстка сайтів та landing pages",
-        "JavaScript функціонал",
-        "Інтеграція UI компонентів",
-        "Підтримка існуючих проєктів",
-        "Python автоматизація рутинних задач"
+        "Верстка адаптивних landing pages та корпоративних сайтів з нуля (HTML5, CSS3, JavaScript)",
+        "Розробка інтерактивних компонентів: форми валідації, слайдери, модальні вікна, анімації",
+        "Інтеграція Front-end компонентів з CMS та backend-логікою",
+        "Підтримка та оновлення існуючих проєктів: рефакторинг, виправлення багів, додавання функціоналу",
+        "Адаптивна та кросбраузерна верстка (Chrome, Firefox, Safari, Edge, mobile devices)",
+        "Оптимізація швидкодії: мініфікація ресурсів, lazy loading зображень, кешування"
       ]
     }
   ],
   "skills": [
-    "React", "Next", "TypeScript", "JavaScript", "Redux Toolkit", "Zustand",
-    "TanStack Query", "Tailwind CSS", "SCSS Modules", "Styled-components",
-    "Framer Motion", "GSAP", "Bootstrap", "React Testing Library", "Cypress",
-    "Storybook", "Feature-Sliced Design", "SOLID", "Clean Code", "Vite", "Webpack",
-    "GitHub Actions", "CI/CD", "Python", "Django", "FastAPI", "Redis", "Node", "GraphQL", "API", "PostgreSQL",
-    "MySQL", "MongoDB", "SSR / SSG / ISR", "Core Web Vitals", "SEO",
-    "Structured Data", "Swagger", "Figma"
-  ],
-  "responsibilities_and_requirements": [
-    "Адміністрування та впевнена робота з Jira, Slack і GitHub",
-    "Системний супровід корпоративних акаунтів (від проектних платформ до логістичних порталів і кабінетів)",
-    "Управління доступами співробітників, налаштування ролей та RBAC",
-    "Контроль балансів, термінів дії ліцензій та оптимізація витрат на сервіси",
-    "Оновлення корпоративної інформації та проходження верифікацій у зовнішніх сервісах",
-    "Комунікація з технічною підтримкою провайдерів і підготовка звітності для фінансового відділу",
-    "Впевнена верстка лендингів з нуля (HTML/CSS/JS), адаптивність, кросбраузерність",
-    "Робота з REST API: інтеграція, налагодження, обробка запитів, cURL, JSON, ведення документації",
-    "Глибоке розуміння HTTP: методи, заголовки, коди відповідей, редиректи (301/302/meta)",
-    "Досвід у арбітражі трафіку або affiliate-маркетингу: розуміння зв’язки «офер → лендинг → трекер → джерело»",
-    "Знання екосистеми трекінгу: постбеки, токени, макроси, GTM, пікселі",
-    "Серверне адміністрування: робота з хостингом, DNS, SSL, деплой",
-    "Робота з Git",
-    "Адміністрування Google Workspace (Gmail, Drive, Docs, Meet), Zoom, Trello (користувачі, доступи, політики)",
-    "Інтеграція сервісів (CRM, GPT, таск-менеджери) та налаштування API/вебхуків",
-    "Help Desk: обробка запитів співробітників, вирішення технічних проблем, консультації, базові інструктажі для нових користувачів",
-    "Безпека та контроль доступу: налаштування MFA, моніторинг підозрілої активності, реагування на інциденти, резервне копіювання, впровадження політик безпеки (паролі, доступи, шифрування)",
-    "Адміністрування Google Sheets: доступи, контроль версій, оптимізація структури/формул/автоматизацій, інтеграція через API/Zapier, забезпечення актуальності даних",
-    "Опис бізнес-процесів і створення інструкцій для співробітників",
-    "Підтримка корпоративного мобільного зв’язку"
+    "React", "Next", "TypeScript", "JavaScript (ES6+)", "Redux Toolkit", "Zustand", "TanStack Query",
+    "Tailwind CSS", "SCSS Modules", "Styled-components", "Framer Motion", "GSAP",
+    "Vite", "Webpack", "Turbopack", "ESLint", "Prettier", "Husky", "Commitlint",
+    "React Testing Library", "Cypress",  "Storybook",
+    "Feature-Sliced Design", "SOLID", "Clean Architecture", "DRY/KISS", "Design Patterns",
+    "Python", "FastAPI", "Node", "REST API", "GraphQL", "WebSockets",
+    "PostgreSQL", "MySQL", "MongoDB", "Redis", "Python", "GitHub Actions", "CI/CD",
+    "SSR / SSG / ISR", "Core Web Vitals", "SEO", "Structured Data", "Lighthouse",
+    "Figma", "Git", "Jira"
   ]
 }

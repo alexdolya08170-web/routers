@@ -66,6 +66,7 @@ export function Header() {
               <circle cx="0" cy="0" r="7" fill="#0055FF" className={styles.reactCore} />
             </g>
           </svg>
+          <span className={styles.logoText}>Долинський О.С.</span>
         </Link>
 
         <nav className={`${styles.nav} ${isMobileMenuOpen ? styles.navOpen : ''}`} aria-label="Головна навігація">

@@ -1,10 +1,17 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { useEffect, useRef, ReactNode, useState } from 'react';
 import classNames from 'classnames';
-import { getPortfolioItems } from '@/api/services';
+import axios from 'axios';
 import type { PortfolioItem } from '@/api/types';
 import styles from './index.module.scss';
 
+// 🔹 Тип відповіді API для портфоліо
+interface PortfolioApiResponse {
+  items: PortfolioItem[];
+  data?: { items: PortfolioItem[] }; // Для підтримки вкладеної структури
+}
+
+// 🔹 Компонент плавного появи при скролі
 const FadeInSection = ({ children }: { children: ReactNode }) => {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -34,20 +41,39 @@ function HomePage() {
   const heroRef = useRef<HTMLElement>(null);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>([]);
+  
+  // 🔹 Стани для axios
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
+  // 🔹 Завантаження портфоліо через axios
   useEffect(() => {
-    let cancelled = false;
-    getPortfolioItems()
-      .then((items) => {
-        if (!cancelled) setPortfolioItems(items);
+    const controller = new AbortController();
+    setIsLoading(true);
+    setError(null);
+
+    axios.get<PortfolioApiResponse>('/api/portfolio.json', { signal: controller.signal })
+      .then((res) => {
+        // Підтримує як { items: [] }, так і { data: { items: [] } }
+        const payload = res.data as any;
+        const rawData = payload.data || payload;
+        
+        setPortfolioItems(Array.isArray(rawData.items) ? rawData.items : []);
       })
-      .catch((err) => console.error('Не вдалося завантажити портфоліо:', err));
-    return () => {
-      cancelled = true;
-    };
+      .catch((err) => {
+        if (axios.isCancel(err)) return;
+        
+        const message = axios.isAxiosError(err) && err.response?.data?.message
+          ? err.response.data.message
+          : 'Не вдалося завантажити портфоліо';
+        setError(message);
+      })
+      .finally(() => setIsLoading(false));
+
+    return () => controller.abort();
   }, []);
 
-  // Ефект для ініціалізації плавного скролу
+  // 🔹 Ініціалізація smooth scroll
   useEffect(() => {
     document.documentElement.style.scrollBehavior = 'smooth';
     return () => {
@@ -55,6 +81,7 @@ function HomePage() {
     };
   }, []);
 
+  // 🔹 Паралакс-ефекти (scroll + mousemove)
   useEffect(() => {
     let scrollRafId: number;
     let mouseRafId: number;
@@ -98,6 +125,7 @@ function HomePage() {
     };
   }, []);
 
+  // 🔹 Кнопка "вгору"
   useEffect(() => {
     const handleScroll = () => setShowScrollTop(window.scrollY > 400);
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -106,8 +134,40 @@ function HomePage() {
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
+  // 🔹 Стан завантаження
+  if (isLoading) {
+    return (
+      <div className={styles.homePage}>
+        <p style={{ textAlign: 'center', padding: '60px', fontSize: '1.1rem' }}>
+          Завантаження портфоліо...
+        </p>
+      </div>
+    );
+  }
+
+  // 🔹 Стан помилки
+  if (error) {
+    return (
+      <div className={styles.homePage}>
+        <p style={{ textAlign: 'center', padding: '60px', color: 'red' }}>
+          {error}
+        </p>
+        <div style={{ textAlign: 'center' }}>
+          <button 
+            onClick={() => window.location.reload()} 
+            className={styles.btnOutline}
+            style={{ padding: '12px 24px', cursor: 'pointer' }}
+          >
+            Спробувати знову
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={styles.homePage}>
+      {/* 🔹 Hero секція з паралаксом */}
       <section className={styles.hero} ref={heroRef} aria-label="Hero Section">
         <div className={classNames(styles.glowBlob, styles.glowBlob__1)} aria-hidden="true" />
         <div className={classNames(styles.glowBlob, styles.glowBlob__2)} aria-hidden="true" />
@@ -133,6 +193,7 @@ function HomePage() {
         </div>
       </section>
 
+      {/* 🔹 Про мене */}
       <FadeInSection>
         <section className={styles.about}>
           <div className={styles.container}>
@@ -158,28 +219,37 @@ function HomePage() {
         </section>
       </FadeInSection>
 
+      {/* 🔹 Портфоліо */}
       <FadeInSection>
         <section className={styles.works}>
           <div className={styles.container}>
             <h2 className={styles.sectionTitle}>Мої роботи</h2>
-            <div className={styles.grid}>
-              {portfolioItems.map((item) => (
-                <div key={item.id} className={styles.card}>
-                  <div className={styles.imageWrapper}>
-                    <img 
-                      src={item.image} 
-                      alt={item.title} 
-                      loading="lazy" 
-                      width="400" 
-                      height="300" 
-                    />
-                    <div className={styles.overlay}>
-                      <span>{item.title}</span>
+            
+            {portfolioItems.length === 0 ? (
+              <p style={{ textAlign: 'center', padding: '40px', opacity: 0.7 }}>
+                Наразі немає проєктів для відображення
+              </p>
+            ) : (
+              <div className={styles.grid}>
+                {portfolioItems?.map((item) => (
+                  <div key={item.id} className={styles.card}>
+                    <div className={styles.imageWrapper}>
+                      <img 
+                        src={item.image} 
+                        alt={item.title} 
+                        loading="lazy" 
+                        width="400" 
+                        height="300" 
+                      />
+                      <div className={styles.overlay}>
+                        <span>{item.title}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            )}
+            
             <div className={styles.footerAction}>
               <Link to="/events" className={styles.btnOutline}>
                 Переглянути всі роботи
@@ -189,6 +259,7 @@ function HomePage() {
         </section>
       </FadeInSection>
 
+      {/* 🔹 Кнопка "вгору" */}
       {showScrollTop && (
         <button 
           className={classNames(styles['scroll-top'])} 

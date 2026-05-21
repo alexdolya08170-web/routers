@@ -1,3 +1,5 @@
+// @/api/types.ts
+
 export interface PortfolioItem {
   id: number;
   title: string;
@@ -36,4 +38,21 @@ export interface AboutData {
   services: ServiceItem[];
   experience: ExperienceItem[];
   skills: string[];
+}
+
+export interface AboutApiResponse extends AboutData {
+  data?: AboutData;
+}
+
+export interface PortfolioData {
+  items: PortfolioItem[];
+}
+
+export interface PortfolioApiResponse extends PortfolioData {
+  data?: PortfolioData;
+}
+
+export interface EventProjectsApiResponse {
+  projects: EventProject[];
+  data?: { projects: EventProject[] };
 }

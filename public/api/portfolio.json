@@ -1,4 +1,5 @@
-[
+{
+  "items": [
     {
       "id": 1,
       "title": "Dashboard UI",
@@ -20,3 +21,4 @@
       "image": "https://kamil-abzalov.com/wp-content/uploads/2022/07/dashboard.png"
     }
   ]
+}

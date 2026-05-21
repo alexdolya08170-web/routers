@@ -40,12 +40,11 @@
 .logo {
   display: flex;
   align-items: center;
-  justify-content: center;
+  gap: 12px;
   text-decoration: none !important;
   padding: 6px 0;
   z-index: 1002;
   transition: opacity 0.2s ease;
-  margin-left: -18px;
 }
 
 .logo::before,
@@ -62,6 +61,20 @@
   height: 38px;
   display: block;
   transition: transform 0.8s ease-in-out;
+  flex-shrink: 0;
+}
+
+.logoText {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #111;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.logo:hover .logoText {
+  color: #0055ff;
 }
 
 .reactOrbit {
@@ -231,12 +244,16 @@
 
   .logo {
     padding: 8px 0;
-    margin-left: -14px;
+    gap: 8px;
   }
 
   .logoSvg {
     width: 34px;
     height: 34px;
+  }
+
+  .logoText {
+    font-size: 1.1rem;
   }
 
   .nav {
